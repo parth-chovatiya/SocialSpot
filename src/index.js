@@ -4,7 +4,7 @@ require("dotenv/config");
 
 const bodyParser = require("koa-bodyparser");
 
-const { connectDB, getDB } = require("./DB/connectDB");
+const { connectDB } = require("./DB/connectDB");
 const router = require("./routers/index.router");
 
 const app = new Koa();
