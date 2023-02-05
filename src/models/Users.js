@@ -21,7 +21,15 @@ exports.Users = {
       function: validate_email,
     },
   },
-  isEmailVerified: {
+  isVerified: {
+    type: "bool",
+    default: false,
+  },
+  isBlocked: {
+    type: "bool",
+    default: false,
+  },
+  isDeleted: {
     type: "bool",
     default: false,
   },
@@ -93,6 +101,22 @@ exports.Users = {
       type: "string",
       default: null,
     },
+  },
+  isBlocked: {
+    type: "bool",
+    default: false,
+  },
+  isDeleted: {
+    type: "bool",
+    default: false,
+  },
+  createdAt: {
+    type: "date",
+    default: new Date(),
+  },
+  modifiedAt: {
+    type: "date",
+    default: new Date(),
   },
   // Do it later
   // education: {

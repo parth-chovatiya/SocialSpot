@@ -4,7 +4,7 @@ const { hashPassword, comparePassword } = require("../utils/password");
 const { sendResponce } = require("../utils/sendResponce");
 const { generateToken } = require("../utils/token");
 
-// @route   GET /api/v1/auth/register
+// @route   POST /api/v1/auth/register
 // @desc    Register User
 // @access  Public
 exports.register = async (ctx) => {
@@ -32,7 +32,7 @@ exports.register = async (ctx) => {
   }
 };
 
-// @route   GET /api/v1/auth/login
+// @route   POST /api/v1/auth/login
 // @desc    Login User
 // @access  Public
 exports.login = async (ctx) => {
@@ -41,6 +41,7 @@ exports.login = async (ctx) => {
     const User = await ctx.db.collection("Users");
 
     const user = await User.findOne({ $or: [{ username }, { email }] });
+    ctx.assert(user, 401, "Please, Enter valid credentials..");
 
     const verifyPassword = await comparePassword(password, user.password);
 
@@ -56,6 +57,7 @@ exports.login = async (ctx) => {
       user,
     });
   } catch (error) {
+    console.log(error);
     sendResponce({
       ctx,
       statusCode: 400,
@@ -71,13 +73,16 @@ exports.verifyEmail = async (ctx) => {
   try {
     // Write logic to verify email
 
+    const _id = ctx.params.id;
+    console.log(_id)
+
     const User = ctx.db.collection("Users");
 
     const verifiedUser = await User.findOneAndUpdate(
-      { _id: new ObjectId(ctx._id) },
+      { _id: new ObjectId(_id) },
       {
         $set: {
-          isEmailVerified: true,
+          isVerified: true,
         },
       },
       {

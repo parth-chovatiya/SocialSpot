@@ -8,7 +8,7 @@ const {
 } = require("../validators/generalValidation");
 const { validateData } = require("../validators/validateData");
 
-router.patch("/profile", checkAuth, validate_is_email_verified, setProfile);
+router.patch("/profile", checkAuth, setProfile);
 router.get("/profile", checkAuth, getProfile);
 
 module.exports = router;

@@ -12,12 +12,10 @@ const {
   validate_password,
   validate_username,
 } = require("../validators/generalValidation");
-const { registerValidation } = require("../validators/registerValidation");
-const { validateData } = require("../validators/validateData");
+const { registerValidation } = require("../validators/register.validation");
 
 router.post(
   "/register",
-  validateData,
   registerValidation,
   validate_username,
   validate_email,
@@ -25,6 +23,6 @@ router.post(
   register
 );
 router.post("/login", login);
-router.patch("/verifyEmail", checkAuth, verifyEmail);
+router.patch("/verifyEmail/:id", verifyEmail);
 
 module.exports = router;

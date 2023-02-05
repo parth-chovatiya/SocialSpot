@@ -57,17 +57,3 @@ exports.validate_username = async (ctx, next) => {
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };
-
-exports.validate_is_email_verified = async (ctx, next) => {
-  try {
-    const User = ctx.db.collection("Users");
-
-    const user = await User.findOne({ _id: new ObjectId(ctx._id) });
-
-    ctx.assert(user.isEmailVerified, 400, "Please verify your email.");
-
-    await next();
-  } catch (error) {
-    sendResponce({ ctx, statusCode: 400, error: error.message });
-  }
-};

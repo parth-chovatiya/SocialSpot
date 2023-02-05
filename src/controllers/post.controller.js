@@ -5,8 +5,6 @@ exports.createPost = async (ctx) => {
   try {
     const body = ctx.request.body;
 
-    body.authorId = new ObjectId(ctx._id);
-
     const db = ctx.db.collection("Posts");
     const post = await db.insertOne(body);
 
@@ -17,6 +15,7 @@ exports.createPost = async (ctx) => {
       post,
     });
   } catch (error) {
+    console.log(error);
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,
