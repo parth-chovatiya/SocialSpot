@@ -1,6 +1,8 @@
 const { ObjectId } = require("bson");
-const { fetchAllFriends } = require("../queries/friend.queries");
-
+const {
+  fetchAllFriendsQuery,
+  fetchFriendRequestsQuery,
+} = require("../queries/friend.queries");
 const { sendResponce } = require("../utils/sendResponce");
 
 // @route   POST /api/v1/friend/sendFriendRequest
@@ -166,10 +168,120 @@ exports.allFriends = async (ctx) => {
     //   },
     // ]).toArray();
 
-    const friends = await fetchAllFriends({ Friend, filter: { _id } });
+    const friends = await fetchAllFriendsQuery({ Friend, filter: { _id } });
 
     sendResponce({ ctx, statusCode: 200, friends });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
+};
+
+// @route   GET /api/v1/friend/friendRequests
+// @desc    Fetched all friend request
+// @access  Private
+exports.friendRequests = async (ctx) => {
+  try {
+    const _id = new ObjectId(ctx._id);
+
+    const Friend = ctx.db.collection("Friends");
+
+    // const friendRequest = await Friend.aggregate([
+    //   {
+    //     $match: {
+    //       $and: [
+    //         {
+    //           $or: [{ senderId: _id }, { receiverId: _id }],
+    //         },
+    //         { requestAccepted: false },
+    //       ],
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       createdAt: 1,
+    //       friendId: {
+    //         $cond: {
+    //           if: { $eq: ["$senderId", _id] },
+    //           then: "$receiverId",
+    //           else: "$senderId",
+    //         },
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "Users",
+    //       localField: "friendId",
+    //       foreignField: "_id",
+    //       as: "friend",
+    //     },
+    //   },
+    //   {
+    //     $replaceRoot: {
+    //       newRoot: {
+    //         $mergeObjects: [
+    //           {
+    //             $arrayElemAt: ["$friend", 0],
+    //           },
+    //           "$$ROOT",
+    //         ],
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       username: 1,
+    //       fullName: "$firstName",
+    //       profilePic: 1,
+    //     },
+    //   },
+    // ]).toArray();
+
+    // const friendRequest = await Friend.find(
+    //   {
+    //     $and: [
+    //       {
+    //         $or: [{ senderId: _id }, { receiverId: _id }],
+    //       },
+    //       { requestAccepted: false },
+    //     ],
+    //   },
+    //   { requestAccepted: false }
+    // ).toArray();
+
+    const friendRequest = await fetchFriendRequestsQuery({
+      Friend,
+      filter: { _id },
+    });
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Friend request fetched",
+      friendRequest,
+    });
+  } catch (error) {
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
+  }
+};
+
+// @route   GET /api/v1/friend/cancelFriendRequest
+// @desc    Cancel friend request
+// @access  Private
+exports.cancelFriendRequest = async (ctx) => {
+  try {
+  } catch (error) {}
+};
+
+// @route   GET /api/v1/friend/removeFriend
+// @desc    Remove from my friend list
+// @access  Private
+exports.removeFriend = async (ctx) => {
+  try {
+  } catch (error) {}
 };

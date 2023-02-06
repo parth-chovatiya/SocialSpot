@@ -23,10 +23,10 @@ exports.validateFriend = async (ctx, next) => {
     ctx.assert(user && user.isVerified, 404, "User does not exists.");
 
     // check if friend request sended earlier or not
-    const isExists = await Friend.findOne({
+    const isExists = await Friend.count({
       $or: [
-        { $and: [{ senderId }, { receiverId }] },
-        { $and: [{ receiverId }, { senderId }] },
+        { $and: [{ senderId: senderId }, { receiverId: receiverId }] },
+        { $and: [{ senderId: receiverId }, { receiverId: senderId }] },
       ],
     });
     ctx.assert(!isExists, 200, "Friend request already sended.");

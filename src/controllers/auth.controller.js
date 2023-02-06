@@ -66,8 +66,8 @@ exports.login = async (ctx) => {
   }
 };
 
-// @route   GET /api/v1/auth/login
-// @desc    Login User
+// @route   GET /api/v1/auth/verifyEmail
+// @desc    To verify email
 // @access  Public
 exports.verifyEmail = async (ctx) => {
   try {

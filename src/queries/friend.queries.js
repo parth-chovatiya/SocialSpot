@@ -16,7 +16,16 @@ const FullName = {
   ],
 };
 
-exports.fetchAllFriends = ({ Friend, filter, newData, projection }) => {
+// Send friend request query
+exports.sendFriendRequestQuery = ({
+  Friend,
+  filter,
+  newData,
+  projection,
+}) => {};
+
+// Fetch all friends query
+exports.fetchAllFriendsQuery = ({ Friend, filter, newData, projection }) => {
   const { _id } = filter;
   return Friend.aggregate([
     {
@@ -64,7 +73,6 @@ exports.fetchAllFriends = ({ Friend, filter, newData, projection }) => {
         pipeline: [
           {
             $project: {
-              _id: 0,
               username: 1,
               profilePic: 1,
               fullName: FullName,
@@ -93,6 +101,62 @@ exports.fetchAllFriends = ({ Friend, filter, newData, projection }) => {
         fullName: 1,
         profilePic: 1,
         createdAt: 1,
+      },
+    },
+  ]).toArray();
+};
+
+// Fetch friend requests query
+exports.fetchFriendRequestsQuery = ({
+  Friend,
+  filter,
+  newData,
+  projection,
+}) => {
+  const { _id } = filter;
+
+  return Friend.aggregate([
+    {
+      $match: {
+        $and: [
+          { $or: [{ senderId: _id }, { receiverId: _id }] },
+          { requestAccepted: false },
+        ],
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        createdAt: 1,
+        friendId: {
+          $cond: {
+            if: { $eq: ["$senderId", _id] },
+            then: "$receiverId",
+            else: "$senderId",
+          },
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "Users",
+        localField: "friendId",
+        foreignField: "_id",
+        as: "friend",
+      },
+    },
+    {
+      $replaceRoot: {
+        newRoot: {
+          $mergeObjects: [{ $arrayElemAt: ["$friend", 0] }, "$$ROOT"],
+        },
+      },
+    },
+    {
+      $project: {
+        username: 1,
+        fullName: FullName,
+        profilePic: 1,
       },
     },
   ]).toArray();
