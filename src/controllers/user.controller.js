@@ -1,4 +1,5 @@
 const { ObjectId } = require("mongodb");
+
 const { sendResponce } = require("../utils/sendResponce");
 
 // @route   POST /api/v1/user/profile
@@ -22,7 +23,6 @@ exports.setProfile = async (ctx) => {
     );
     sendResponce({ ctx, statusCode: 200, message: "Profile updated.", user });
   } catch (error) {
-    console.log(error);
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };
@@ -39,7 +39,6 @@ exports.getProfile = async (ctx) => {
 
     sendResponce({ ctx, statusCode: 200, message: "User fetched.", user });
   } catch (error) {
-    console.log(error);
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };

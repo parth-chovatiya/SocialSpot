@@ -7,6 +7,7 @@ exports.Posts = {
   authorId: {
     type: "object",
     require: true,
+    ref: "Users"
   },
   pageId: {
     type: "object",

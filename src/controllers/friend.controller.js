@@ -1,4 +1,5 @@
 const { ObjectId } = require("bson");
+const { fetchAllFriends } = require("../queries/friend.queries");
 
 const { sendResponce } = require("../utils/sendResponce");
 
@@ -7,29 +8,9 @@ const { sendResponce } = require("../utils/sendResponce");
 // @access  Private
 exports.sendFriendRequest = async (ctx) => {
   try {
-    const senderId = new ObjectId(ctx._id);
-    const receiverId = new ObjectId(ctx.request.body.receiverId);
+    const { senderId, receiverId } = ctx.request.body;
 
-    ctx.assert(
-      senderId.toString() !== receiverId.toString(),
-      400,
-      "You can't send friend request to this user."
-    );
-
-    const User = await ctx.db.collection("Users");
     const Friend = await ctx.db.collection("Friends");
-
-    const user = await User.findOne({ _id: new ObjectId(receiverId) });
-    ctx.assert(user && user.isEmailVerified, 404, "User does not exists.");
-
-    const isExists = await Friend.findOne({
-      $or: [
-        { $and: [{ senderId }, { receiverId }] },
-        { $and: [{ receiverId }, { senderId }] },
-      ],
-    });
-
-    ctx.assert(!isExists, 400, "Friend request already sended.");
 
     const friend = await Friend.insertOne({
       senderId: new ObjectId(senderId),
@@ -44,7 +25,6 @@ exports.sendFriendRequest = async (ctx) => {
       message: "Friend request sended.",
     });
   } catch (error) {
-    console.log(error);
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };
@@ -70,10 +50,125 @@ exports.acceptFriendRequest = async (ctx) => {
         $set: {
           requestAccepted: true,
         },
+      },
+      {
+        returnDocument: "after",
       }
     );
 
-    sendResponce({ ctx, statusCode: 200, message: "Request accepted." });
+    ctx.assert(
+      friend.lastErrorObject.updatedExisting,
+      400,
+      "Friend Request not found."
+    );
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Request accepted.",
+      friend,
+    });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+// @route   GET /api/v1/friend/friends
+// @desc    Fetched all friends
+// @access  Private
+exports.allFriends = async (ctx) => {
+  try {
+    const Friend = ctx.db.collection("Friends");
+
+    const _id = new ObjectId(ctx._id);
+
+    // const friends = await Friend.aggregate([
+    //   {
+    //     $match: {
+    //       $expr: {
+    //         $and: [
+    //           {
+    //             $or: [
+    //               {
+    //                 $eq: [_id, "$senderId"],
+    //               },
+    //               {
+    //                 $eq: [_id, "$receiverId"],
+    //               },
+    //             ],
+    //           },
+    //           {
+    //             $eq: ["$requestAccepted", true],
+    //           },
+    //         ],
+    //       },
+    //     },
+    //   },
+    //   {
+    //     // project the only friend id
+    //     $project: {
+    //       _id: 0,
+    //       friend: {
+    //         $cond: {
+    //           if: {
+    //             $eq: ["$senderId", _id],
+    //           },
+    //           then: "$receiverId",
+    //           else: "$senderId",
+    //         },
+    //       },
+    //       createdAt: 1,
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "Users",
+    //       localField: "friend",
+    //       foreignField: "_id",
+    //       pipeline: [
+    //         {
+    //           $project: {
+    //             _id: 0,
+    //             username: 1,
+    //             profilePic: 1,
+    //             fullName: {
+    //               $concat: [
+    //                 "$firstName",
+    //                 {
+    //                   $cond: {
+    //                     if: {
+    //                       $eq: ["$lastName", null],
+    //                     },
+    //                     then: "",
+    //                     else: {
+    //                       $concat: [" ", "$lastName"],
+    //                     },
+    //                   },
+    //                 },
+    //               ],
+    //             },
+    //           },
+    //         },
+    //       ],
+    //       as: "friend",
+    //     },
+    //   },
+    //   {
+    //     $unwind: "$friend",
+    //   },
+    //   {
+    //     $project: {
+    //       username: "$friend.username",
+    //       fullName: "$friend.fullName",
+    //       profilePic: "$friend.profilePic",
+    //       createdAt: "$createdAt",
+    //     },
+    //   },
+    // ]).toArray();
+
+    const friends = await fetchAllFriends({ Friend, filter: { _id } });
+
+    sendResponce({ ctx, statusCode: 200, friends });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }

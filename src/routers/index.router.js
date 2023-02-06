@@ -5,8 +5,15 @@ const authRouter = require("./auth.router");
 const userRouter = require("./user.router");
 const postRouter = require("./post.router");
 const friendRouter = require("./friend.router");
+const commentRouter = require("./comment.router");
 
-const ROUTERS = [authRouter, userRouter, postRouter, friendRouter];
+const ROUTERS = [
+  authRouter,
+  userRouter,
+  postRouter,
+  friendRouter,
+  commentRouter,
+];
 
 ROUTERS.forEach((route) => {
   router.use(route.routes()).use(route.allowedMethods());

@@ -1,6 +1,7 @@
+const { ObjectId } = require("mongodb");
+
 const { sendResponce } = require("../utils/sendResponce");
 const { Users } = require("../models/Users");
-const { ObjectId } = require("mongodb");
 const { validateData } = require("./validateData");
 
 exports.registerValidation = async (ctx, next) => {
@@ -17,7 +18,7 @@ exports.registerValidation = async (ctx, next) => {
     ctx.assert(
       !countUser,
       400,
-      "User already exists with this username or password."
+      "User already exists with this username or email."
     );
 
     await next();

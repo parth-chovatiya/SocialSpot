@@ -74,7 +74,7 @@ exports.verifyEmail = async (ctx) => {
     // Write logic to verify email
 
     const _id = ctx.params.id;
-    console.log(_id)
+    console.log(_id);
 
     const User = ctx.db.collection("Users");
 

@@ -1,11 +1,10 @@
 const { ObjectId } = require("mongodb");
 const { sendResponce } = require("../utils/sendResponce");
 
+// check whether email is valid or not
 exports.validate_email = async (ctx, next) => {
   try {
     const { email } = ctx.request.body;
-
-    console.log(email);
 
     const emailValidate = String(email)
       .toLowerCase()
@@ -19,6 +18,8 @@ exports.validate_email = async (ctx, next) => {
   }
 };
 
+// check whether password is valid or not
+// min 6 char with 1-lowercase, 1-uppercase, 1-special char, 1-digit
 exports.validate_password = async (ctx, next) => {
   try {
     const { password } = ctx.request.body;
@@ -38,6 +39,8 @@ exports.validate_password = async (ctx, next) => {
   }
 };
 
+// check whether username is valid or not
+// min 7-char
 exports.validate_username = async (ctx, next) => {
   try {
     const { username } = ctx.request.body;
@@ -46,11 +49,7 @@ exports.validate_username = async (ctx, next) => {
       /^[A-Za-z][A-Za-z0-9_]{7,29}$/
     );
 
-    ctx.assert(
-      usernameValidate,
-      400,
-      "Password should contain atleast 8 char with uppercase, lowercase, digit & special character."
-    );
+    ctx.assert(usernameValidate, 400, "Username should be min 7 character");
 
     await next();
   } catch (error) {
