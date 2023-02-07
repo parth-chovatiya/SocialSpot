@@ -17,9 +17,9 @@ const { registerValidation } = require("../validators/register.validation");
 router.post(
   "/register",
   registerValidation,
-  validate_username,
-  validate_email,
-  validate_password,
+  // validate_username,
+  // validate_email,
+  // validate_password,
   register
 );
 router.post("/login", login);

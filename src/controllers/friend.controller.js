@@ -275,7 +275,27 @@ exports.friendRequests = async (ctx) => {
 // @access  Private
 exports.cancelFriendRequest = async (ctx) => {
   try {
-  } catch (error) {}
+    let { friendId } = ctx.request.body;
+    const _id = new ObjectId(ctx._id);
+    friendId = new ObjectId(friendId);
+
+    const Friend = ctx.db.collection("Friends");
+    const friendRequest = await Friend.findOneAndDelete({
+      $and: [
+        {
+          $or: [
+            { $and: [{ senderId: _id }, { receiverId: friendId }] },
+            { $and: [{ senderId: friendId }, { receiverId: _id }] },
+          ],
+        },
+        { requestAccepted: false },
+      ],
+    });
+
+    sendResponce({ ctx, statusCode: 200, friendRequest });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, error: error.message });
+  }
 };
 
 // @route   GET /api/v1/friend/removeFriend
@@ -283,5 +303,25 @@ exports.cancelFriendRequest = async (ctx) => {
 // @access  Private
 exports.removeFriend = async (ctx) => {
   try {
-  } catch (error) {}
+    let { friendId } = ctx.request.body;
+    const _id = new ObjectId(ctx._id);
+    friendId = new ObjectId(friendId);
+
+    const Friend = ctx.db.collection("Friends");
+    const friendRequest = await Friend.findOneAndDelete({
+      $and: [
+        {
+          $or: [
+            { $and: [{ senderId: _id }, { receiverId: friendId }] },
+            { $and: [{ senderId: friendId }, { receiverId: _id }] },
+          ],
+        },
+        { requestAccepted: true },
+      ],
+    });
+
+    sendResponce({ ctx, statusCode: 200, friendRequest });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, error: error.message });
+  }
 };

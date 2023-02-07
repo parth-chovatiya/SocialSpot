@@ -5,7 +5,7 @@ exports.validateData = (data, collection) => {
   for (let key in collection) {
     const field = collection[key];
 
-    console.log(key, field, typeof data[key], field.type);
+    // console.log(key, field, typeof data[key], field.type);
 
     // put a default value if data not provided
     if (!inputKeys.includes(key) && field.default !== undefined) {
@@ -41,10 +41,13 @@ exports.validateData = (data, collection) => {
     // check the ref
     // if(field.ref && )
 
-    // check the custom validation, ----> Modified this
-    // if (field.validaton && data[key] && field.validaton.function(ctx, next)) {
-    // throw new Error(`Enter valid type of ${key}`);
-    // }
+    if (
+      field.validation &&
+      data[key] &&
+      !field.validation?.function(data[key])
+    ) {
+      throw new Error(`Enter valid type of ${key}.`);
+    }
 
     // check & convert date type data
     // check object type data

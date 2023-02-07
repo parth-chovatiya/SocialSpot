@@ -1,4 +1,5 @@
 const { ObjectId } = require("mongodb");
+const { use } = require("../routers/auth.router");
 const { sendResponce } = require("../utils/sendResponce");
 
 // check whether email is valid or not
@@ -56,3 +57,16 @@ exports.validate_username = async (ctx, next) => {
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };
+
+exports.validate_email_1 = (email) =>
+  String(email)
+    .toLowerCase()
+    .match(/^(([a-zA-Z0-9._%]){3,})+@[a-zA-Z.-]+\.[a-zA-Z]{2,6}$/);
+
+exports.validate_username_1 = (username) =>
+  String(username).match(/^[A-Za-z][A-Za-z0-9_]{7,29}$/);
+
+exports.validate_password_1 = (password) =>
+  String(password).match(
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d(?=.*@$!%*?&)]{8,16}$/
+  );
