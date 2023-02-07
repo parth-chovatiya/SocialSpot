@@ -1,10 +1,7 @@
 const {
-  validate_username,
-  validate_email,
-  validate_password,
-  validate_email_1,
-  validate_username_1,
-  validate_password_1,
+  isValidEmail,
+  isValidUsername,
+  isValidPassword,
 } = require("../validators/generalValidation");
 
 exports.Users = {
@@ -13,7 +10,7 @@ exports.Users = {
     unique: true,
     require: true,
     validation: {
-      function: validate_username_1,
+      function: isValidUsername,
     },
   },
   email: {
@@ -21,7 +18,7 @@ exports.Users = {
     unique: true,
     require: true,
     validation: {
-      function: validate_email_1,
+      function: isValidEmail,
     },
   },
   isVerified: {
@@ -40,7 +37,7 @@ exports.Users = {
     type: "string",
     require: true,
     validation: {
-      function: validate_password_1,
+      function: isValidPassword,
     },
   },
   profilePic: {

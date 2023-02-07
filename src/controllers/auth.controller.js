@@ -57,7 +57,6 @@ exports.login = async (ctx) => {
       user,
     });
   } catch (error) {
-    console.log(error);
     sendResponce({
       ctx,
       statusCode: 400,
@@ -97,6 +96,7 @@ exports.verifyEmail = async (ctx) => {
       user: verifiedUser,
     });
   } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };

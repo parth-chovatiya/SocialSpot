@@ -7,7 +7,7 @@ exports.Posts = {
   authorId: {
     type: "object",
     require: true,
-    ref: "Users"
+    ref: "Users",
   },
   pageId: {
     type: "object",
@@ -16,6 +16,10 @@ exports.Posts = {
   type: {
     type: "string",
     enum: ["text", "image", "video", "reels"],
+  },
+  isVisible: {
+    type: "bool",
+    default: true,
   },
   imageLinks: {
     // array type

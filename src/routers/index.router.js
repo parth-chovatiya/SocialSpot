@@ -6,6 +6,8 @@ const userRouter = require("./user.router");
 const postRouter = require("./post.router");
 const friendRouter = require("./friend.router");
 const commentRouter = require("./comment.router");
+const pageRouter = require("./page.router");
+const connectionRouter = require("./connection.router");
 
 const ROUTERS = [
   authRouter,
@@ -13,6 +15,8 @@ const ROUTERS = [
   postRouter,
   friendRouter,
   commentRouter,
+  pageRouter,
+  connectionRouter,
 ];
 
 ROUTERS.forEach((route) => {

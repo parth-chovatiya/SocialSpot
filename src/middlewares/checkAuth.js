@@ -9,7 +9,7 @@ exports.checkAuth = async (ctx, next) => {
     ctx.assert(token, 400, "Please, Login again.");
 
     const decoded = verifyToken(token);
-    ctx._id = decoded._id;
+    ctx._id = new ObjectId(decoded._id);
 
     const User = await ctx.db.collection("Users");
     const user = await User.findOne({ _id: new ObjectId(decoded._id) });
