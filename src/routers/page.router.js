@@ -8,6 +8,8 @@ const {
   fetchMyPages,
   fetchAllPostPublishRequest,
   acceptPostPublishRequests,
+  followedPages,
+  permissionPages,
 } = require("../controllers/page.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
 const { validatePage } = require("../validators/page.validation");
@@ -20,5 +22,7 @@ router.post("/removePermission", checkAuth, removePermission);
 router.get("/myPages", checkAuth, fetchMyPages);
 router.get("/postPublishRequests", checkAuth, fetchAllPostPublishRequest);
 router.post("/acceptPostPublishRequests", checkAuth, acceptPostPublishRequests);
+router.get("/followedPages", checkAuth, followedPages);
+router.get("/permissionPages", checkAuth, permissionPages);
 
 module.exports = router;

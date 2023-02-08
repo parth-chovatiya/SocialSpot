@@ -21,10 +21,10 @@ exports.Posts = {
     type: "boolean",
     default: true,
   },
-  createdBy: {
-    type: "object",
-    default: null,  // null -> owner it self
-  },
+  // createdBy: {
+  //   type: "object",
+  //   default: null,  // null -> owner it self
+  // },
   imageLinks: {
     // array type
     type: "object",

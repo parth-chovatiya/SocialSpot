@@ -7,7 +7,7 @@ const { sendResponce } = require("../utils/sendResponce");
 // @route   POST /api/v1/post/create
 // @desc    Create Post
 // @access  Private
-exports.createProfilePost = async (ctx) => {
+exports.createPost = async (ctx) => {
   try {
     const db = ctx.db.collection("Posts");
     const post = await db.insertOne(ctx.request.body);
@@ -23,7 +23,7 @@ exports.createProfilePost = async (ctx) => {
 
     sendResponce({
       ctx,
-      statusCode: 200,
+      statusCode: 201,
       message: "Post created.",
       post,
     });
@@ -86,7 +86,6 @@ exports.fetchAllPrivatePosts = async (ctx) => {
       post: post[0].posts,
     });
   } catch (error) {
-    console.log(error);
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,

@@ -31,18 +31,22 @@ exports.createPage = async (ctx) => {
 // @access  Private
 exports.givePermission = async (ctx) => {
   try {
-    const { pageId, userId, role } = ctx.request.body;
+    const { pageId, userId, role, permissions } = ctx.request.body;
 
     delete ctx.request.body.role;
+    delete ctx.request.body.permissions;
 
-    const storePermission = await ctx.db.collection("Permissions").updateOne(
+    const storePermissions = await ctx.db.collection("Permissions").updateOne(
       {
         pageId,
         userId,
       },
       {
         $set: ctx.request.body,
-        $push: { role: role },
+        $addToSet: {
+          role: { $each: role },
+          permissions: { $each: permissions },
+        },
       },
       {
         upsert: true,
@@ -50,7 +54,12 @@ exports.givePermission = async (ctx) => {
       }
     );
 
-    sendResponce({ ctx, statusCode: 200, message: "Permission given." });
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Permission given.",
+      permissions,
+    });
   } catch (error) {
     sendResponce({
       ctx,
@@ -142,12 +151,12 @@ exports.acceptPostPublishRequests = async (ctx) => {
   try {
     const { postId } = ctx.request.body;
 
-    const request = await ctx.db.collection("Posts").updateOne(
-      { _id: new ObjectId(postId), isVisible: false, authorId: ctx._id },
-      {
-        $set: { isVisible: true },
-      }
-    );
+    const request = await ctx.db
+      .collection("Posts")
+      .updateOne(
+        { _id: new ObjectId(postId), isVisible: false, authorId: ctx._id },
+        { $set: { isVisible: true } }
+      );
 
     if (!request.matchedCount) {
       return sendResponce({ ctx, statusCode: 404, message: "Post not found." });
@@ -155,6 +164,86 @@ exports.acceptPostPublishRequests = async (ctx) => {
 
     sendResponce({ ctx, statusCode: 200, message: "Request Accepted" });
   } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+// @route   GET /api/v1/page/followedPages
+// @desc    Pages which you are following
+// @access  Private
+exports.followedPages = async (ctx) => {
+  try {
+    const pages = await ctx.db
+      .collection("Connections")
+      .aggregate([
+        {
+          $match: { userId: ctx._id },
+        },
+        {
+          $lookup: {
+            from: "Pages",
+            localField: "pageId",
+            foreignField: "_id",
+            as: "page",
+          },
+        },
+        {
+          $replaceRoot: {
+            newRoot: {
+              $arrayElemAt: ["$page", 0],
+            },
+          },
+        },
+      ])
+      .toArray();
+
+    sendResponce({ ctx, statusCode: 200, message: "Pages fetched.", pages });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+// @route   GET /api/v1/page/permissionPages
+// @desc    Pages in which i have permission to publish post
+// @access  Private
+exports.permissionPages = async (ctx) => {
+  try {
+    const pages = await ctx.db
+      .collection("Permissions")
+      .aggregate([
+        {
+          $match: { userId: ctx._id },
+        },
+        {
+          $lookup: {
+            from: "Pages",
+            localField: "pageId",
+            foreignField: "_id",
+            as: "page",
+          },
+        },
+        {
+          $replaceRoot: {
+            newRoot: {
+              $mergeObjects: [{ $arrayElemAt: ["$page", 0] }, "$$ROOT"],
+            },
+          },
+        },
+        {
+          $project: { page: 0 },
+        },
+      ])
+      .toArray();
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Pages fetched.",
+      profile: { _id: ctx._id },
+      pages,
+    });
+  } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

@@ -50,27 +50,27 @@ exports.validatePost = async (ctx, next) => {
 
       ctx.assert(page.length, 404, "Page not exists.");
 
-      const doesPermissionHave = page[0].permissions.some(
-        (permission) =>
-          String(permission.userId) === String(ctx._id) &&
-          permission.role.includes("content creator")
-      );
+      // const doesPermissionHave = page[0].permissions.some(
+      //   (permission) =>
+      //     String(permission.userId) === String(ctx._id) &&
+      //     permission.role.includes("content creator")
+      // );
 
-      if (String(page[0].owner) === String(ctx._id)) {
-        // owner
-        ctx.request.body.isVisible = true;
-      } else if (doesPermissionHave) {
-        // content creator
-        ctx.request.body.isVisible = false;
-        ctx.request.body.createdBy = ctx._id;
-        ctx.request.body.authorId = new ObjectId(page[0].owner);
-      } else {
-        ctx.assert(
-          0,
-          400,
-          "You didn't have permission to publish post in this page."
-        );
-      }
+      // if (String(page[0].owner) === String(ctx._id)) {
+      //   // owner
+      //   ctx.request.body.isVisible = true;
+      // } else if (doesPermissionHave) {
+      //   // content creator
+      //   ctx.request.body.isVisible = false;
+      //   ctx.request.body.createdBy = ctx._id;
+      //   ctx.request.body.authorId = new ObjectId(page[0].owner);
+      // } else {
+      //   ctx.assert(
+      //     0,
+      //     400,
+      //     "You didn't have permission to publish post in this page."
+      //   );
+      // }
 
       ctx.request.body.pageId = new ObjectId(pageId);
 

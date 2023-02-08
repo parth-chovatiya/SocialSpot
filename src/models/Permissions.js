@@ -10,14 +10,15 @@ exports.Permissions = {
     ref: "Users",
   },
   role: {
-    type: "string", // array
+    type: "object", // array
     require: true,
     enum: ["content creator"],
   },
-  // permissions: {
-  //   type: "array",
-  //   default: null,
-  // },
+  permissions: {
+    type: "object",
+    enum: ["create", "read", "update", "delete"],
+    default: null,
+  },
   createdAt: {
     type: "date",
     default: new Date(),
