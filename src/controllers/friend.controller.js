@@ -10,16 +10,9 @@ const { sendResponce } = require("../utils/sendResponce");
 // @access  Private
 exports.sendFriendRequest = async (ctx) => {
   try {
-    const { senderId, receiverId } = ctx.request.body;
-
-    const Friend = await ctx.db.collection("Friends");
-
-    const friend = await Friend.insertOne({
-      senderId: new ObjectId(senderId),
-      receiverId: new ObjectId(receiverId),
-      requestAccepted: false,
-      createdAt: new Date(),
-    });
+    const friend = await ctx.db
+      .collection("Friends")
+      .insertOne(ctx.request.body);
 
     sendResponce({
       ctx,
@@ -36,12 +29,10 @@ exports.sendFriendRequest = async (ctx) => {
 // @access  Private
 exports.acceptFriendRequest = async (ctx) => {
   try {
-    const friendId = new ObjectId(ctx.request.body.friendId);
+    const friendId = new ObjectId(ctx.params.friendId);
     const _id = new ObjectId(ctx._id);
 
-    const Friend = await ctx.db.collection("Friends");
-
-    const friend = await Friend.findOneAndUpdate(
+    const friend = await ctx.db.collection("Friends").findOneAndUpdate(
       {
         $or: [
           { $and: [{ senderId: _id }, { receiverId: friendId }] },
@@ -49,18 +40,14 @@ exports.acceptFriendRequest = async (ctx) => {
         ],
       },
       {
-        $set: {
-          requestAccepted: true,
-        },
+        $set: { requestAccepted: true },
       },
-      {
-        returnDocument: "after",
-      }
+      { returnDocument: "after" }
     );
 
     ctx.assert(
       friend.lastErrorObject.updatedExisting,
-      400,
+      404,
       "Friend Request not found."
     );
 
@@ -68,7 +55,7 @@ exports.acceptFriendRequest = async (ctx) => {
       ctx,
       statusCode: 200,
       message: "Request accepted.",
-      friend,
+      friend: friend.value,
     });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
@@ -85,6 +72,7 @@ exports.allFriends = async (ctx) => {
     const _id = new ObjectId(ctx._id);
 
     const friends = await fetchAllFriendsQuery({ Friend, filter: { _id } });
+    console.log(friends);
 
     sendResponce({ ctx, statusCode: 200, friends });
   } catch (error) {
@@ -126,9 +114,8 @@ exports.friendRequests = async (ctx) => {
 // @access  Private
 exports.cancelFriendRequest = async (ctx) => {
   try {
-    let { friendId } = ctx.request.body;
+    const friendId = new ObjectId(ctx.params.friendId);
     const _id = new ObjectId(ctx._id);
-    friendId = new ObjectId(friendId);
 
     const Friend = ctx.db.collection("Friends");
     const friendRequest = await Friend.findOneAndDelete({
@@ -154,9 +141,8 @@ exports.cancelFriendRequest = async (ctx) => {
 // @access  Private
 exports.removeFriend = async (ctx) => {
   try {
-    let { friendId } = ctx.request.body;
     const _id = new ObjectId(ctx._id);
-    friendId = new ObjectId(friendId);
+    const friendId = new ObjectId(ctx.params.friendId);
 
     const Friend = ctx.db.collection("Friends");
     const friendRequest = await Friend.findOneAndDelete({
@@ -171,7 +157,15 @@ exports.removeFriend = async (ctx) => {
       ],
     });
 
-    sendResponce({ ctx, statusCode: 200, friendRequest });
+    if (!friendRequest.value) {
+      return sendResponce({
+        ctx,
+        statusCode: 400,
+        message: "Friend request not found.",
+      });
+    }
+
+    sendResponce({ ctx, statusCode: 200, friend: friendRequest.value });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }

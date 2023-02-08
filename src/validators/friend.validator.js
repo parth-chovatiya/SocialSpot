@@ -8,13 +8,13 @@ const { validateData } = require("./validateData");
 exports.validateFriend = async (ctx, next) => {
   try {
     const senderId = new ObjectId(ctx._id);
-    const receiverId = ctx.request.body.receiverId;
+    const receiverId = new ObjectId(ctx.params.friendId);
 
-    if (!isValidObjectId(ctx.request.body.receiverId)) {
+    if (!isValidObjectId(ctx.params.friendId)) {
       throw new Error("Enter valid obejctId");
     }
-    ctx.request.body.senderId = new ObjectId(ctx._id);
-    ctx.request.body.receiverId = new ObjectId(receiverId);
+    ctx.request.body.senderId = senderId;
+    ctx.request.body.receiverId = receiverId;
 
     // User can't send friend request to them self
     ctx.assert(
@@ -26,7 +26,7 @@ exports.validateFriend = async (ctx, next) => {
     const Friend = await ctx.db.collection("Friends");
 
     // check user exists or not
-    const user = await isUserExists(new ObjectId(receiverId));
+    const user = await isUserExists(receiverId);
     ctx.assert(user, 404, "User does not exists.");
 
     // check if friend request sended earlier or not
@@ -53,15 +53,50 @@ exports.validateFriend = async (ctx, next) => {
 exports.isFriendRequestSended = async (ctx, next) => {
   try {
     const senderId = new ObjectId(ctx._id);
-    const receiverId = new ObjectId(ctx.request.body.receiverId);
+    const receiverId = new ObjectId(ctx.params.friendId);
 
-    const isExists = await ctx.db.collection("Friends").count({
-      $or: [
-        { $and: [{ senderId: senderId }, { receiverId: receiverId }] },
-        { $and: [{ senderId: receiverId }, { receiverId: senderId }] },
+    const isExists = await ctx.db.collection("Friends").findOne({
+      $and: [
+        {
+          $or: [
+            { $and: [{ senderId: senderId }, { receiverId: receiverId }] },
+            { $and: [{ senderId: receiverId }, { receiverId: senderId }] },
+          ],
+        },
+        { requestAccepted: false },
       ],
     });
-    ctx.assert(!isExists, 200, "Friend request already sended.");
+    ctx.assert(isExists, 400, "No Friend Request Found..");
+
+    await next();
+  } catch (error) {
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message || "Something went wrong.",
+    });
+  }
+};
+
+exports.isBothFriend = async (ctx, next) => {
+  try {
+    const senderId = new ObjectId(ctx._id);
+    const receiverId = new ObjectId(ctx.params.friendId);
+
+    const isExists = await ctx.db.collection("Friends").findOne({
+      $and: [
+        {
+          $or: [
+            { $and: [{ senderId: senderId }, { receiverId: receiverId }] },
+            { $and: [{ senderId: receiverId }, { receiverId: senderId }] },
+          ],
+        },
+        { requestAccepted: true },
+      ],
+    });
+    console.log(isExists);
+    ctx.assert(!isExists, 400, "You are already friends.");
+
     await next();
   } catch (error) {
     sendResponce({

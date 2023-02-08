@@ -18,8 +18,12 @@ exports.Posts = {
     enum: ["text", "image", "video", "reels"],
   },
   isVisible: {
-    type: "bool",
+    type: "boolean",
     default: true,
+  },
+  createdBy: {
+    type: "object",
+    default: null,  // null -> owner it self
   },
   imageLinks: {
     // array type

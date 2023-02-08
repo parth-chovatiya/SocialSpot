@@ -11,4 +11,12 @@ exports.Friends = {
     type: "bool",
     default: false,
   },
+  createdAt: {
+    type: "date",
+    default: new Date(),
+  },
+  modifiedAt: {
+    type: "date",
+    default: new Date(),
+  },
 };

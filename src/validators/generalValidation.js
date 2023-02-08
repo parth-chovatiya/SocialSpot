@@ -77,19 +77,3 @@ exports.isValidObjectId = (ownerId) =>
 
 exports.isUserExists = (_id) =>
   getDB().collection("Users").countDocuments({ _id, isVerified: true });
-
-exports.isBothFriend = (userId, friendId) => {
-  return getDB()
-    .collection("Friends")
-    .findOne({
-      $and: [
-        {
-          $or: [
-            { $and: [{ senderId: userId }, { receiverId: friendId }] },
-            { $and: [{ senderId: friendId }, { receiverId: userId }] },
-          ],
-        },
-        { requestAccepted: true },
-      ],
-    });
-};

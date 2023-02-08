@@ -10,13 +10,32 @@ const {
   friendRequests,
 } = require("../controllers/friend.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
-const { validateFriend } = require("../validators/friend.validator");
+const {
+  validateFriend,
+  isFriendRequestSended,
+  isBothFriend,
+} = require("../validators/friend.validator");
 
-router.post("/sendFriendRequest", checkAuth, validateFriend, sendFriendRequest);
-router.post("/acceptFriendRequest", checkAuth, acceptFriendRequest);
-router.post("/cancelFriendRequest", checkAuth, cancelFriendRequest);
+router.post(
+  "/sendFriendRequest/:friendId",
+  checkAuth,
+  validateFriend,
+  sendFriendRequest
+);
+router.post(
+  "/acceptFriendRequest/:friendId",
+  checkAuth,
+  isBothFriend,
+  acceptFriendRequest
+);
+router.post(
+  "/cancelFriendRequest/:friendId",
+  checkAuth,
+  isFriendRequestSended,
+  cancelFriendRequest
+);
+router.post("/removeFriend/:friendId", checkAuth, removeFriend);
 router.get("/friendRequests", checkAuth, friendRequests);
-router.post("/removeFriend", checkAuth, removeFriend);
 router.get("/friends", checkAuth, allFriends);
 
 module.exports = router;

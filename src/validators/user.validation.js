@@ -12,6 +12,7 @@ exports.registerValidation = async (ctx, next) => {
 
     validateData(ctx.request.body, Users);
 
+    // Count the user with username or email
     const countUser = await User.count({
       $or: [{ username }, { email }],
     });
@@ -38,6 +39,15 @@ exports.loginValidation = async (ctx, next) => {
     );
 
     await next();
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+exports.setProfileValidation = async (ctx, next) => {
+  try {
+    const User = ctx.db.collection("Users");
+    validateData(ctx.request.body, Users);
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }

@@ -9,7 +9,7 @@ const {
 const {
   registerValidation,
   loginValidation,
-} = require("../validators/register.validation");
+} = require("../validators/user.validation");
 
 router.post("/register", registerValidation, register);
 router.post("/login", loginValidation, login);

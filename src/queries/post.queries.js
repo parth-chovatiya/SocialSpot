@@ -17,8 +17,13 @@ const FullName = {
 };
 
 // Fetch Post with Comments & User info --> in the MongoDB compass aggregation pipeline save name
-exports.fetchPublicPosts = ({ Post, filter, newData, projection }) =>
-  Post.aggregate([
+exports.fetchPublicPosts = ({ Posts, filter, newData, projection }) =>
+  Posts.aggregate([
+    {
+      $match: {
+        isVisible: true,
+      },
+    },
     {
       $lookup: {
         from: "Comments",
@@ -80,8 +85,8 @@ exports.fetchPublicPosts = ({ Post, filter, newData, projection }) =>
   ]).toArray();
 
 // Fetch Private Post
-exports.fetchPrivatePosts = ({ User, filter, newData, projection }) =>
-  User.aggregate([
+exports.fetchPrivatePosts = ({ Users, filter, newData, projection }) =>
+  Users.aggregate([
     {
       // match the user
       $match: filter,

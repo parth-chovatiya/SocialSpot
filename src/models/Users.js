@@ -62,7 +62,8 @@ exports.Users = {
     default: null,
   },
   birthDate: {
-    type: Date,
+    type: "date",
+    default: null,
     // require: true,
   },
   gender: {
