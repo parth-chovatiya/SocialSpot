@@ -10,12 +10,17 @@ const {
   acceptPostPublishRequests,
   followedPages,
   permissionPages,
+  updatePage,
 } = require("../controllers/page.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
-const { validatePage } = require("../validators/page.validation");
+const {
+  validateInsertPage,
+  validateUpdatePage,
+} = require("../validators/page.validation");
 const { validatePermission } = require("../validators/permission.validation");
 
-router.post("/create", checkAuth, validatePage, createPage);
+router.post("/create", checkAuth, validateInsertPage, createPage);
+router.patch("/update/:pageId", checkAuth, validateUpdatePage, updatePage);
 
 router.post("/givePermission", checkAuth, validatePermission, givePermission);
 router.post("/removePermission", checkAuth, removePermission);

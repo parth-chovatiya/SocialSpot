@@ -3,7 +3,7 @@ const { ObjectId } = require("mongodb");
 const { Friends } = require("../models/Friends");
 const { sendResponce } = require("../utils/sendResponce");
 const { isUserExists, isValidObjectId } = require("./generalValidation");
-const { validateData } = require("./validateData");
+const { validateInsertData } = require("./validateInsertData");
 
 exports.validateFriend = async (ctx, next) => {
   try {
@@ -38,7 +38,7 @@ exports.validateFriend = async (ctx, next) => {
     });
     ctx.assert(!isExists, 200, "Friend request already sended.");
 
-    validateData(ctx.request.body, Friends);
+    validateInsertData(ctx.request.body, Friends);
 
     await next();
   } catch (error) {

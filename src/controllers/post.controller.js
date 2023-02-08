@@ -36,6 +36,17 @@ exports.createPost = async (ctx) => {
   }
 };
 
+exports.updatePost = async (ctx) => {
+  try {
+    const post = await ctx.db.collection("Posts").findOneAndUpdate({
+      
+    })
+    sendResponce({ ctx, statusCode: 200, message: "Post updated", post });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
 // @route   POST /api/v1/post/fetchPublic
 // @desc    Fetch all public posts
 // @access  Public

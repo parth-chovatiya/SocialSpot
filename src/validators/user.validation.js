@@ -2,7 +2,7 @@ const { ObjectId } = require("mongodb");
 
 const { sendResponce } = require("../utils/sendResponce");
 const { Users } = require("../models/Users");
-const { validateData } = require("./validateData");
+const { validateInsertData } = require("./validateInsertData");
 const { isValidEmail, isValidPassword } = require("./generalValidation");
 
 exports.registerValidation = async (ctx, next) => {
@@ -10,7 +10,7 @@ exports.registerValidation = async (ctx, next) => {
     const { username, email } = ctx.request.body;
     const User = ctx.db.collection("Users");
 
-    validateData(ctx.request.body, Users);
+    validateInsertData(ctx.request.body, Users);
 
     // Count the user with username or email
     const countUser = await User.count({
@@ -47,7 +47,7 @@ exports.loginValidation = async (ctx, next) => {
 exports.setProfileValidation = async (ctx, next) => {
   try {
     const User = ctx.db.collection("Users");
-    validateData(ctx.request.body, Users);
+    validateInsertData(ctx.request.body, Users);
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }

@@ -6,18 +6,33 @@ const {
   fetchAllPublicPosts,
   fetchAllPrivatePosts,
   fetchAllMyPosts,
+  updatePost,
 } = require("../controllers/post.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
-const { checkCreatePermission, sendPostPublishRequest } = require("../middlewares/checkPermission");
-const { validatePost } = require("../validators/post.validation");
+const {
+  checkCreatePermission,
+  sendPostPublishRequest,
+} = require("../middlewares/checkPermission");
+const {
+  validateInsertPost,
+  validateUpdatePost,
+} = require("../validators/post.validation");
 
 router.post(
   "/createPost",
   checkAuth,
-  validatePost,
+  validateInsertPost,
   checkCreatePermission,
   sendPostPublishRequest,
   createPost
+);
+router.patch(
+  "/updatePost",
+  checkAuth,
+  validateUpdatePost,
+  checkCreatePermission,
+  sendPostPublishRequest,
+  updatePost
 );
 router.get("/fetchPublic", fetchAllPublicPosts);
 router.get("/fetchPrivate", checkAuth, fetchAllPrivatePosts);

@@ -1,7 +1,7 @@
 // To validate the user provided data
-exports.validateData = (data, collection) => {
+exports.validateInsertData = (data, collection) => {
   if (!data) {
-    throw new Error("Please provide data to the validateData.");
+    throw new Error("Please provide data to the validateInsertData.");
   }
 
   const inputKeys = Object.keys(data);
@@ -63,7 +63,7 @@ exports.validateData = (data, collection) => {
       data[key] &&
       !field.validation?.function(data[key])
     ) {
-      throw new Error(`Enter valid type of ${key}.`);
+      throw new Error(`Enter proper value for ${key}.`);
     }
 
     // check & convert date type data

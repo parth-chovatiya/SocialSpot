@@ -26,6 +26,36 @@ exports.createPage = async (ctx) => {
   }
 };
 
+// @route   PATCH /api/v1/page/update
+// @desc    Update Page
+// @access  Private
+exports.updatePage = async (ctx) => {
+  try {
+    const pageId = new ObjectId(ctx.params.pageId);
+
+    const page = await ctx.db
+      .collection("Pages")
+      .findOneAndUpdate(
+        { _id: pageId },
+        { $set: ctx.request.body },
+        { returnDocument: "after" }
+      );
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Page updated.",
+      updatedPage: page.value,
+    });
+  } catch (error) {
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
+  }
+};
+
 // @route   POST /api/v1/page/givePermission
 // @desc    Give Permission to the User of the perticular page
 // @access  Private

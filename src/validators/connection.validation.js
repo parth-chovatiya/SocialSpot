@@ -3,7 +3,7 @@ const { ObjectId } = require("mongodb");
 const { Connections } = require("../models/Connections");
 const { sendResponce } = require("../utils/sendResponce");
 const { isValidObjectId } = require("./generalValidation");
-const { validateData } = require("./validateData");
+const { validateInsertData } = require("./validateInsertData");
 
 exports.validateConnection = async (ctx, next) => {
   try {
@@ -15,7 +15,7 @@ exports.validateConnection = async (ctx, next) => {
     ctx.request.body.pageId = new ObjectId(pageId);
     ctx.request.body.userId = new ObjectId(ctx._id);
 
-    validateData(ctx.request.body, Connections);
+    validateInsertData(ctx.request.body, Connections);
 
     // Check if user already followed this page
     const isExists = await ctx.db.collection("Connections").countDocuments({

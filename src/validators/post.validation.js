@@ -1,9 +1,9 @@
 const { ObjectId } = require("mongodb");
 const { Posts } = require("../models/Posts");
 const { sendResponce } = require("../utils/sendResponce");
-const { validateData } = require("./validateData");
+const { validateInsertData } = require("./validateInsertData");
 
-exports.validatePost = async (ctx, next) => {
+exports.validateInsertPost = async (ctx, next) => {
   try {
     const { description, type, pageId, imageLinks, videoLinks } =
       ctx.request.body;
@@ -77,7 +77,7 @@ exports.validatePost = async (ctx, next) => {
       // is pageId is provided, check if that user is page owner or
     }
 
-    validateData(ctx.request.body, Posts);
+    validateInsertData(ctx.request.body, Posts);
 
     // RegEx to extract hashtags from string
     const regex = new RegExp(/(?<=#)[a-z]+/gim);
@@ -97,6 +97,19 @@ exports.validatePost = async (ctx, next) => {
     await next();
   } catch (error) {
     console.log(error);
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
+  }
+};
+
+exports.validateUpdatePost = async (ctx, next) => {
+  try {
+    
+    await next()
+  } catch (error) {
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,

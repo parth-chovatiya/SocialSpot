@@ -2,7 +2,7 @@ const { ObjectId } = require("mongodb");
 
 const { Comments } = require("../models/Comments");
 const { sendResponce } = require("../utils/sendResponce");
-const { validateData } = require("./validateData");
+const { validateInsertData } = require("./validateInsertData");
 
 exports.validateComment = async (ctx, next) => {
   try {
@@ -16,7 +16,7 @@ exports.validateComment = async (ctx, next) => {
       .countDocuments({ _id: new ObjectId(postId) });
     ctx.assert(countPosts, 404, "Post not found");
 
-    validateData(ctx.request.body, Comments);
+    validateInsertData(ctx.request.body, Comments);
 
     await next();
   } catch (error) {

@@ -4,7 +4,7 @@ const { Permissions } = require("../models/Permissions");
 const { sendResponce } = require("../utils/sendResponce");
 const { isUserExists } = require("./generalValidation");
 const { isPageExists } = require("./page.validation");
-const { validateData } = require("./validateData");
+const { validateInsertData } = require("./validateInsertData");
 
 exports.validatePermission = async (ctx, next) => {
   try {
@@ -16,7 +16,7 @@ exports.validatePermission = async (ctx, next) => {
     ctx.request.body.pageId = pageId;
     ctx.request.body.userId = userId;
 
-    validateData(ctx.request.body, Permissions);
+    validateInsertData(ctx.request.body, Permissions);
 
     const page = await isPageExists(pageId); // check id page exists
     const user = await isUserExists(userId); // check it user exits
