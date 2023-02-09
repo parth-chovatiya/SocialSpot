@@ -11,6 +11,7 @@ const {
   followedPages,
   permissionPages,
   updatePage,
+  deletePage,
 } = require("../controllers/page.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
 const {
@@ -24,6 +25,7 @@ const {
 
 router.post("/create", checkAuth, validateInsertPage, createPage);
 router.patch("/update/:pageId", checkAuth, validateUpdatePage, updatePage);
+router.delete("/delete/:pageId", checkAuth, deletePage);
 
 router.post("/givePermission", checkAuth, validatePermission, givePermission);
 router.post("/removePermission", checkAuth, removePermission);

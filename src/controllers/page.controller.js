@@ -12,9 +12,10 @@ const { sendResponce } = require("../utils/sendResponce");
 // @access  Private
 exports.createPage = async (ctx) => {
   try {
-    const Pages = ctx.db.collection("Pages");
-
-    const page = await createPageQuery({ Pages, newData: ctx.request.body });
+    const page = await createPageQuery({
+      Pages: ctx.db.collection("Pages"),
+      newData: ctx.request.body,
+    });
 
     sendResponce({ ctx, statusCode: 200, message: "Page created.", page });
   } catch (error) {
@@ -31,12 +32,13 @@ exports.createPage = async (ctx) => {
 // @access  Private
 exports.updatePage = async (ctx) => {
   try {
-    const pageId = new ObjectId(ctx.params.pageId);
+    const pageId = ctx.params.pageId;
+    ctx.assert(pageId, 400, "Please provide pageId.");
 
     const page = await ctx.db
       .collection("Pages")
       .findOneAndUpdate(
-        { _id: pageId },
+        { _id: new ObjectId(pageId) },
         { $set: { ...ctx.request.body, modifiedAt: new Date() } },
         { returnDocument: "after" }
       );
@@ -50,9 +52,36 @@ exports.updatePage = async (ctx) => {
   } catch (error) {
     sendResponce({
       ctx,
-      statusCode: error.statusCode || 400,
+      statusCode: 400,
       message: error.message,
     });
+  }
+};
+
+// @route   DELETE /api/v1/page/delete/:pageId
+// @desc    Delete Page
+// @access  Private
+exports.deletePage = async (ctx) => {
+  try {
+    const pageId = ctx.params.pageId;
+    ctx.assert(pageId, 400, "Please provide pageId.");
+
+    const page = await ctx.db.collection("Pages").findOneAndDelete({
+      _id: new ObjectId(pageId),
+      owner: new ObjectId(ctx._id),
+    });
+
+    if (!page.value) {
+      return sendResponce({
+        ctx,
+        statusCode: 400,
+        message: "May be you are not owner of this page.",
+      });
+    }
+
+    sendResponce({ ctx, statusCode: 400, message: "Page deleted.", page });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };
 
@@ -68,8 +97,8 @@ exports.givePermission = async (ctx) => {
 
     const storePermissions = await ctx.db.collection("Permissions").updateOne(
       {
-        pageId,
-        userId,
+        pageId: new ObjectId(pageId),
+        userId: new ObjectId(userId),
       },
       {
         $set: ctx.request.body,
@@ -158,9 +187,7 @@ exports.fetchAllPostPublishRequest = async (ctx) => {
   try {
     const requests = await fetchAllPostPublishRequestQuery({
       Pages: ctx.db.collection("Pages"),
-      filter: {
-        owner: ctx._id,
-      },
+      filter: { owner: ctx._id },
     });
 
     sendResponce({
@@ -210,9 +237,7 @@ exports.followedPages = async (ctx) => {
     const pages = await ctx.db
       .collection("Connections")
       .aggregate([
-        {
-          $match: { userId: ctx._id },
-        },
+        { $match: { userId: ctx._id } },
         {
           $lookup: {
             from: "Pages",
@@ -223,9 +248,7 @@ exports.followedPages = async (ctx) => {
         },
         {
           $replaceRoot: {
-            newRoot: {
-              $arrayElemAt: ["$page", 0],
-            },
+            newRoot: { $arrayElemAt: ["$page", 0] },
           },
         },
       ])

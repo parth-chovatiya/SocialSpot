@@ -113,20 +113,17 @@ exports.friendRequests = async (ctx) => {
 exports.cancelFriendRequest = async (ctx) => {
   try {
     const friendId = new ObjectId(ctx.params.friendId);
-    const _id = new ObjectId(ctx._id);
 
-    const Friend = ctx.db.collection("Friends");
-    const friendRequest = await Friend.findOneAndDelete({
+    const friendRequest = await ctx.db.collection("Friends").findOneAndDelete({
       $and: [
         {
-          $or: [
-            { $and: [{ senderId: _id }, { receiverId: friendId }] },
-            { $and: [{ senderId: friendId }, { receiverId: _id }] },
-          ],
+          $and: [{ senderId: friendId }, { receiverId: new ObjectId(ctx._id) }],
         },
         { requestAccepted: false },
       ],
     });
+
+    ctx.assert(friendRequest.value, 404, "Friend Request not found.");
 
     sendResponce({ ctx, statusCode: 200, friendRequest });
   } catch (error) {
@@ -159,11 +156,16 @@ exports.removeFriend = async (ctx) => {
       return sendResponce({
         ctx,
         statusCode: 400,
-        message: "Friend request not found.",
+        message: "May be he/she is not your friend.",
       });
     }
 
-    sendResponce({ ctx, statusCode: 200, friend: friendRequest.value });
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Removed from your friend list",
+      friend: friendRequest.value,
+    });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }

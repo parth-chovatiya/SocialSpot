@@ -118,10 +118,7 @@ exports.fetchFriendRequestsQuery = ({
   return Friend.aggregate([
     {
       $match: {
-        $and: [
-          { $or: [{ senderId: _id }, { receiverId: _id }] },
-          { requestAccepted: false },
-        ],
+        $and: [{ $or: [{ receiverId: _id }] }, { requestAccepted: false }],
       },
     },
     {
