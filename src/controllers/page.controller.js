@@ -26,7 +26,7 @@ exports.createPage = async (ctx) => {
   }
 };
 
-// @route   PATCH /api/v1/page/update
+// @route   PATCH /api/v1/page/update/:pageId
 // @desc    Update Page
 // @access  Private
 exports.updatePage = async (ctx) => {
@@ -37,7 +37,7 @@ exports.updatePage = async (ctx) => {
       .collection("Pages")
       .findOneAndUpdate(
         { _id: pageId },
-        { $set: ctx.request.body },
+        { $set: { ...ctx.request.body, modifiedAt: new Date() } },
         { returnDocument: "after" }
       );
 
@@ -184,12 +184,16 @@ exports.acceptPostPublishRequests = async (ctx) => {
     const request = await ctx.db
       .collection("Posts")
       .updateOne(
-        { _id: new ObjectId(postId), isVisible: false, authorId: ctx._id },
+        { _id: new ObjectId(postId), isVisible: false },
         { $set: { isVisible: true } }
       );
 
     if (!request.matchedCount) {
-      return sendResponce({ ctx, statusCode: 404, message: "Post not found." });
+      return sendResponce({
+        ctx,
+        statusCode: 404,
+        message: "You already accepted post publish request.",
+      });
     }
 
     sendResponce({ ctx, statusCode: 200, message: "Request Accepted" });

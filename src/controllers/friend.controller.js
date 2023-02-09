@@ -34,14 +34,12 @@ exports.acceptFriendRequest = async (ctx) => {
 
     const friend = await ctx.db.collection("Friends").findOneAndUpdate(
       {
-        $or: [
-          { $and: [{ senderId: _id }, { receiverId: friendId }] },
-          { $and: [{ receiverId: friendId }, { senderId: _id }] },
+        $and: [
+          { $and: [{ senderId: friendId }, { receiverId: _id }] },
+          { requestAccepted: false },
         ],
       },
-      {
-        $set: { requestAccepted: true },
-      },
+      { $set: { requestAccepted: true } },
       { returnDocument: "after" }
     );
 

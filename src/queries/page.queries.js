@@ -70,7 +70,7 @@ exports.fetchAllPostPublishRequestQuery = ({ Pages, filter, newData, projection 
             },
           },
         ],
-        as: "page",
+        as: "posts",
       },
     },
   ]).toArray();

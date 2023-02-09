@@ -7,11 +7,13 @@ const {
   fetchAllPrivatePosts,
   fetchAllMyPosts,
   updatePost,
+  deletePost,
 } = require("../controllers/post.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
 const {
   checkCreatePermission,
-  sendPostPublishRequest,
+  checkUpdatePermission,
+  checkDeletePermission,
 } = require("../middlewares/checkPermission");
 const {
   validateInsertPost,
@@ -23,16 +25,20 @@ router.post(
   checkAuth,
   validateInsertPost,
   checkCreatePermission,
-  sendPostPublishRequest,
   createPost
 );
 router.patch(
-  "/updatePost",
+  "/updatePost/:postId",
   checkAuth,
   validateUpdatePost,
-  checkCreatePermission,
-  sendPostPublishRequest,
+  checkUpdatePermission,
   updatePost
+);
+router.delete(
+  "/deletePost/:postId",
+  checkAuth,
+  checkDeletePermission,
+  deletePost
 );
 router.get("/fetchPublic", fetchAllPublicPosts);
 router.get("/fetchPrivate", checkAuth, fetchAllPrivatePosts);

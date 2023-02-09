@@ -94,7 +94,6 @@ exports.isBothFriend = async (ctx, next) => {
         { requestAccepted: true },
       ],
     });
-    console.log(isExists);
     ctx.assert(!isExists, 400, "You are already friends.");
 
     await next();

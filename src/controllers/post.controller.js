@@ -1,14 +1,18 @@
+const { ObjectId } = require("mongodb");
 const {
-  fetchPublicPosts,
-  fetchPrivatePosts,
+  fetchPublicPostsQuery,
+  fetchPrivatePostsQuery,
+  fetchAllMyPostsQuery,
 } = require("../queries/post.queries");
+const { postPagination } = require("../utils/pagination");
 const { sendResponce } = require("../utils/sendResponce");
 
-// @route   POST /api/v1/post/create
+// @route   POST /api/v1/post/createPost
 // @desc    Create Post
 // @access  Private
 exports.createPost = async (ctx) => {
   try {
+    console.log(ctx.request.body);
     const db = ctx.db.collection("Posts");
     const post = await db.insertOne(ctx.request.body);
 
@@ -36,12 +40,47 @@ exports.createPost = async (ctx) => {
   }
 };
 
+// @route   PATCH /api/v1/post/updatePost/:postId
+// @desc    Update Post
+// @access  Private
 exports.updatePost = async (ctx) => {
   try {
-    const post = await ctx.db.collection("Posts").findOneAndUpdate({
-      
-    })
-    sendResponce({ ctx, statusCode: 200, message: "Post updated", post });
+    const postId = new ObjectId(ctx.params.postId);
+
+    const post = await ctx.db
+      .collection("Posts")
+      .findOneAndUpdate(
+        { _id: postId },
+        { $set: { ...ctx.request.body, modifiedAt: new Date() } },
+        { returnDocument: "after" }
+      );
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Post updated",
+      post: post.value,
+    });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+// @route   DELETE /api/v1/post/deletePost/:postId
+// @desc    Delete Post
+// @access  Private
+exports.deletePost = async (ctx) => {
+  try {
+    const postId = new ObjectId(ctx.params.postId);
+
+    const post = await ctx.db.collection("Posts").deleteOne({ _id: postId });
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Post deleted",
+      post: post.value,
+    });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
@@ -53,7 +92,12 @@ exports.updatePost = async (ctx) => {
 exports.fetchAllPublicPosts = async (ctx) => {
   try {
     const Posts = ctx.db.collection("Posts");
-    const post = await fetchPublicPosts({ Posts });
+    const { skip, limit, sortBy } = ctx.request.query;
+
+    const post = await fetchPublicPostsQuery({
+      Posts,
+      projection: { skip, limit, sortBy },
+    });
 
     sendResponce({
       ctx,
@@ -76,12 +120,15 @@ exports.fetchAllPublicPosts = async (ctx) => {
 exports.fetchAllPrivatePosts = async (ctx) => {
   try {
     const Users = ctx.db.collection("Users");
-    const post = await fetchPrivatePosts({
+    const { skip, limit, sortBy } = ctx.request.query;
+
+    const post = await fetchPrivatePostsQuery({
       Users,
-      filter: { _id: ctx._id, isVisible: true },
+      filter: { _id: ctx._id },
+      projection: { skip, limit, sortBy },
     });
 
-    if (!post.length) {
+    if (!post) {
       return sendResponce({
         ctx,
         statusCode: 200,
@@ -94,7 +141,7 @@ exports.fetchAllPrivatePosts = async (ctx) => {
       ctx,
       statusCode: 200,
       message: "Post fetched.",
-      post: post[0].posts,
+      posts: post,
     });
   } catch (error) {
     sendResponce({
@@ -110,53 +157,18 @@ exports.fetchAllPrivatePosts = async (ctx) => {
 // @access  Private
 exports.fetchAllMyPosts = async (ctx) => {
   try {
-    const posts = await ctx.db
-      .collection("Posts")
-      .aggregate([
-        {
-          $match: {
-            authorId: ctx._id,
-            isVisible: true,
-          },
-        },
-        {
-          $group: {
-            _id: "$pageId",
-            post: {
-              $push: "$$ROOT",
-            },
-          },
-        },
-        {
-          $lookup: {
-            from: "Pages",
-            localField: "_id",
-            foreignField: "_id",
-            as: "page",
-          },
-        },
-        {
-          $replaceRoot: {
-            newRoot: {
-              $mergeObjects: [
-                {
-                  $arrayElemAt: ["$page", 0],
-                },
-                "$$ROOT",
-              ],
-            },
-          },
-        },
-        {
-          $project: {
-            page: 0,
-          },
-        },
-      ])
-      .toArray();
+    const Posts = ctx.db.collection("Posts");
+    const { skip, limit, sort } = postPagination(ctx.request.query);
+
+    const posts = await fetchAllMyPostsQuery({
+      Posts: Posts,
+      filter: { authorId: ctx._id, isVisible: true },
+      projection: { skip, limit, sort },
+    });
 
     sendResponce({ ctx, statusCode: 200, message: "Post fetched", posts });
   } catch (error) {
+    console.log(error);
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,
