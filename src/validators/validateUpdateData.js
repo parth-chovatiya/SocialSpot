@@ -10,7 +10,9 @@ exports.validateUpdateData = (data, collection) => {
       continue;
     }
     const field = collection[key];
-    
+
+    if (!field) throw new Error("Please provide valid key.");
+
     console.log(key);
     console.log(field);
     console.log(data[key]);
