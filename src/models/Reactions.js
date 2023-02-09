@@ -8,6 +8,10 @@ exports.Reactions = {
     type: "object",
     require: true,
   },
+  commentId: {
+    type: "object",
+    default: null,
+  },
   userId: {
     type: "object",
     require: true,

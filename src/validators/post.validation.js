@@ -1,4 +1,5 @@
 const { ObjectId } = require("mongodb");
+const { getDB } = require("../DB/connectDB");
 const { Posts } = require("../models/Posts");
 const { sendResponce } = require("../utils/sendResponce");
 const { validateInsertData } = require("./validateInsertData");
@@ -89,3 +90,8 @@ exports.validateUpdatePost = async (ctx, next) => {
     });
   }
 };
+
+exports.isPostExists = (postId) =>
+  getDB()
+    .collection("Posts")
+    .findOne({ _id: new ObjectId(postId) });

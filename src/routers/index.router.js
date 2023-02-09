@@ -8,6 +8,7 @@ const friendRouter = require("./friend.router");
 const commentRouter = require("./comment.router");
 const pageRouter = require("./page.router");
 const connectionRouter = require("./connection.router");
+const reactionRouter = require("./reaction.router");
 
 const ROUTERS = [
   authRouter,
@@ -17,6 +18,7 @@ const ROUTERS = [
   commentRouter,
   pageRouter,
   connectionRouter,
+  reactionRouter,
 ];
 
 ROUTERS.forEach((route) => {
