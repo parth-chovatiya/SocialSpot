@@ -2,6 +2,7 @@ const { ObjectId } = require("mongodb");
 const { getDB } = require("../DB/connectDB");
 const { Posts } = require("../models/Posts");
 const { sendResponce } = require("../utils/sendResponce");
+const { isValidObjectId } = require("../utils/validation_utils");
 const { validateInsertData } = require("./validateInsertData");
 const { validateUpdateData } = require("./validateUpdateData");
 
@@ -10,7 +11,8 @@ exports.validateInsertPost = async (ctx, next) => {
     const { description, type, pageId, imageLinks, videoLinks } =
       ctx.request.body;
 
-    ctx.request.body.authorId = ctx._id;
+    ctx.request.body.authorId = new ObjectId(ctx._id);
+    validateInsertData(ctx.request.body, Posts);
 
     // Check if page exists or not & user is owner of that page
     if (pageId) {
@@ -40,11 +42,7 @@ exports.validateInsertPost = async (ctx, next) => {
         ])
         .toArray();
       ctx.assert(page.length, 404, "Page not exists.");
-
-      ctx.request.body.pageId = new ObjectId(pageId);
     }
-
-    validateInsertData(ctx.request.body, Posts);
 
     // RegEx to extract hashtags from string
     const regex = new RegExp(/(?<=#)[a-z]+/gim);
@@ -74,12 +72,28 @@ exports.validateInsertPost = async (ctx, next) => {
 
 exports.validateUpdatePost = async (ctx, next) => {
   try {
-    const postId = new ObjectId(ctx.params.postId);
+    const postId = ctx.params.postId;
+    const { description, type, imageLinks, videoLinks } =
+      ctx.request.body;
+    ctx.assert(isValidObjectId(postId), 400, "Please enter valid objectId");
 
     validateUpdateData(ctx.request.body, Posts);
 
-    const post = await ctx.db.collection("Posts").findOne({ _id: postId });
+    const post = await ctx.db
+      .collection("Posts")
+      .findOne({ _id: new ObjectId(postId) });
     ctx.assert(post, 404, "Page not found.");
+    ctx.assert(post.isVisible, 404, "May be this post is not yet published.");
+
+    // if type is image, then image must be there
+    if (type === "image" && !imageLinks) {
+      throw new Error("Please upload image");
+    }
+
+    // if type is video, then video must be there
+    if ((type === "video" || type === "reels") && !videoLinks) {
+      throw new Error(`Please upload ${type}`);
+    }
 
     await next();
   } catch (error) {

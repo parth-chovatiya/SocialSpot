@@ -9,7 +9,6 @@ const { validateUpdateData } = require("./validateUpdateData");
 exports.validateInsertPage = async (ctx, next) => {
   try {
     ctx.request.body.owner = new ObjectId(ctx._id);
-
     validateInsertData(ctx.request.body, Pages);
 
     await next();

@@ -2,7 +2,7 @@ const {
   isValidEmail,
   isValidUsername,
   isValidPassword,
-} = require("../validators/generalValidation");
+} = require("../utils/validation_utils");
 
 exports.Users = {
   username: {

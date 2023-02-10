@@ -2,7 +2,7 @@ const { ObjectId } = require("mongodb");
 
 const { Connections } = require("../models/Connections");
 const { sendResponce } = require("../utils/sendResponce");
-const { isValidObjectId } = require("./generalValidation");
+const { isValidObjectId } = require("../utils/validation_utils");
 const { validateInsertData } = require("./validateInsertData");
 
 exports.validateConnection = async (ctx, next) => {
@@ -34,6 +34,7 @@ exports.validateConnection = async (ctx, next) => {
 
     await next();
   } catch (error) {
+    console.log(error)
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

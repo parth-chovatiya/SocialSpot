@@ -2,7 +2,8 @@ const { ObjectId } = require("mongodb");
 
 const { Friends } = require("../models/Friends");
 const { sendResponce } = require("../utils/sendResponce");
-const { isUserExists, isValidObjectId } = require("./generalValidation");
+const { isValidObjectId } = require("../utils/validation_utils");
+const { isUserExists } = require("./user.validation");
 const { validateInsertData } = require("./validateInsertData");
 
 exports.validateFriend = async (ctx, next) => {
@@ -15,7 +16,9 @@ exports.validateFriend = async (ctx, next) => {
     }
     ctx.request.body.senderId = senderId;
     ctx.request.body.receiverId = receiverId;
-
+    
+    validateInsertData(ctx.request.body, Friends);
+    
     // User can't send friend request to them self
     ctx.assert(
       senderId.toString() !== receiverId.toString(),
@@ -38,7 +41,6 @@ exports.validateFriend = async (ctx, next) => {
     });
     ctx.assert(!isExists, 200, "Friend request already sended.");
 
-    validateInsertData(ctx.request.body, Friends);
 
     await next();
   } catch (error) {

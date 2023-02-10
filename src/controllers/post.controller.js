@@ -13,8 +13,7 @@ const { sendResponce } = require("../utils/sendResponce");
 exports.createPost = async (ctx) => {
   try {
     console.log(ctx.request.body);
-    const db = ctx.db.collection("Posts");
-    const post = await db.insertOne(ctx.request.body);
+    const post = await ctx.db.collection("Posts").insertOne(ctx.request.body);
 
     if (!ctx.request.body.isVisible) {
       return sendResponce({
@@ -45,12 +44,12 @@ exports.createPost = async (ctx) => {
 // @access  Private
 exports.updatePost = async (ctx) => {
   try {
-    const postId = new ObjectId(ctx.params.postId);
+    const postId = ctx.params.postId;
 
     const post = await ctx.db
       .collection("Posts")
       .findOneAndUpdate(
-        { _id: postId },
+        { _id: new ObjectId(postId) },
         { $set: { ...ctx.request.body, modifiedAt: new Date() } },
         { returnDocument: "after" }
       );
@@ -92,11 +91,11 @@ exports.deletePost = async (ctx) => {
 exports.fetchAllPublicPosts = async (ctx) => {
   try {
     const Posts = ctx.db.collection("Posts");
-    const { skip, limit, sortBy } = ctx.request.query;
+    const { page, limit, sortBy } = ctx.request.query;
 
     const post = await fetchPublicPostsQuery({
       Posts,
-      projection: { skip, limit, sortBy },
+      projection: { page, limit, sortBy },
     });
 
     sendResponce({
@@ -120,12 +119,12 @@ exports.fetchAllPublicPosts = async (ctx) => {
 exports.fetchAllPrivatePosts = async (ctx) => {
   try {
     const Users = ctx.db.collection("Users");
-    const { skip, limit, sortBy } = ctx.request.query;
+    const { page, limit, sortBy } = ctx.request.query;
 
     const post = await fetchPrivatePostsQuery({
       Users,
       filter: { _id: ctx._id },
-      projection: { skip, limit, sortBy },
+      projection: { page, limit, sortBy },
     });
 
     if (!post) {
@@ -158,12 +157,12 @@ exports.fetchAllPrivatePosts = async (ctx) => {
 exports.fetchAllMyPosts = async (ctx) => {
   try {
     const Posts = ctx.db.collection("Posts");
-    const { skip, limit, sort } = postPagination(ctx.request.query);
+    const { page, limit, sort } = postPagination(ctx.request.query);
 
     const posts = await fetchAllMyPostsQuery({
       Posts: Posts,
       filter: { authorId: ctx._id, isVisible: true },
-      projection: { skip, limit, sort },
+      projection: { page, limit, sort },
     });
 
     sendResponce({ ctx, statusCode: 200, message: "Post fetched", posts });
@@ -174,5 +173,30 @@ exports.fetchAllMyPosts = async (ctx) => {
       statusCode: error.statusCode || 400,
       message: error.message || "Something went wrong..",
     });
+  }
+};
+
+// @route   POST /api/v1/post/search
+// @desc    Search post -> description, hashtags
+// @access  Public
+exports.searchPost = async (ctx) => {
+  try {
+    let { text = "" } = ctx.request.body;
+
+    const splitText = text.split(" ");
+    const searchText = splitText.join("|");
+
+    const posts = await ctx.db
+      .collection("Posts")
+      .find({
+        description: { $regex: new RegExp(searchText), $options: "im" },
+        isVisible: true,
+        privacy: "public",
+      })
+      .toArray();
+
+    sendResponce({ ctx, statusCode: 200, posts });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

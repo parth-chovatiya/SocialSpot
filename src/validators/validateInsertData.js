@@ -1,3 +1,6 @@
+const { ObjectId } = require("mongodb");
+const { isValidObjectId } = require("../utils/validation_utils");
+
 // To validate the user provided data
 exports.validateInsertData = (data, collection) => {
   if (!data) {
@@ -20,6 +23,15 @@ exports.validateInsertData = (data, collection) => {
     // check the required value
     if (field.require && !inputKeys.includes(key)) {
       throw new Error(`${key} is required.`);
+    }
+
+    // If type is objectId -> validate it
+    if (field.type === "objectId") {
+      
+      if (!isValidObjectId(data[key].toString()))
+        throw new Error(`Enter valid type of objectId in ${key}`);
+      data[key] = new ObjectId(data[key]);
+      continue;
     }
 
     // check the type
@@ -57,6 +69,8 @@ exports.validateInsertData = (data, collection) => {
 
     // check the ref
     // if(field.ref && )
+
+    // console.log(field, key, data[key]);
 
     if (
       field.validation &&

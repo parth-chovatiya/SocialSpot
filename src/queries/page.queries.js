@@ -1,27 +1,17 @@
+const { FullName } = require("../utils/mongodb_utils");
+
 exports.createPageQuery = ({ Pages, filter, newData, projection }) =>
   Pages.insertOne(newData);
 
 exports.givePermission = ({ Permissions, filter, newData, projection }) =>
   Permissions.updateOne(filter, newData, projection);
 
-const FullName = {
-  $concat: [
-    "$firstName",
-    {
-      $cond: {
-        if: {
-          $eq: ["$lastName", null],
-        },
-        then: "",
-        else: {
-          $concat: [" ", "$lastName"],
-        },
-      },
-    },
-  ],
-};
-
-exports.fetchAllPostPublishRequestQuery = ({ Pages, filter, newData, projection }) =>
+exports.fetchAllPostPublishRequestQuery = ({
+  Pages,
+  filter,
+  newData,
+  projection,
+}) =>
   Pages.aggregate([
     {
       $match: filter,

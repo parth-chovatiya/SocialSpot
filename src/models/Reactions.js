@@ -5,15 +5,15 @@ exports.Reactions = {
     require: true,
   },
   postId: {
-    type: "object",
+    type: "objectId",
     require: true,
   },
   commentId: {
-    type: "object",
+    type: "objectId",
     default: null,
   },
   userId: {
-    type: "object",
+    type: "objectId",
     require: true,
   },
   createdAt: {

@@ -1,22 +1,10 @@
+const {
+  FullName,
+  fetchFullName,
+  replaceRootFullname,
+  sortByLatest,
+} = require("../utils/mongodb_utils");
 const { postPagination } = require("../utils/pagination");
-
-// To merge the firstName with lastName
-const FullName = {
-  $concat: [
-    "$firstName",
-    {
-      $cond: {
-        if: {
-          $eq: ["$lastName", null],
-        },
-        then: "",
-        else: {
-          $concat: [" ", "$lastName"],
-        },
-      },
-    },
-  ],
-};
 
 // Fetch Post with Comments & User info --> in the MongoDB compass aggregation pipeline save name
 exports.fetchPublicPostsQuery = ({ Posts, filter, newData, projection }) => {
@@ -24,57 +12,48 @@ exports.fetchPublicPostsQuery = ({ Posts, filter, newData, projection }) => {
 
   return Posts.aggregate([
     { $match: { isVisible: true } },
+    { ...fetchFullName("authorId", "_id") },
+    { ...replaceRootFullname },
+    { $project: { user: 0 } },
     {
       $lookup: {
         from: "Comments",
         localField: "_id",
         foreignField: "postId",
         pipeline: [
-          {
-            $lookup: {
-              from: "Users",
-              localField: "userId",
-              foreignField: "_id",
-              pipeline: [
-                {
-                  $project: {
-                    _id: 0,
-                    fullName: FullName,
-                    profilePic: 1,
-                  },
-                },
-              ],
-              as: "user",
-            },
-          },
+          { ...fetchFullName("userId", "_id") },
           {
             $project: {
-              _id: 0,
+              // _id: 0,
               postId: 0,
               userId: 0,
             },
           },
+          { ...replaceRootFullname },
           {
-            // To replace the commented user info with the comment it self
-            $replaceRoot: {
-              newRoot: {
-                $mergeObjects: [
-                  {
-                    $arrayElemAt: ["$user", 0],
+            $lookup: {
+              from: "Reactions",
+              localField: "_id",
+              foreignField: "commentId",
+              pipeline: [
+                {
+                  $project: {
+                    _id: 0,
+                    postId: 0,
+                    commentId: 0,
                   },
-                  "$$ROOT",
-                ],
-              },
+                },
+                { ...fetchFullName("userId", "_id") },
+                { ...replaceRootFullname },
+                { $project: { user: 0 } },
+              ],
+              as: "reaction",
             },
           },
-          {
-            $sort: {
-              createdAt: 1,
-            },
-          },
+          { ...sortByLatest },
           {
             $project: {
-              _id: 0,
+              // _id: 0,
               user: 0,
             },
           },
@@ -82,6 +61,28 @@ exports.fetchPublicPostsQuery = ({ Posts, filter, newData, projection }) => {
         as: "comments",
       },
     },
+    {
+      $lookup: {
+        from: "Reactions",
+        localField: "_id",
+        foreignField: "postId",
+        pipeline: [
+          { $match: { commentId: null } },
+          {
+            $project: {
+              _id: 0,
+              postId: 0,
+              commentId: 0,
+            },
+          },
+          { ...fetchFullName("userId", "_id") },
+          { ...replaceRootFullname },
+          { $project: { user: 0 } },
+        ],
+        as: "reaction",
+      },
+    },
+
     { $sort: sort },
     { $skip: parseInt(skip) },
     { $limit: parseInt(limit) },
@@ -96,19 +97,13 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
       // match the user
       $match: filter,
     },
-    {
-      $project: {
-        username: 1,
-      },
-    },
+    { $project: { username: 1 } },
     {
       $lookup: {
         // Find the friends of the User from the 'Friends' table
         // Match the friends from senderId & receiverId
         from: "Friends",
-        let: {
-          userId: "$_id",
-        },
+        let: { userId: "$_id" },
         pipeline: [
           {
             $match: {
@@ -116,17 +111,11 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                 $and: [
                   {
                     $or: [
-                      {
-                        $eq: ["$$userId", "$senderId"],
-                      },
-                      {
-                        $eq: ["$$userId", "$receiverId"],
-                      },
+                      { $eq: ["$$userId", "$senderId"] },
+                      { $eq: ["$$userId", "$receiverId"] },
                     ],
                   },
-                  {
-                    $eq: ["$requestAccepted", true],
-                  },
+                  { $eq: ["$requestAccepted", true] },
                 ],
               },
             },
@@ -137,9 +126,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
               _id: 0,
               friend: {
                 $cond: {
-                  if: {
-                    $eq: ["$$userId", "$senderId"],
-                  },
+                  if: { $eq: ["$$userId", "$senderId"] },
                   then: "$receiverId",
                   else: "$senderId",
                 },
@@ -151,6 +138,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
       },
     },
     {
+      // Find the pages which user is following from 'Connections' table
       $lookup: {
         from: "Connections",
         localField: "_id",
@@ -173,6 +161,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
         localField: "friends.friend",
         foreignField: "authorId",
         pipeline: [
+          { $match: { authorId: { $ne: null } } },
           {
             // find the comments for each post
             $lookup: {
@@ -190,24 +179,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     modifiedAt: 1,
                   },
                 },
-                {
-                  // find the users for each comments
-                  $lookup: {
-                    from: "Users",
-                    localField: "userId",
-                    foreignField: "_id",
-                    pipeline: [
-                      {
-                        $project: {
-                          _id: 0,
-                          fullName: FullName,
-                          profilePic: 1,
-                        },
-                      },
-                    ],
-                    as: "user",
-                  },
-                },
+                { ...fetchFullName("userId", "_id") },
                 {
                   $project: {
                     _id: 0,
@@ -215,25 +187,8 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     userId: 0,
                   },
                 },
-                {
-                  // To replace the commented user info with the comment it self
-                  $replaceRoot: {
-                    newRoot: {
-                      $mergeObjects: [
-                        {
-                          $arrayElemAt: ["$user", 0],
-                        },
-                        "$$ROOT",
-                      ],
-                    },
-                  },
-                },
-                {
-                  // sort by the createdAt
-                  $sort: {
-                    createdAt: 1,
-                  },
-                },
+                { ...replaceRootFullname },
+                { ...sortByLatest },
                 {
                   $project: {
                     _id: 0,
@@ -250,11 +205,12 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
     },
     {
       $lookup: {
-        // find the post of the each friends
+        // find the post of the each pages
         from: "Posts",
         localField: "pages.pageId",
         foreignField: "pageId",
         pipeline: [
+          { $match: { pageId: { $ne: null } } },
           {
             // find the comments for each post
             $lookup: {
@@ -272,24 +228,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     modifiedAt: 1,
                   },
                 },
-                {
-                  // find the users for each comments
-                  $lookup: {
-                    from: "Users",
-                    localField: "userId",
-                    foreignField: "_id",
-                    pipeline: [
-                      {
-                        $project: {
-                          _id: 0,
-                          fullName: FullName,
-                          profilePic: 1,
-                        },
-                      },
-                    ],
-                    as: "user",
-                  },
-                },
+                { ...fetchFullName("userId", "_id") },
                 {
                   $project: {
                     _id: 0,
@@ -297,25 +236,8 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     userId: 0,
                   },
                 },
-                {
-                  // To replace the commented user info with the comment it self
-                  $replaceRoot: {
-                    newRoot: {
-                      $mergeObjects: [
-                        {
-                          $arrayElemAt: ["$user", 0],
-                        },
-                        "$$ROOT",
-                      ],
-                    },
-                  },
-                },
-                {
-                  // sort by the createdAt
-                  $sort: {
-                    createdAt: 1,
-                  },
-                },
+                { ...replaceRootFullname },
+                { ...sortByLatest },
                 {
                   $project: {
                     _id: 0,
@@ -331,11 +253,8 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
       },
     },
     {
-      $project: {
-        posts: {
-          $setUnion: ["$postFriends", "$postPages"],
-        },
-      },
+      // do union of the both posts, so that no duplication
+      $project: { posts: { $setUnion: ["$postFriends", "$postPages"] } },
     },
     {
       $project: {
@@ -378,13 +297,33 @@ exports.fetchAllMyPostsQuery = ({ Posts, filter, newData, projection }) => {
     },
     {
       $replaceRoot: {
-        newRoot: {
-          $mergeObjects: [{ $arrayElemAt: ["$page", 0] }, "$$ROOT"],
-        },
+        newRoot: { $mergeObjects: [{ $arrayElemAt: ["$page", 0] }, "$$ROOT"] },
       },
     },
     {
-      $project: { page: 0 },
+      $project: {
+        page: 0,
+        isPause: 0,
+      },
+    },
+    {
+      $lookup: {
+        from: "Pages",
+        localField: "_id",
+        foreignField: "_id",
+        as: "page",
+      },
+    },
+    {
+      $replaceRoot: {
+        newRoot: { $mergeObjects: [{ $arrayElemAt: ["$page", 0] }, "$$ROOT"] },
+      },
+    },
+    {
+      $project: {
+        page: 0,
+        isPaused: 0,
+      },
     },
     { $sort: sort },
     { $skip: parseInt(skip) },

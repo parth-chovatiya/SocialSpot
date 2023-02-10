@@ -8,6 +8,7 @@ const {
   fetchAllMyPosts,
   updatePost,
   deletePost,
+  searchPost,
 } = require("../controllers/post.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
 const {
@@ -43,5 +44,7 @@ router.delete(
 router.get("/fetchPublic", fetchAllPublicPosts);
 router.get("/fetchPrivate", checkAuth, fetchAllPrivatePosts);
 router.get("/myPosts", checkAuth, fetchAllMyPosts);
+
+router.post("/search", searchPost);
 
 module.exports = router;

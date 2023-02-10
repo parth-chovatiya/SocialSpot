@@ -1,10 +1,10 @@
 exports.Friends = {
   senderId: {
-    type: "object",
+    type: "objectId",
     require: true,
   },
   receiverId: {
-    type: "object",
+    type: "objectId",
     require: true,
   },
   requestAccepted: {

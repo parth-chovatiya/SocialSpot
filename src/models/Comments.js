@@ -1,11 +1,11 @@
 exports.Comments = {
   postId: {
-    type: "object",
+    type: "objectId",
     ref: "Posts",
     require: true,
   },
   userId: {
-    type: "object",
+    type: "objectId",
     ref: "Users",
     require: true,
   },
@@ -14,7 +14,7 @@ exports.Comments = {
     require: true,
   },
   parentId: {
-    type: "object",
+    type: "objectId",
     default: null,
   },
   createdAt: {

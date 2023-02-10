@@ -2,24 +2,18 @@ const { ObjectId } = require("mongodb");
 
 const { Permissions } = require("../models/Permissions");
 const { sendResponce } = require("../utils/sendResponce");
-const { isUserExists } = require("./generalValidation");
 const { isPageExists } = require("./page.validation");
+const { isUserExists } = require("./user.validation");
 const { validateInsertData } = require("./validateInsertData");
 
 exports.validatePermission = async (ctx, next) => {
   try {
     let { pageId, userId, role } = ctx.request.body;
 
-    pageId = new ObjectId(pageId);
-    userId = new ObjectId(userId);
-
-    ctx.request.body.pageId = pageId;
-    ctx.request.body.userId = userId;
-
     validateInsertData(ctx.request.body, Permissions);
 
-    const page = await isPageExists(pageId); // check id page exists
-    const user = await isUserExists(userId); // check it user exits
+    const page = await isPageExists(ctx.request.body.pageId); // check id page exists
+    const user = await isUserExists(ctx.request.body.userId); // check it user exits
 
     ctx.assert(page, 404, "Page not found");
     ctx.assert(user, 404, "User not found.");
@@ -37,6 +31,7 @@ exports.validatePermission = async (ctx, next) => {
 
     await next();
   } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

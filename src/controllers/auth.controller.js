@@ -57,6 +57,7 @@ exports.login = async (ctx) => {
       user,
     });
   } catch (error) {
+    console.log(error);
     sendResponce({
       ctx,
       statusCode: 400,

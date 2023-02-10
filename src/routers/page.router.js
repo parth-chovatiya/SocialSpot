@@ -12,6 +12,7 @@ const {
   permissionPages,
   updatePage,
   deletePage,
+  searchPages,
 } = require("../controllers/page.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
 const {
@@ -39,5 +40,7 @@ router.post(
 );
 router.get("/followedPages", checkAuth, followedPages);
 router.get("/permissionPages", checkAuth, permissionPages);
+
+router.post("/search", searchPages);
 
 module.exports = router;

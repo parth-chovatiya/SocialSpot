@@ -304,3 +304,30 @@ exports.permissionPages = async (ctx) => {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };
+
+// @route   POST /api/v1/page/search
+// @desc    Search page -> pageName, pageDesc
+// @access  Public
+exports.searchPages = async (ctx) => {
+  try {
+    const { text = "" } = ctx.request.body;
+
+    const splitText = text.split(" ");
+    const searchText = splitText.join("|");
+
+    const pages = await ctx.db
+      .collection("Pages")
+      .find({
+        $or: [
+          { pageName: { $regex: new RegExp(searchText), $options: "im" } },
+          { pageDesc: { $regex: new RegExp(searchText), $options: "im" } },
+        ],
+      })
+      .project({ _id: 0 })
+      .toArray();
+
+    sendResponce({ ctx, statusCode: 200, message: "Pages fetched.", pages });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};

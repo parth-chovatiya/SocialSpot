@@ -1,11 +1,11 @@
 exports.Connections = {
   pageId: {
-    type: "object",
+    type: "objectId",
     require: true,
     ref: "Pages",
   },
   userId: {
-    type: "object",
+    type: "objectId",
     require: true,
     ref: "Users",
   },

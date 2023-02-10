@@ -8,7 +8,7 @@ exports.Pages = {
     default: null,
   },
   owner: {
-    type: "object",
+    type: "objectId",
     require: true,
   },
   profilePic: {

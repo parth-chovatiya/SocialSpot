@@ -1,20 +1,4 @@
-// To merge the firstName with lastName
-const FullName = {
-  $concat: [
-    "$firstName",
-    {
-      $cond: {
-        if: {
-          $eq: ["$lastName", null],
-        },
-        then: "",
-        else: {
-          $concat: [" ", "$lastName"],
-        },
-      },
-    },
-  ],
-};
+const { FullName } = require("../utils/mongodb_utils");
 
 // Send friend request query
 exports.sendFriendRequestQuery = ({

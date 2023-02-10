@@ -5,12 +5,12 @@ exports.Posts = {
     default: null,
   },
   authorId: {
-    type: "object",
+    type: "objectId",
     require: true,
     ref: "Users",
   },
   pageId: {
-    type: "object",
+    type: "objectId",
     default: null,
   },
   type: {
@@ -22,17 +22,17 @@ exports.Posts = {
     default: true,
   },
   // createdBy: {
-  //   type: "object",
+  //   type: "objectId",
   //   default: null,  // null -> owner it self
   // },
   imageLinks: {
     // array type
-    type: "object",
+    type: "objectId",
     default: null,
   },
   videoLinks: {
     // array type
-    type: "object",
+    type: "objectId",
     default: null,
   },
   privacy: {

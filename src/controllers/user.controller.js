@@ -42,3 +42,39 @@ exports.getProfile = async (ctx) => {
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };
+
+// @route   POST /api/v1/user/search
+// @desc    Search user profile -> username, firstname, lastname
+// @access  Public
+exports.searchUsers = async (ctx) => {
+  try {
+    const { text } = ctx.request.body;
+
+    // const user = await ctx.db
+    //   .collection("Users")
+    //   .find({ $text: { $search: text, $caseSensitive: false } })
+    //   .toArray();
+
+    const user = await ctx.db
+      .collection("Users")
+      .find({
+        $or: [
+          { username: { $regex: text, $options: "i" } },
+          { firstName: { $regex: text, $options: "i" } },
+          { lastName: { $regex: text, $options: "i" } },
+        ],
+      })
+      .project({
+        password: 0,
+        isVerified: 0,
+        isBlocked: 0,
+        isDeleted: 0,
+        modifiedAt: 0,
+      })
+      .toArray();
+
+    sendResponce({ ctx, statusCode: 200, user });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, error: error.message });
+  }
+};

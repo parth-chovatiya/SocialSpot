@@ -1,11 +1,11 @@
 exports.Permissions = {
   pageId: {
-    type: "object",
+    type: "objectId",
     require: true,
     ref: "Pages",
   },
   userId: {
-    type: "object",
+    type: "objectId",
     require: true,
     ref: "Users",
   },
@@ -15,7 +15,7 @@ exports.Permissions = {
     enum: ["content creator"],
   },
   permissions: {
-    type: "object",
+    type: "object", // array
     enum: ["create", "read", "update", "delete"],
     default: null,
   },

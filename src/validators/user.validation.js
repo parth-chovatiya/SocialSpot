@@ -3,7 +3,8 @@ const { ObjectId } = require("mongodb");
 const { sendResponce } = require("../utils/sendResponce");
 const { Users } = require("../models/Users");
 const { validateInsertData } = require("./validateInsertData");
-const { isValidEmail, isValidPassword } = require("./generalValidation");
+const { isValidEmail, isValidPassword } = require("../utils/validation_utils");
+const { getDB } = require("../DB/connectDB");
 
 exports.registerValidation = async (ctx, next) => {
   try {
@@ -40,15 +41,20 @@ exports.loginValidation = async (ctx, next) => {
 
     await next();
   } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };
 
-exports.setProfileValidation = async (ctx, next) => {
-  try {
-    const User = ctx.db.collection("Users");
-    validateInsertData(ctx.request.body, Users);
-  } catch (error) {
-    sendResponce({ ctx, statusCode: 400, message: error.message });
-  }
-};
+exports.isUserExists = (_id) =>
+  getDB().collection("Users").countDocuments({ _id, isVerified: true });
+
+// exports.setProfileValidation = async (ctx, next) => {
+//   try {
+//     validateInsertData(ctx.request.body, Users);
+
+//     await next();
+//   } catch (error) {
+//     sendResponce({ ctx, statusCode: 400, message: error.message });
+//   }
+// };
