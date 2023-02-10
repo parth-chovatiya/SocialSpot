@@ -9,10 +9,23 @@ exports.checkAuth = async (ctx, next) => {
     ctx.assert(token, 400, "Please, Login again.");
 
     const decoded = verifyToken(token);
-    ctx._id = new ObjectId(decoded._id);
 
     const User = await ctx.db.collection("Users");
-    const user = await User.findOne({ _id: new ObjectId(decoded._id) });
+    const user = await User.findOne(
+      { _id: new ObjectId(decoded._id) },
+      {
+        projection: {
+          password: 0,
+          isBlocked: 0,
+          isDeleted: 0,
+          createdAt: 0,
+          modifiedAt: 0,
+        },
+      }
+    );
+
+    ctx._id = new ObjectId(decoded._id);
+    ctx.user = user;
 
     ctx.assert(user, 400, "Please, Login again.");
     ctx.assert(user.isVerified, 400, "Please, verify your email.");

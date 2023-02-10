@@ -2,6 +2,7 @@ const {
   isValidEmail,
   isValidUsername,
   isValidPassword,
+  isValidMobileNumber,
 } = require("../utils/validation_utils");
 
 exports.Users = {
@@ -74,6 +75,9 @@ exports.Users = {
   mobileNumber: {
     type: "number",
     maxLength: 10,
+    validation: {
+      function: isValidMobileNumber,
+    },
     default: null,
   },
   address: {

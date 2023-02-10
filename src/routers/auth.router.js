@@ -11,8 +11,13 @@ const {
   loginValidation,
 } = require("../validators/user.validation");
 
+// register user
 router.post("/register", registerValidation, register);
+
+// login user
 router.post("/login", loginValidation, login);
+
+// verify email address
 router.patch("/verifyEmail/:id", verifyEmail);
 
 module.exports = router;

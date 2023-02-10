@@ -1,4 +1,5 @@
 const { ObjectId } = require("mongodb");
+
 const { isValidObjectId } = require("../utils/validation_utils");
 
 // To validate the user provided data
@@ -25,13 +26,18 @@ exports.validateInsertData = (data, collection) => {
       throw new Error(`${key} is required.`);
     }
 
-    // If type is objectId -> validate it
+    // type -> objectId validation
     if (field.type === "objectId") {
-      
       if (!isValidObjectId(data[key].toString()))
         throw new Error(`Enter valid type of objectId in ${key}`);
       data[key] = new ObjectId(data[key]);
       continue;
+    }
+
+    // type date -> validation
+    if (field.type === "date") {
+      if (data[key] instanceof Date) continue;
+      throw new Error(`Enter valid type of date in ${key}`);
     }
 
     // check the type
@@ -70,8 +76,6 @@ exports.validateInsertData = (data, collection) => {
     // check the ref
     // if(field.ref && )
 
-    // console.log(field, key, data[key]);
-
     if (
       field.validation &&
       data[key] &&
@@ -80,8 +84,6 @@ exports.validateInsertData = (data, collection) => {
       throw new Error(`Enter proper value for ${key}.`);
     }
 
-    // check & convert date type data
-    // check object type data
     // check array type data
   }
 };

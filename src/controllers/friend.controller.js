@@ -1,9 +1,14 @@
-const { ObjectId } = require("bson");
+const { ObjectId } = require("mongodb");
+
 const {
   fetchAllFriendsQuery,
   fetchFriendRequestsQuery,
 } = require("../queries/friend.queries");
 const { sendResponce } = require("../utils/sendResponce");
+const {
+  fetchFullName,
+  replaceRootFullname,
+} = require("../utils/mongodb_utils");
 
 // @route   POST /api/v1/friend/sendFriendRequest
 // @desc    Send Friend Request
@@ -127,7 +132,7 @@ exports.cancelFriendRequest = async (ctx) => {
 
     sendResponce({ ctx, statusCode: 200, friendRequest });
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, error: error.message });
+    sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };
 
@@ -167,6 +172,32 @@ exports.removeFriend = async (ctx) => {
       friend: friendRequest.value,
     });
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, error: error.message });
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+// @route   GET /api/v1/friend/sendedFriendRequests
+// @desc    Fetch all sended friend requests which i hve sended
+// @access  Private
+exports.sendedFriendRequests = async (ctx) => {
+  try {
+    const friendRequests = await ctx.db
+      .collection("Friends")
+      .aggregate([
+        { $match: { senderId: ctx._id, requestAccepted: false } },
+        { ...fetchFullName("receiverId", "_id") },
+        { ...replaceRootFullname },
+        { $project: { profilePic: 1, fullName: 1, sendedDate: "$createdAt" } },
+      ])
+      .toArray();
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Friend requests which you have sended to your friends.",
+      friendRequests,
+    });
+  } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

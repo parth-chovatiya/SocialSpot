@@ -1,8 +1,8 @@
 const pageSize = 10;
+
+// pagination -> ?page=1&limit=10&sortBy=createdAt:asc
 exports.postPagination = (query) => {
   const { page = 0, limit = 25, sortBy = "createdAt:asc" } = query || {};
-
-  console.log(page, limit, sortBy);
 
   const sort = {};
   if (sortBy) {

@@ -15,12 +15,14 @@ exports.register = async (ctx) => {
     user.password = await hashPassword(user.password);
 
     const insertedUser = await User.insertOne(user);
+    const token = await generateToken({ _id: insertedUser.insertedId });
 
     sendResponce({
       ctx,
       statusCode: 201,
       message: "Account created.",
       insertedUser,
+      token,
     });
   } catch (error) {
     sendResponce({
@@ -38,16 +40,29 @@ exports.register = async (ctx) => {
 exports.login = async (ctx) => {
   try {
     const { username, email, password } = ctx.request.body;
-    const User = await ctx.db.collection("Users");
 
-    const user = await User.findOne({ $or: [{ username }, { email }] });
+    const user = await ctx.db.collection("Users").findOne(
+      { $or: [{ username }, { email }] },
+      {
+        projection: {
+          isBlocked: 0,
+          isDeleted: 0,
+          createdAt: 0,
+          modifiedAt: 0,
+        },
+      }
+    );
     ctx.assert(user, 401, "Please, Enter valid credentials..");
 
+    // Compare password
     const verifyPassword = await comparePassword(password, user.password);
-
     ctx.assert(verifyPassword, 401, "Please Login again...");
 
+    // Generate authToken
     const token = await generateToken({ _id: user._id });
+
+    // remove password from responce
+    delete user.password;
 
     sendResponce({
       ctx,
@@ -66,7 +81,7 @@ exports.login = async (ctx) => {
   }
 };
 
-// @route   GET /api/v1/auth/verifyEmail
+// @route   GET /api/v1/auth/verifyEmail/:id
 // @desc    To verify email
 // @access  Public
 exports.verifyEmail = async (ctx) => {
@@ -74,30 +89,38 @@ exports.verifyEmail = async (ctx) => {
     // Write logic to verify email
 
     const _id = ctx.params.id;
-    console.log(_id);
 
-    const User = ctx.db.collection("Users");
-
-    const verifiedUser = await User.findOneAndUpdate(
+    const verifiedUser = await ctx.db.collection("Users").findOneAndUpdate(
       { _id: new ObjectId(_id) },
-      {
-        $set: {
-          isVerified: true,
-        },
-      },
+      { $set: { isVerified: true } },
       {
         returnDocument: "after",
+        projection: {
+          password: 0,
+          isBlocked: 0,
+          isDeleted: 0,
+          createdAt: 0,
+          modifiedAt: 0,
+        },
       }
     );
+
+    if (verifiedUser.value.isVerified) {
+      return sendResponce({
+        ctx,
+        statusCode: 200,
+        message: "User is already verified",
+        user: verifiedUser.value,
+      });
+    }
 
     sendResponce({
       ctx,
       statusCode: 200,
       message: "Email verified.",
-      user: verifiedUser,
+      user: verifiedUser.value,
     });
   } catch (error) {
-    console.log(error);
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };

@@ -11,7 +11,7 @@ exports.fetchPublicPostsQuery = ({ Posts, filter, newData, projection }) => {
   const { skip, limit, sort } = postPagination(projection);
 
   return Posts.aggregate([
-    { $match: { isVisible: true } },
+    { $match: { isVisible: true, privacy: "public" } },
     { ...fetchFullName("authorId", "_id") },
     { ...replaceRootFullname },
     { $project: { user: 0 } },

@@ -6,6 +6,7 @@ const {
   fetchAllPostPublishRequestQuery,
 } = require("../queries/page.queries");
 const { sendResponce } = require("../utils/sendResponce");
+const { isValidObjectId } = require("../utils/validation_utils");
 
 // @route   POST /api/v1/page/create
 // @desc    Create Page
@@ -301,6 +302,54 @@ exports.permissionPages = async (ctx) => {
     });
   } catch (error) {
     console.log(error);
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+// @route   GET /api/v1/page/user/:userId
+// @desc    Fetch perticular users pages
+// @access  Private
+exports.fetchUsersPages = async (ctx) => {
+  try {
+    const userId = ctx.params.userId;
+    ctx.assert(isValidObjectId(userId), 400, "Enter valid objectId");
+
+    const user = await ctx.db.collection("Users").findOne(
+      { _id: new ObjectId(userId), isVerified: true },
+      {
+        projection: {
+          fullName: {
+            $concat: [
+              "$firstName",
+              {
+                $cond: {
+                  if: { $eq: ["$lastName", null] },
+                  then: "",
+                  else: " $lastName",
+                },
+              },
+            ],
+          },
+          email: 1,
+          gender: 1,
+        },
+      }
+    );
+    ctx.assert(user, 404, "User not found.");
+
+    const pages = await ctx.db
+      .collection("Pages")
+      .find({ owner: new ObjectId(userId), isPaused: false })
+      .toArray();
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Pages fetched",
+      user,
+      pages,
+    });
+  } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

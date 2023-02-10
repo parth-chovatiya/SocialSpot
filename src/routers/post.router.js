@@ -21,6 +21,7 @@ const {
   validateUpdatePost,
 } = require("../validators/post.validation");
 
+// create post
 router.post(
   "/createPost",
   checkAuth,
@@ -28,6 +29,8 @@ router.post(
   checkCreatePermission,
   createPost
 );
+
+// update post
 router.patch(
   "/updatePost/:postId",
   checkAuth,
@@ -35,16 +38,25 @@ router.patch(
   checkUpdatePermission,
   updatePost
 );
+
+// delete post
 router.delete(
   "/deletePost/:postId",
   checkAuth,
   checkDeletePermission,
   deletePost
 );
+
+// fetch public post feed
 router.get("/fetchPublic", fetchAllPublicPosts);
+
+// fetch private post feed
 router.get("/fetchPrivate", checkAuth, fetchAllPrivatePosts);
+
+// fetch all posts which was posted by me
 router.get("/myPosts", checkAuth, fetchAllMyPosts);
 
+// search the posts -> postDescription
 router.post("/search", searchPost);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const { ObjectId } = require("mongodb");
+const { searchPostQuery } = require("../queries/page.queries");
 const {
   fetchPublicPostsQuery,
   fetchPrivatePostsQuery,
@@ -93,7 +94,7 @@ exports.fetchAllPublicPosts = async (ctx) => {
     const Posts = ctx.db.collection("Posts");
     const { page, limit, sortBy } = ctx.request.query;
 
-    const post = await fetchPublicPostsQuery({
+    const posts = await fetchPublicPostsQuery({
       Posts,
       projection: { page, limit, sortBy },
     });
@@ -102,7 +103,7 @@ exports.fetchAllPublicPosts = async (ctx) => {
       ctx,
       statusCode: 200,
       message: "Post fetched.",
-      post,
+      posts,
     });
   } catch (error) {
     sendResponce({

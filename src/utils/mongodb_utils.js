@@ -12,6 +12,7 @@ exports.FullName = {
   ],
 };
 
+// fetch the fullname by doing lookup
 exports.fetchFullName = (localFieldName, foreignFieldName) => {
   return {
     $lookup: {
@@ -32,6 +33,7 @@ exports.fetchFullName = (localFieldName, foreignFieldName) => {
   };
 };
 
+// replace root to merge fullName with perticular document
 exports.replaceRootFullname = {
   $replaceRoot: {
     newRoot: { $mergeObjects: [{ $arrayElemAt: ["$user", 0] }, "$$ROOT"] },

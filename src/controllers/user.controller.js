@@ -7,22 +7,28 @@ const { sendResponce } = require("../utils/sendResponce");
 // @access  Private
 exports.setProfile = async (ctx) => {
   try {
-    const { username, email } = ctx.request.body;
-    const User = ctx.db.collection("Users");
-
-    const countUsername = await User.count({ username });
-    ctx.assert(!countUsername, 400, "Enter unique username.");
-
-    const countEmail = await User.count({ email });
-    ctx.assert(!countEmail, 400, "Enter unique email.");
-
-    const user = await User.findOneAndUpdate(
+    const user = await ctx.db.collection("Users").findOneAndUpdate(
       { _id: new ObjectId(ctx._id) },
       { $set: ctx.request.body },
-      { returnDocument: "after" }
+      {
+        returnDocument: "after",
+        projection: {
+          password: 0,
+          isBlocked: 0,
+          isDeleted: 0,
+          createdAt: 0,
+          modifiedAt: 0,
+        },
+      }
     );
-    sendResponce({ ctx, statusCode: 200, message: "Profile updated.", user });
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Profile updated.",
+      user: user.value,
+    });
   } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };
@@ -33,8 +39,18 @@ exports.setProfile = async (ctx) => {
 exports.getProfile = async (ctx) => {
   try {
     const User = await ctx.db.collection("Users");
-    const user = await User.find({ _id: new ObjectId(ctx._id) }).toArray();
-
+    const user = await User.findOne(
+      { _id: new ObjectId(ctx._id) },
+      {
+        projection: {
+          password: 0,
+          isBlocked: 0,
+          isDeleted: 0,
+          createdAt: 0,
+          modifiedAt: 0,
+        },
+      }
+    );
     ctx.assert(user, 404, "User not found");
 
     sendResponce({ ctx, statusCode: 200, message: "User fetched.", user });
@@ -48,32 +64,47 @@ exports.getProfile = async (ctx) => {
 // @access  Public
 exports.searchUsers = async (ctx) => {
   try {
-    const { text } = ctx.request.body;
+    const { text = "" } = ctx.request.body;
 
-    // const user = await ctx.db
+    // const users = await ctx.db
     //   .collection("Users")
     //   .find({ $text: { $search: text, $caseSensitive: false } })
     //   .toArray();
 
-    const user = await ctx.db
+    // const users = await ctx.db
+    //   .collection("Users")
+    //   .find({
+    //     $or: [
+    //       { username: { $regex: text, $options: "i" } },
+    //       { firstName: { $regex: text, $options: "i" } },
+    //       { lastName: { $regex: text, $options: "i" } },
+    //     ],
+    //   })
+    //   .project({
+    //     password: 0,
+    //     isVerified: 0,
+    //     isBlocked: 0,
+    //     isDeleted: 0,
+    //     modifiedAt: 0,
+    //   })
+    //   .toArray();
+    const users = await ctx.db
       .collection("Users")
-      .find({
-        $or: [
-          { username: { $regex: text, $options: "i" } },
-          { firstName: { $regex: text, $options: "i" } },
-          { lastName: { $regex: text, $options: "i" } },
-        ],
-      })
-      .project({
-        password: 0,
-        isVerified: 0,
-        isBlocked: 0,
-        isDeleted: 0,
-        modifiedAt: 0,
-      })
+      .aggregate([
+        {
+          $match: {
+            $or: [
+              { username: { $regex: text, $options: "i" } },
+              { firstName: { $regex: text, $options: "i" } },
+              { lastName: { $regex: text, $options: "i" } },
+            ],
+          },
+        },
+      ])
       .toArray();
 
-    sendResponce({ ctx, statusCode: 200, user });
+    console.log(users);
+    sendResponce({ ctx, statusCode: 200, users });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }

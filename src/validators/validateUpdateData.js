@@ -10,17 +10,20 @@ exports.validateUpdateData = (data, collection) => {
     if (key === "_id") continue;
 
     const field = collection[key];
-    if (!field) throw new Error("Please provide valid key.");
+    if (!field) throw new Error(`Please provide valid value of ${key}.`);
 
-    console.log(key);
-    console.log(field);
-    console.log(data[key]);
-
+    // type objectId -> validation
     if (field.type === "objectId") {
       if (!isValidObjectId(data[key].toString()))
         throw new Error(`Enter valid type of objectId in ${key}`);
       data[key] = new ObjectId(data[key]);
       continue;
+    }
+
+    // type date -> validation
+    if (field.type === "date") {
+      if (data[key] instanceof Date) continue;
+      throw new Error(`Enter valid type of date in ${key}`);
     }
 
     // check the type
@@ -34,6 +37,15 @@ exports.validateUpdateData = (data, collection) => {
       !field.enum.includes(data[key])
     ) {
       throw new Error(`${key} must be one of this: ${field.enum}`);
+    }
+
+    // call function which is define inside model
+    if (
+      field.validation &&
+      data[key] &&
+      !field.validation?.function(data[key])
+    ) {
+      throw new Error(`Enter proper value for ${key}.`);
     }
 
     // check minLength
