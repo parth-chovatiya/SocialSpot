@@ -10,25 +10,31 @@ const { getDB } = require("../DB/connectDB");
 exports.registerValidation = async (ctx, next) => {
   try {
     const { username, email, birthDate } = ctx.request.body;
-    const User = ctx.db.collection("Users");
+    const User = 3;
 
     if (birthDate) ctx.request.body.birthDate = new Date(birthDate);
 
     validateInsertData(ctx.request.body, Users);
 
     // Count the user with username or email
-    const countUser = await User.count({
+    const user = await ctx.db.collection("Users").findOne({
       $or: [{ username }, { email }],
     });
 
     ctx.assert(
-      !countUser,
+      user?.username !== username,
       400,
-      "User already exists with this username or email."
+      "User already exists with this username."
+    );
+    ctx.assert(
+      user?.email !== email,
+      400,
+      "User already exists with this email."
     );
 
     await next();
   } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };

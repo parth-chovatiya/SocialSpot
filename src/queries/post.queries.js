@@ -11,25 +11,24 @@ exports.fetchPublicPostsQuery = ({ Posts, filter, newData, projection }) => {
   const { skip, limit, sort } = postPagination(projection);
 
   return Posts.aggregate([
-    { $match: { isVisible: true, privacy: "public" } },
-    { ...fetchFullName("authorId", "_id") },
-    { ...replaceRootFullname },
-    { $project: { user: 0 } },
+    { $match: { isApproved: true, privacy: "public" } },
+    { ...fetchFullName("authorId", "_id", "fullName", "user") },
+    { ...replaceRootFullname("user") },
+    { $project: { user: 0, isApproved: 0 } },
     {
       $lookup: {
         from: "Comments",
         localField: "_id",
         foreignField: "postId",
         pipeline: [
-          { ...fetchFullName("userId", "_id") },
+          { ...fetchFullName("userId", "_id", "fullName", "user") },
           {
             $project: {
-              // _id: 0,
               postId: 0,
               userId: 0,
             },
           },
-          { ...replaceRootFullname },
+          { ...replaceRootFullname("user") },
           {
             $lookup: {
               from: "Reactions",
@@ -43,8 +42,8 @@ exports.fetchPublicPostsQuery = ({ Posts, filter, newData, projection }) => {
                     commentId: 0,
                   },
                 },
-                { ...fetchFullName("userId", "_id") },
-                { ...replaceRootFullname },
+                { ...fetchFullName("userId", "_id", "fullName", "user") },
+                { ...replaceRootFullname("user") },
                 { $project: { user: 0 } },
               ],
               as: "reaction",
@@ -75,14 +74,13 @@ exports.fetchPublicPostsQuery = ({ Posts, filter, newData, projection }) => {
               commentId: 0,
             },
           },
-          { ...fetchFullName("userId", "_id") },
-          { ...replaceRootFullname },
+          { ...fetchFullName("userId", "_id", "fullName", "user") },
+          { ...replaceRootFullname("user") },
           { $project: { user: 0 } },
         ],
         as: "reaction",
       },
     },
-
     { $sort: sort },
     { $skip: parseInt(skip) },
     { $limit: parseInt(limit) },
@@ -179,7 +177,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     modifiedAt: 1,
                   },
                 },
-                { ...fetchFullName("userId", "_id") },
+                { ...fetchFullName("userId", "_id", "fullName", "user") },
                 {
                   $project: {
                     _id: 0,
@@ -187,7 +185,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     userId: 0,
                   },
                 },
-                { ...replaceRootFullname },
+                { ...replaceRootFullname("user") },
                 { ...sortByLatest },
                 {
                   $project: {
@@ -228,7 +226,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     modifiedAt: 1,
                   },
                 },
-                { ...fetchFullName("userId", "_id") },
+                { ...fetchFullName("userId", "_id", "fullName", "user") },
                 {
                   $project: {
                     _id: 0,
@@ -236,7 +234,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
                     userId: 0,
                   },
                 },
-                { ...replaceRootFullname },
+                { ...replaceRootFullname("user") },
                 { ...sortByLatest },
                 {
                   $project: {
@@ -265,7 +263,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
     { $unwind: "$posts" },
     {
       $match: {
-        "posts.isVisible": true,
+        "posts.isApproved": true,
         "posts.authorId": { $ne: filter._id },
       },
     },
@@ -277,7 +275,7 @@ exports.fetchPrivatePostsQuery = ({ Users, filter, newData, projection }) => {
 
 // Fetch all the post which is posted by perticular user
 // filter -> userId
-exports.fetchAllMyPostsQuery = ({ Posts, filter, newData, projection }) => {
+exports.fetchPostsQuery = ({ Posts, filter, newData, projection }) => {
   const { skip, limit, sort } = postPagination(projection);
   return Posts.aggregate([
     { $match: filter },

@@ -1,4 +1,4 @@
-const pageSize = 10;
+exports.pageSize = 10;
 
 // pagination -> ?page=1&limit=10&sortBy=createdAt:asc
 exports.postPagination = (query) => {
@@ -11,7 +11,7 @@ exports.postPagination = (query) => {
   }
 
   return {
-    skip: Math.max(0, page * pageSize),
+    skip: Math.max(0, page * this.pageSize),
     limit: Math.max(1, limit),
     sort,
   };

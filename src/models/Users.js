@@ -55,12 +55,12 @@ exports.Users = {
   },
   lastName: {
     type: "string",
-    default: null,
+    default: "",
   },
   bio: {
     type: "string",
     maxLength: 250,
-    default: null,
+    default: "",
   },
   birthDate: {
     type: "date",
@@ -84,23 +84,23 @@ exports.Users = {
     type: "object",
     street: {
       type: "string",
-      default: null,
+      default: "",
     },
     area: {
       type: "string",
-      default: null,
+      default: "",
     },
     city: {
       type: "string",
-      default: null,
+      default: "",
     },
     state: {
       type: "string",
-      default: null,
+      default: "",
     },
     country: {
       type: "string",
-      default: null,
+      default: "",
     },
     pincode: {
       type: "string",

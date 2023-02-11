@@ -4,7 +4,9 @@ const {
   createPageQuery,
   givePermission,
   fetchAllPostPublishRequestQuery,
+  fetchPagesByPageId,
 } = require("../queries/page.queries");
+const { FullName } = require("../utils/mongodb_utils");
 const { sendResponce } = require("../utils/sendResponce");
 const { isValidObjectId } = require("../utils/validation_utils");
 
@@ -165,18 +167,63 @@ exports.removePermission = async (ctx) => {
   }
 };
 
-// @route   GET /api/v1/page/myPages
+// @route   GET /api/v1/page/user/:pageId
 // @desc    Fetch all my pages
 // @access  Private
-exports.fetchMyPages = async (ctx) => {
+exports.fetchUsersPages = async (ctx) => {
   try {
+    let userId = ctx.params.userId;
+    if (userId === "my") userId = ctx._id;
+    ctx.assert(isValidObjectId(userId.toString()), 400, "Enter valid objectId");
+
+    const user = await ctx.db.collection("Users").findOne(
+      { _id: new ObjectId(userId), isVerified: true },
+      {
+        projection: {
+          fullName: FullName,
+          email: 1,
+          gender: 1,
+        },
+      }
+    );
+    ctx.assert(user, 404, "User not found.");
+
     const pages = await ctx.db
       .collection("Pages")
-      .find({ owner: ctx._id })
+      .find({ owner: new ObjectId(userId), isPaused: false })
       .toArray();
 
-    sendResponce({ ctx, statusCode: 200, message: "Paegs fetched.", pages });
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Page fetched.",
+      user,
+      pages,
+    });
   } catch (error) {
+    sendResponce({ ctx, statusCode: 400, message: error.message });
+  }
+};
+
+exports.fetchPage = async (ctx) => {
+  try {
+    let { pageId } = ctx.params;
+
+    ctx.assert(isValidObjectId(pageId), 400, "Enter valid pageId");
+
+    const pages = await fetchPagesByPageId({
+      Pages: ctx.db.collection("Pages"),
+      filter: { _id: new ObjectId(pageId) },
+    });
+
+    sendResponce({
+      ctx,
+      statusCode: 200,
+      message: "Page fetched.",
+      page: pages,
+    });
+  } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };
@@ -212,8 +259,8 @@ exports.acceptPostPublishRequests = async (ctx) => {
     const request = await ctx.db
       .collection("Posts")
       .updateOne(
-        { _id: new ObjectId(postId), isVisible: false },
-        { $set: { isVisible: true } }
+        { _id: new ObjectId(postId), isApproved: false },
+        { $set: { isApproved: true } }
       );
 
     if (!request.matchedCount) {
@@ -302,54 +349,6 @@ exports.permissionPages = async (ctx) => {
     });
   } catch (error) {
     console.log(error);
-    sendResponce({ ctx, statusCode: 400, message: error.message });
-  }
-};
-
-// @route   GET /api/v1/page/user/:userId
-// @desc    Fetch perticular users pages
-// @access  Private
-exports.fetchUsersPages = async (ctx) => {
-  try {
-    const userId = ctx.params.userId;
-    ctx.assert(isValidObjectId(userId), 400, "Enter valid objectId");
-
-    const user = await ctx.db.collection("Users").findOne(
-      { _id: new ObjectId(userId), isVerified: true },
-      {
-        projection: {
-          fullName: {
-            $concat: [
-              "$firstName",
-              {
-                $cond: {
-                  if: { $eq: ["$lastName", null] },
-                  then: "",
-                  else: " $lastName",
-                },
-              },
-            ],
-          },
-          email: 1,
-          gender: 1,
-        },
-      }
-    );
-    ctx.assert(user, 404, "User not found.");
-
-    const pages = await ctx.db
-      .collection("Pages")
-      .find({ owner: new ObjectId(userId), isPaused: false })
-      .toArray();
-
-    sendResponce({
-      ctx,
-      statusCode: 200,
-      message: "Pages fetched",
-      user,
-      pages,
-    });
-  } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

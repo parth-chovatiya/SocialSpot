@@ -1,6 +1,6 @@
 const { ObjectId } = require("mongodb");
+const bcrypt = require("bcrypt");
 
-const { hashPassword, comparePassword } = require("../utils/password");
 const { sendResponce } = require("../utils/sendResponce");
 const { generateToken } = require("../utils/token");
 
@@ -12,7 +12,9 @@ exports.register = async (ctx) => {
     const User = await ctx.db.collection("Users");
 
     const user = ctx.request.body;
-    user.password = await hashPassword(user.password);
+    user.password = await bcrypt.hash(user.password, 8);
+
+    // const salt = await bcrypt.genSalt(10);
 
     const insertedUser = await User.insertOne(user);
     const token = await generateToken({ _id: insertedUser.insertedId });
@@ -55,24 +57,19 @@ exports.login = async (ctx) => {
     ctx.assert(user, 401, "Please, Enter valid credentials..");
 
     // Compare password
-    const verifyPassword = await comparePassword(password, user.password);
+    const verifyPassword = await bcrypt.compare(password, user.password);
     ctx.assert(verifyPassword, 401, "Please Login again...");
 
     // Generate authToken
     const token = await generateToken({ _id: user._id });
-
-    // remove password from responce
-    delete user.password;
 
     sendResponce({
       ctx,
       statusCode: 200,
       message: "Login successful.",
       token,
-      user,
     });
   } catch (error) {
-    console.log(error);
     sendResponce({
       ctx,
       statusCode: 400,
@@ -90,27 +87,19 @@ exports.verifyEmail = async (ctx) => {
 
     const _id = ctx.params.id;
 
-    const verifiedUser = await ctx.db.collection("Users").findOneAndUpdate(
-      { _id: new ObjectId(_id) },
-      { $set: { isVerified: true } },
-      {
-        returnDocument: "after",
-        projection: {
-          password: 0,
-          isBlocked: 0,
-          isDeleted: 0,
-          createdAt: 0,
-          modifiedAt: 0,
-        },
-      }
-    );
+    const verifiedUser = await ctx.db
+      .collection("Users")
+      .findOneAndUpdate(
+        { _id: new ObjectId(_id) },
+        { $set: { isVerified: true } }
+      );
+    ctx.assert(verifiedUser.value, 404, "User not found.");
 
-    if (verifiedUser.value.isVerified) {
+    if (verifiedUser.value?.isVerified) {
       return sendResponce({
         ctx,
         statusCode: 200,
         message: "User is already verified",
-        user: verifiedUser.value,
       });
     }
 
@@ -118,9 +107,12 @@ exports.verifyEmail = async (ctx) => {
       ctx,
       statusCode: 200,
       message: "Email verified.",
-      user: verifiedUser.value,
     });
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, error: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
   }
 };

@@ -84,7 +84,7 @@ exports.validateUpdatePost = async (ctx, next) => {
       .collection("Posts")
       .findOne({ _id: new ObjectId(postId) });
     ctx.assert(post, 404, "Page not found.");
-    ctx.assert(post.isVisible, 404, "May be this post is not yet published.");
+    ctx.assert(post.isApproved, 404, "May be this post is not yet published.");
 
     // if type is image, then image must be there
     if (type === "image" && !imageLinks) {

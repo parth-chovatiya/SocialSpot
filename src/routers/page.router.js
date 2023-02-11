@@ -5,7 +5,6 @@ const {
   createPage,
   givePermission,
   removePermission,
-  fetchMyPages,
   fetchAllPostPublishRequest,
   acceptPostPublishRequests,
   followedPages,
@@ -13,7 +12,9 @@ const {
   updatePage,
   deletePage,
   searchPages,
+  fetchPages,
   fetchUsersPages,
+  fetchPage,
 } = require("../controllers/page.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
 const {
@@ -41,7 +42,10 @@ router.post("/givePermission", checkAuth, validatePermission, givePermission);
 router.post("/removePermission", checkAuth, removePermission);
 
 // fetch the my pages
-router.get("/myPages", checkAuth, fetchMyPages);
+router.get("/user/:userId", checkAuth, fetchUsersPages);
+
+// fetch page with pageId
+router.get("/:pageId", fetchPage);
 
 // fetch all post publish requests
 router.get("/postPublishRequests", checkAuth, fetchAllPostPublishRequest);
@@ -62,8 +66,5 @@ router.get("/permissionPages", checkAuth, permissionPages);
 
 // search the pages -> pageName, pageDescription
 router.post("/search", searchPages);
-
-// fetch users pages
-router.get("/user/:userId", checkAuth, fetchUsersPages);
 
 module.exports = router;

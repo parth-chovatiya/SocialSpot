@@ -9,6 +9,7 @@ const {
   updatePost,
   deletePost,
   searchPost,
+  fetchPosts,
 } = require("../controllers/post.controller");
 const { checkAuth } = require("../middlewares/checkAuth");
 const {
@@ -54,7 +55,7 @@ router.get("/fetchPublic", fetchAllPublicPosts);
 router.get("/fetchPrivate", checkAuth, fetchAllPrivatePosts);
 
 // fetch all posts which was posted by me
-router.get("/myPosts", checkAuth, fetchAllMyPosts);
+router.get("/:userId", checkAuth, fetchPosts);
 
 // search the posts -> postDescription
 router.post("/search", searchPost);

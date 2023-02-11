@@ -17,7 +17,7 @@ exports.Posts = {
     type: "string",
     enum: ["text", "image", "video", "reels"],
   },
-  isVisible: {
+  isApproved: {
     type: "boolean",
     default: true,
   },

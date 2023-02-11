@@ -185,8 +185,8 @@ exports.sendedFriendRequests = async (ctx) => {
       .collection("Friends")
       .aggregate([
         { $match: { senderId: ctx._id, requestAccepted: false } },
-        { ...fetchFullName("receiverId", "_id") },
-        { ...replaceRootFullname },
+        { ...fetchFullName("receiverId", "_id", "fullName", "user") },
+        { ...replaceRootFullname("user") },
         { $project: { profilePic: 1, fullName: 1, sendedDate: "$createdAt" } },
       ])
       .toArray();

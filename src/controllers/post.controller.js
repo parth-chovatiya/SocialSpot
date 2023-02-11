@@ -4,9 +4,11 @@ const {
   fetchPublicPostsQuery,
   fetchPrivatePostsQuery,
   fetchAllMyPostsQuery,
+  fetchPostsQuery,
 } = require("../queries/post.queries");
 const { postPagination } = require("../utils/pagination");
 const { sendResponce } = require("../utils/sendResponce");
+const { isValidObjectId } = require("../utils/validation_utils");
 
 // @route   POST /api/v1/post/createPost
 // @desc    Create Post
@@ -16,7 +18,7 @@ exports.createPost = async (ctx) => {
     console.log(ctx.request.body);
     const post = await ctx.db.collection("Posts").insertOne(ctx.request.body);
 
-    if (!ctx.request.body.isVisible) {
+    if (!ctx.request.body.isApproved) {
       return sendResponce({
         ctx,
         statusCode: 200,
@@ -152,23 +154,27 @@ exports.fetchAllPrivatePosts = async (ctx) => {
   }
 };
 
-// @route   GET /api/v1/post/myPosts
+// @route   GET /api/v1/post/:userId
+// - userId -> my => login user posts will fetched
+// - userId -> if valid userId, that user posts will be fetched
 // @desc    Fetch all My Posts
 // @access  Private
-exports.fetchAllMyPosts = async (ctx) => {
+exports.fetchPosts = async (ctx) => {
   try {
-    const Posts = ctx.db.collection("Posts");
+    let userId = ctx.params.userId;
+    if (userId === "my") userId = ctx._id;
+    ctx.assert(isValidObjectId(userId.toString()), 400, "Enter valid objectId");
+
     const { page, limit, sort } = postPagination(ctx.request.query);
 
-    const posts = await fetchAllMyPostsQuery({
-      Posts: Posts,
-      filter: { authorId: ctx._id, isVisible: true },
+    const posts = await fetchPostsQuery({
+      Posts: ctx.db.collection("Posts"),
+      filter: { authorId: new ObjectId(userId), isApproved: true },
       projection: { page, limit, sort },
     });
 
     sendResponce({ ctx, statusCode: 200, message: "Post fetched", posts });
   } catch (error) {
-    console.log(error);
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,
@@ -191,7 +197,7 @@ exports.searchPost = async (ctx) => {
       .collection("Posts")
       .find({
         description: { $regex: new RegExp(searchText), $options: "im" },
-        isVisible: true,
+        isApproved: true,
         privacy: "public",
       })
       .toArray();

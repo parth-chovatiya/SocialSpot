@@ -39,7 +39,7 @@ exports.checkCreatePermission = async (ctx, next) => {
       });
     }
 
-    ctx.request.body.isVisible = false;
+    ctx.request.body.isApproved = false;
     ctx.request.body.authorId = new ObjectId(ctx._id);
     ctx.request.body.pageId = new ObjectId(pageId);
     await next();

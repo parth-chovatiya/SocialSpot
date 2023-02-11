@@ -13,31 +13,34 @@ exports.FullName = {
 };
 
 // fetch the fullname by doing lookup
-exports.fetchFullName = (localFieldName, foreignFieldName) => {
+exports.fetchFullName = (localFieldName, foreignFieldName, fieldName, as) => {
+  const project = {
+    _id: 0,
+    profilePic: 1,
+  };
+  project[fieldName] = this.FullName;
+
   return {
     $lookup: {
       from: "Users",
       localField: localFieldName,
       foreignField: foreignFieldName,
-      pipeline: [
-        {
-          $project: {
-            _id: 0,
-            fullName: this.FullName,
-            profilePic: 1,
-          },
-        },
-      ],
-      as: "user",
+      pipeline: [{ $project: project }],
+      as: as,
     },
   };
 };
 
+
 // replace root to merge fullName with perticular document
-exports.replaceRootFullname = {
-  $replaceRoot: {
-    newRoot: { $mergeObjects: [{ $arrayElemAt: ["$user", 0] }, "$$ROOT"] },
-  },
+exports.replaceRootFullname = (fieldName) => {
+  return {
+    $replaceRoot: {
+      newRoot: {
+        $mergeObjects: [{ $arrayElemAt: [`$` + fieldName, 0] }, "$$ROOT"],
+      },
+    },
+  };
 };
 
 exports.sortByLatest = { $sort: { createdAt: -1 } };

@@ -1,4 +1,5 @@
 const { ObjectId } = require("mongodb");
+const { pageSize } = require("../utils/pagination");
 
 const { sendResponce } = require("../utils/sendResponce");
 
@@ -65,6 +66,8 @@ exports.getProfile = async (ctx) => {
 exports.searchUsers = async (ctx) => {
   try {
     const { text = "" } = ctx.request.body;
+    const { page, limit, sortBy } = ctx.query;
+    console.log(page, limit, sortBy);
 
     // const users = await ctx.db
     //   .collection("Users")
@@ -93,17 +96,35 @@ exports.searchUsers = async (ctx) => {
       .aggregate([
         {
           $match: {
-            $or: [
-              { username: { $regex: text, $options: "i" } },
-              { firstName: { $regex: text, $options: "i" } },
-              { lastName: { $regex: text, $options: "i" } },
+            $and: [
+              {
+                $or: [
+                  { username: { $regex: text, $options: "i" } },
+                  { firstName: { $regex: text, $options: "i" } },
+                  { lastName: { $regex: text, $options: "i" } },
+                ],
+              },
+              { isVerified: true },
             ],
           },
         },
+        {
+          $project: {
+            password: 0,
+            isVerified: 0,
+            isBlocked: 0,
+            isDeleted: 0,
+            createdAt: 0,
+            modifiedAt: 0,
+            mobileNumber: 0,
+            gender: 0,
+          },
+        },
+        { $skip: page * pageSize },
+        { $limit: parseInt(limit) },
       ])
       .toArray();
 
-    console.log(users);
     sendResponce({ ctx, statusCode: 200, users });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, error: error.message });
