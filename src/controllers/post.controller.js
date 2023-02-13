@@ -163,7 +163,7 @@ exports.fetchPosts = async (ctx) => {
   try {
     let userId = ctx.params.userId;
     if (userId === "my") userId = ctx._id;
-    ctx.assert(isValidObjectId(userId.toString()), 400, "Enter valid objectId");
+    ctx.assert(isValidObjectId(userId.toString()), 400, "Enter valid userId");
 
     const { page, limit, sort } = postPagination(ctx.request.query);
 

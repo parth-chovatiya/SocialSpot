@@ -3,8 +3,8 @@ const { ObjectId } = require("mongodb");
 const { getDB } = require("../DB/connectDB");
 const { Pages } = require("../models/Page");
 const { sendResponce } = require("../utils/sendResponce");
-const { validateInsertData } = require("./validateInsertData");
-const { validateUpdateData } = require("./validateUpdateData");
+const { validateInsertData, validateUpdateData } = require("./generalValidation");
+
 
 exports.validateInsertPage = async (ctx, next) => {
   try {

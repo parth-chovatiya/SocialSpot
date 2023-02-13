@@ -1,57 +1,145 @@
-const { sendResponce } = require("../utils/sendResponce");
+const { ObjectId } = require("mongodb");
 
-// check whether email is valid or not
-exports.validate_email = async (ctx, next) => {
-  try {
-    const { email } = ctx.request.body;
+const { isValidObjectId } = require("../utils/validation_utils");
 
-    const emailValidate = String(email)
-      .toLowerCase()
-      .match(/^(([a-zA-Z0-9._%]){3,})+@[a-zA-Z.-]+\.[a-zA-Z]{2,6}$/);
+// To validate the user provided data
+exports.validateInsertData = (data, collection) => {
+  if (!data) {
+    throw new Error("Please provide data to the validateInsertData.");
+  }
 
-    ctx.assert(emailValidate, 400, "Enter valid email...");
+  const inputKeys = Object.keys(data);
 
-    await next();
-  } catch (error) {
-    sendResponce({ ctx, statusCode: 400, error: error.message });
+  for (let key in collection) {
+    const field = collection[key];
+
+    // put a default value if data not provided
+    if (!inputKeys.includes(key) && field.default !== undefined) {
+      data[key] = field.default;
+      continue;
+    }
+
+    // console.log(key, field, typeof data[key], data[key], field.type);
+
+    // check the required value
+    if (field.require && !inputKeys.includes(key)) {
+      throw new Error(`${key} is required.`);
+    }
+
+    // type -> objectId validation
+    if (field.type === "objectId") {
+      if (!isValidObjectId(data[key].toString()))
+        throw new Error(`Enter valid type of objectId in ${key}`);
+      data[key] = new ObjectId(data[key]);
+      continue;
+    }
+
+    // type date -> validation
+    if (field.type === "date") {
+      if (data[key] instanceof Date) continue;
+      throw new Error(`Enter valid type of date in ${key}`);
+    }
+
+    // check the type
+    if (inputKeys.includes(key) && typeof data[key] !== field.type) {
+      throw new Error(`Enter valid type of ${key}`);
+    }
+
+    // check enum type data
+    if (
+      typeof data[key] === "string" &&
+      field.enum &&
+      !field.enum.includes(data[key])
+    ) {
+      throw new Error(`${key} must be one of this: ${field.enum}`);
+    }
+
+    // if type object(array) and value must be from enum
+    if (typeof data[key] === "object" && field.enum) {
+      const every = data[key].every((fld) => field.enum.includes(fld));
+
+      if (!every) {
+        throw new Error(`${key} must be one of this: ${field.enum}`);
+      }
+    }
+
+    // check minLength
+    if (field.minLength && data[key]?.length < field.minLength) {
+      throw new Error(`${key} must be at least ${field.minLength} character`);
+    }
+
+    // check maxLength
+    if (field.maxLength && data[key]?.length > field.maxLength) {
+      throw new Error(`${key} must be at most ${field.maxLength} character`);
+    }
+
+    // check the ref
+    // if(field.ref && )
+
+    if (
+      field.validation &&
+      data[key] &&
+      !field.validation?.function(data[key])
+    ) {
+      throw new Error(`Enter proper value for ${key}.`);
+    }
+
+    // check array type data
   }
 };
 
-// check whether password is valid or not
-// min 6 char with 1-lowercase, 1-uppercase, 1-special char, 1-digit
-exports.validate_password = async (ctx, next) => {
-  try {
-    const { password } = ctx.request.body;
+exports.validateUpdateData = (data, collection) => {
+  if (!data) throw new Error("Please provide data to the validateInsertData.");
 
-    const passwordValidate = String(password).match(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d(?=.*@$!%*?&)]{8,16}$/
-    );
-    ctx.assert(
-      passwordValidate,
-      400,
-      "Password should contain atleast 8 char with uppercase, lowercase, digit & special character."
-    );
+  const inputKeys = Object.keys(data);
+  for (let key of inputKeys) {
+    if (key === "_id") continue;
 
-    await next();
-  } catch (error) {
-    sendResponce({ ctx, statusCode: 400, error: error.message });
-  }
-};
+    const field = collection[key];
+    if (!field) throw new Error(`Please provide valid value of ${key}.`);
 
-// check whether username is valid or not
-// min 7-char
-exports.validate_username = async (ctx, next) => {
-  try {
-    const { username } = ctx.request.body;
+    // type objectId -> validation
+    if (field.type === "objectId") {
+      if (!isValidObjectId(data[key].toString()))
+        throw new Error(`Enter valid type of objectId in ${key}`);
+      data[key] = new ObjectId(data[key]);
+      continue;
+    }
 
-    const usernameValidate = String(username).match(
-      /^[A-Za-z][A-Za-z0-9_]{7,29}$/
-    );
+    // type date -> validation
+    if (field.type === "date") {
+      if (data[key] instanceof Date) continue;
+      throw new Error(`Enter valid type of date in ${key}`);
+    }
 
-    ctx.assert(usernameValidate, 400, "Username should be min 7 character");
+    // check the type
+    if (inputKeys.includes(key) && typeof data[key] !== field.type)
+      throw new Error(`Enter valid type of ${key}`);
 
-    await next();
-  } catch (error) {
-    sendResponce({ ctx, statusCode: 400, error: error.message });
+    // check enum type data
+    if (
+      typeof data[key] === "string" &&
+      field.enum &&
+      !field.enum.includes(data[key])
+    ) {
+      throw new Error(`${key} must be one of this: ${field.enum}`);
+    }
+
+    // call function which is define inside model
+    if (
+      field.validation &&
+      data[key] &&
+      !field.validation?.function(data[key])
+    ) {
+      throw new Error(`Enter proper value for ${key}.`);
+    }
+
+    // check minLength
+    if (field.minLength && data[key]?.length < field.minLength)
+      throw new Error(`${key} must be at least ${field.minLength} character`);
+
+    // check maxLength
+    if (field.maxLength && data[key]?.length > field.maxLength)
+      throw new Error(`${key} must be at most ${field.maxLength} character`);
   }
 };

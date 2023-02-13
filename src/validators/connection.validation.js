@@ -3,13 +3,13 @@ const { ObjectId } = require("mongodb");
 const { Connections } = require("../models/Connections");
 const { sendResponce } = require("../utils/sendResponce");
 const { isValidObjectId } = require("../utils/validation_utils");
-const { validateInsertData } = require("./validateInsertData");
+const { validateInsertData } = require("./generalValidation");
 
 exports.validateConnection = async (ctx, next) => {
   try {
-    let { pageId } = ctx.request.body;
+    let { pageId } = ctx.params;
     if (!isValidObjectId(pageId)) {
-      throw new Error("Enter valid obejctId");
+      throw new Error("Enter valid pageId.");
     }
 
     ctx.request.body.pageId = new ObjectId(pageId);
@@ -34,17 +34,16 @@ exports.validateConnection = async (ctx, next) => {
 
     await next();
   } catch (error) {
-    console.log(error)
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };
 
 exports.checkConnectionExists = async (ctx, next) => {
   try {
-    const { pageId } = ctx.request.body;
+    const { pageId } = ctx.params;
 
     if (!isValidObjectId(pageId)) {
-      throw new Error("Enter valid obejctId");
+      throw new Error("Enter valid pageId");
     }
 
     const countConnection = await ctx.db

@@ -4,8 +4,8 @@ const { getDB } = require("../DB/connectDB");
 const { Posts } = require("../models/Posts");
 const { sendResponce } = require("../utils/sendResponce");
 const { isValidObjectId } = require("../utils/validation_utils");
-const { validateInsertData } = require("./validateInsertData");
-const { validateUpdateData } = require("./validateUpdateData");
+const { validateInsertData, validateUpdateData } = require("./generalValidation");
+
 
 exports.validateInsertPost = async (ctx, next) => {
   try {
@@ -14,7 +14,6 @@ exports.validateInsertPost = async (ctx, next) => {
 
     ctx.request.body.authorId = new ObjectId(ctx._id);
     validateInsertData(ctx.request.body, Posts);
-
     // Check if page exists or not & user is owner of that page
     if (pageId) {
       const page = await ctx.db
@@ -76,7 +75,7 @@ exports.validateUpdatePost = async (ctx, next) => {
     const postId = ctx.params.postId;
     const { description, type, imageLinks, videoLinks } =
       ctx.request.body;
-    ctx.assert(isValidObjectId(postId), 400, "Please enter valid objectId");
+    ctx.assert(isValidObjectId(postId), 400, "Please enter valid postId");
 
     validateUpdateData(ctx.request.body, Posts);
 

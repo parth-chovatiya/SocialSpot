@@ -174,7 +174,7 @@ exports.fetchUsersPages = async (ctx) => {
   try {
     let userId = ctx.params.userId;
     if (userId === "my") userId = ctx._id;
-    ctx.assert(isValidObjectId(userId.toString()), 400, "Enter valid objectId");
+    ctx.assert(isValidObjectId(userId.toString()), 400, "Enter valid userId.");
 
     const user = await ctx.db.collection("Users").findOne(
       { _id: new ObjectId(userId), isVerified: true },

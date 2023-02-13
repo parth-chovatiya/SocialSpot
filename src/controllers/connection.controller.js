@@ -3,26 +3,23 @@ const { ObjectId } = require("mongodb");
 const { followPage, unfollowPage } = require("../queries/connection.queries");
 const { sendResponce } = require("../utils/sendResponce");
 
-// @route   POST /api/v1/connection/followPage
+// @route   POST /api/v1/connection/followPage/:pageId
 // @desc    Follow this page
 // @access  Private
 exports.followPage = async (ctx) => {
   try {
-    const Connections = ctx.db.collection("Connections");
-
     const follow = await followPage({
-      Connections,
+      Connections: ctx.db.collection("Connections"),
       newData: ctx.request.body,
     });
 
     sendResponce({
       ctx,
       statusCode: 200,
-      message: "You followed page.",
+      message: "You are now following this page.",
       follow,
     });
   } catch (error) {
-    console.log("follow.contoller", error);
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,
@@ -31,17 +28,16 @@ exports.followPage = async (ctx) => {
   }
 };
 
-// @route   POST /api/v1/connection/unfollowPage
+// @route   POST /api/v1/connection/unfollowPage/:pageId
 // @desc    Unfollow this page
 // @access  Private
 exports.unfollowPage = async (ctx) => {
   try {
-    const Connections = ctx.db.collection("Connections");
-
+    const { pageId } = ctx.params;
     const unfollow = await unfollowPage({
-      Connections,
+      Connections: ctx.db.collection("Connections"),
       filter: {
-        pageId: new ObjectId(ctx.request.body.pageId),
+        pageId: new ObjectId(pageId),
         userId: new ObjectId(ctx._id),
       },
     });
@@ -49,11 +45,10 @@ exports.unfollowPage = async (ctx) => {
     sendResponce({
       ctx,
       statusCode: 200,
-      message: "You unfollowed page.",
+      message: "You unfollowed this page.",
       unfollow,
     });
   } catch (error) {
-    console.log("unfollow.contoller", error);
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,

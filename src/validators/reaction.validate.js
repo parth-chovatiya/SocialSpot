@@ -2,9 +2,8 @@ const { ObjectId } = require("bson");
 
 const { Reactions } = require("../models/Reactions");
 const { sendResponce } = require("../utils/sendResponce");
-const { isValidObjectId } = require("../utils/validation_utils");
+const { validateInsertData } = require("./generalValidation");
 const { isPostExists } = require("./post.validation");
-const { validateInsertData } = require("./validateInsertData");
 
 exports.validateLike = async (ctx, next) => {
   try {

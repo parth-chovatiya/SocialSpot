@@ -3,8 +3,8 @@ const { ObjectId } = require("mongodb");
 const { Friends } = require("../models/Friends");
 const { sendResponce } = require("../utils/sendResponce");
 const { isValidObjectId } = require("../utils/validation_utils");
+const { validateInsertData } = require("./generalValidation");
 const { isUserExists } = require("./user.validation");
-const { validateInsertData } = require("./validateInsertData");
 
 exports.validateFriend = async (ctx, next) => {
   try {
@@ -12,7 +12,7 @@ exports.validateFriend = async (ctx, next) => {
     const receiverId = new ObjectId(ctx.params.friendId);
 
     if (!isValidObjectId(ctx.params.friendId)) {
-      throw new Error("Enter valid obejctId");
+      throw new Error("Enter valid friendId");
     }
     ctx.request.body.senderId = senderId;
     ctx.request.body.receiverId = receiverId;

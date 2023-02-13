@@ -2,9 +2,9 @@ const { ObjectId } = require("mongodb");
 
 const { Permissions } = require("../models/Permissions");
 const { sendResponce } = require("../utils/sendResponce");
+const { validateInsertData } = require("./generalValidation");
 const { isPageExists } = require("./page.validation");
 const { isUserExists } = require("./user.validation");
-const { validateInsertData } = require("./validateInsertData");
 
 exports.validatePermission = async (ctx, next) => {
   try {

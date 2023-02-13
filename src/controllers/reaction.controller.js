@@ -24,7 +24,12 @@ exports.like = async (ctx) => {
       );
 
     console.log(ctx.request.body);
-    sendResponce({ ctx, statusCode: 201, message: "Reaction saved", reaction });
+    sendResponce({
+      ctx,
+      statusCode: 201,
+      message: "Reaction saved",
+      reaction: reaction.value,
+    });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
@@ -59,7 +64,7 @@ exports.unlike = async (ctx) => {
       ctx,
       statusCode: 200,
       message: "Reaction deleted",
-      reaction,
+      reaction: reaction.value,
     });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });

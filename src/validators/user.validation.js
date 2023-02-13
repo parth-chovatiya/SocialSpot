@@ -2,15 +2,16 @@ const { ObjectId } = require("mongodb");
 
 const { sendResponce } = require("../utils/sendResponce");
 const { Users } = require("../models/Users");
-const { validateInsertData } = require("./validateInsertData");
-const { validateUpdateData } = require("./validateUpdateData");
 const { isValidEmail, isValidPassword } = require("../utils/validation_utils");
 const { getDB } = require("../DB/connectDB");
+const {
+  validateInsertData,
+  validateUpdateData,
+} = require("./generalValidation");
 
 exports.registerValidation = async (ctx, next) => {
   try {
     const { username, email, birthDate } = ctx.request.body;
-    const User = 3;
 
     if (birthDate) ctx.request.body.birthDate = new Date(birthDate);
 
@@ -20,6 +21,11 @@ exports.registerValidation = async (ctx, next) => {
     const user = await ctx.db.collection("Users").findOne({
       $or: [{ username }, { email }],
     });
+    // const user = await getDB()
+    //   .collection("Users")
+    //   .findOne({
+    //     $or: [{ username }, { email }],
+    //   });
 
     ctx.assert(
       user?.username !== username,

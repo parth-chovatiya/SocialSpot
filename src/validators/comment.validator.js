@@ -4,8 +4,10 @@ const { getDB } = require("../DB/connectDB");
 const { Comments } = require("../models/Comments");
 const { sendResponce } = require("../utils/sendResponce");
 const { isValidObjectId } = require("../utils/validation_utils");
-const { validateInsertData } = require("./validateInsertData");
-const { validateUpdateData } = require("./validateUpdateData");
+const {
+  validateInsertData,
+  validateUpdateData,
+} = require("./generalValidation");
 
 exports.validateInsertComment = async (ctx, next) => {
   try {
@@ -46,7 +48,7 @@ exports.validateUpdateComment = async (ctx, next) => {
     ctx.assert(
       isValidObjectId(commentId),
       400,
-      "Enter valid commentId in parameter."
+      "Enter valid commentId."
     );
 
     if (ctx.request.body.postId) delete ctx.request.body.postId;
