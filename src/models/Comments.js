@@ -1,4 +1,8 @@
 exports.Comments = {
+  _id: {
+    type: "objectId",
+    default: null,
+  },
   postId: {
     type: "objectId",
     ref: "Posts",

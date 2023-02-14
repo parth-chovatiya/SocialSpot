@@ -91,7 +91,6 @@ exports.friendRequests = async (ctx) => {
     const _id = new ObjectId(ctx._id);
 
     const Friend = ctx.db.collection("Friends");
-
     const friendRequest = await fetchFriendRequestsQuery({
       Friend,
       filter: { _id },
@@ -132,7 +131,11 @@ exports.cancelFriendRequest = async (ctx) => {
 
     sendResponce({ ctx, statusCode: 200, friendRequest });
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, message: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
   }
 };
 

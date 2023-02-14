@@ -40,7 +40,6 @@ exports.registerValidation = async (ctx, next) => {
 
     await next();
   } catch (error) {
-    console.log(error);
     sendResponce({ ctx, statusCode: 400, error: error.message });
   }
 };
@@ -83,8 +82,8 @@ exports.updateProfileValidation = async (ctx, next) => {
   }
 };
 
-exports.isUserExists = (_id) =>
-  getDB().collection("Users").countDocuments({ _id, isVerified: true });
+exports.isUserExists = async (_id) =>
+  (await getDB()).collection("Users").countDocuments({ _id, isVerified: true });
 
 // exports.setProfileValidation = async (ctx, next) => {
 //   try {

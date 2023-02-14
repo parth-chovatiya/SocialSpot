@@ -6,6 +6,10 @@ const {
 } = require("../utils/validation_utils");
 
 exports.Users = {
+  _id: {
+    type: "objectId",
+    default: null,
+  },
   username: {
     type: "string",
     unique: true,

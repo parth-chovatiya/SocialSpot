@@ -23,12 +23,11 @@ exports.like = async (ctx) => {
         { returnDocuments: "after", upsert: true }
       );
 
-    console.log(ctx.request.body);
     sendResponce({
       ctx,
       statusCode: 201,
       message: "Reaction saved",
-      reaction: reaction.value,
+      reaction: ctx.request.body,
     });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });

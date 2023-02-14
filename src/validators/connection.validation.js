@@ -34,7 +34,11 @@ exports.validateConnection = async (ctx, next) => {
 
     await next();
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, message: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
   }
 };
 

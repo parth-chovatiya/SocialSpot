@@ -99,7 +99,7 @@ exports.checkUpdatePermission = async (ctx, next) => {
       ])
       .toArray();
 
-    ctx.assert(post.length, 404, "Post not found.");
+    ctx.assert(post.length, 404, "Post not found..");
 
     const permission = await ctx.db.collection("Permissions").findOne({
       pageId: new ObjectId(post[0].pageId),
@@ -123,8 +123,11 @@ exports.checkUpdatePermission = async (ctx, next) => {
 
     await next();
   } catch (error) {
-    console.log(error);
-    sendResponce({ ctx, statusCode: 400, error: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      error: error.message,
+    });
   }
 };
 
@@ -201,7 +204,10 @@ exports.checkDeletePermission = async (ctx, next) => {
 
     await next();
   } catch (error) {
-    console.log(error);
-    sendResponce({ ctx, statusCode: 400, error: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      error: error.message,
+    });
   }
 };

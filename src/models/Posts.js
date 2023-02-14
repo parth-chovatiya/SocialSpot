@@ -1,4 +1,8 @@
 exports.Posts = {
+  _id: {
+    type: "objectId",
+    default: null,
+  },
   description: {
     type: "string",
     maxLength: 250,

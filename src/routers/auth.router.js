@@ -18,6 +18,6 @@ router.post("/register", registerValidation, register);
 router.post("/login", loginValidation, login);
 
 // verify email address
-router.patch("/verifyEmail/:id", verifyEmail);
+router.get("/verifyEmail/:id", verifyEmail);
 
 module.exports = router;

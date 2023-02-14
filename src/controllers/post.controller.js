@@ -15,7 +15,7 @@ const { isValidObjectId } = require("../utils/validation_utils");
 // @access  Private
 exports.createPost = async (ctx) => {
   try {
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
     const post = await ctx.db.collection("Posts").insertOne(ctx.request.body);
 
     if (!ctx.request.body.isApproved) {

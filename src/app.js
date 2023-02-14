@@ -2,20 +2,26 @@ const Koa = require("koa");
 
 const bodyParser = require("koa-bodyparser");
 
-const { connectDB } = require("./DB/connectDB");
+const { connectDB, getDB } = require("./DB/connectDB");
 const router = require("./routers/index.router");
 
 const app = new Koa();
 
 app.use(bodyParser());
 
-connectDB(function (error, client) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Database is connected.");
-    app.context.db = client;
-  }
+// connectDB(function (error, client) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("Database is connected.");
+//     app.context.db = client;
+//   }
+// });
+
+app.use(async (ctx, next) => {
+  // app.context.db = await connectDB();
+  app.context.db = await getDB();
+  await next();
 });
 
 // app.use(async (ctx) => {

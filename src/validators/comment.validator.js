@@ -45,11 +45,7 @@ exports.validateUpdateComment = async (ctx, next) => {
   try {
     const { commentId } = ctx.params;
 
-    ctx.assert(
-      isValidObjectId(commentId),
-      400,
-      "Enter valid commentId."
-    );
+    ctx.assert(isValidObjectId(commentId), 400, "Enter valid commentId.");
 
     if (ctx.request.body.postId) delete ctx.request.body.postId;
     if (ctx.request.body.parentId) delete ctx.request.body.parentId;
@@ -75,7 +71,7 @@ exports.validateUpdateComment = async (ctx, next) => {
   }
 };
 
-// exports.isCommentExists = (commentId) =>
-//   getDB()
+// exports.isCommentExists = async (commentId) =>
+//   (await getDB())
 //     .collection("Comments")
 //     .findOne({ _id: new ObjectId(commentId) });

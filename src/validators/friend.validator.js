@@ -16,9 +16,9 @@ exports.validateFriend = async (ctx, next) => {
     }
     ctx.request.body.senderId = senderId;
     ctx.request.body.receiverId = receiverId;
-    
+
     validateInsertData(ctx.request.body, Friends);
-    
+
     // User can't send friend request to them self
     ctx.assert(
       senderId.toString() !== receiverId.toString(),
@@ -40,7 +40,6 @@ exports.validateFriend = async (ctx, next) => {
       ],
     });
     ctx.assert(!isExists, 200, "Friend request already sended.");
-
 
     await next();
   } catch (error) {
@@ -68,7 +67,7 @@ exports.isFriendRequestSended = async (ctx, next) => {
         { requestAccepted: false },
       ],
     });
-    ctx.assert(isExists, 400, "No Friend Request Found..");
+    ctx.assert(isExists, 404, "No Friend Request Found..");
 
     await next();
   } catch (error) {

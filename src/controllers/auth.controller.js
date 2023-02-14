@@ -27,6 +27,7 @@ exports.register = async (ctx) => {
       token,
     });
   } catch (error) {
+    console.log(error);
     sendResponce({
       ctx,
       statusCode: 400,

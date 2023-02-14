@@ -43,6 +43,7 @@ exports.validateLike = async (ctx, next) => {
 
     await next();
   } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

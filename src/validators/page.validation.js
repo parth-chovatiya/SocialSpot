@@ -3,8 +3,10 @@ const { ObjectId } = require("mongodb");
 const { getDB } = require("../DB/connectDB");
 const { Pages } = require("../models/Page");
 const { sendResponce } = require("../utils/sendResponce");
-const { validateInsertData, validateUpdateData } = require("./generalValidation");
-
+const {
+  validateInsertData,
+  validateUpdateData,
+} = require("./generalValidation");
 
 exports.validateInsertPage = async (ctx, next) => {
   try {
@@ -13,7 +15,11 @@ exports.validateInsertPage = async (ctx, next) => {
 
     await next();
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, message: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
   }
 };
 
@@ -33,8 +39,12 @@ exports.validateUpdatePage = async (ctx, next) => {
 
     await next();
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, message: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
   }
 };
 
-exports.isPageExists = (_id) => getDB().collection("Pages").findOne({ _id });
+exports.isPageExists = async(_id) => (await getDB()).collection("Pages").findOne({ _id });

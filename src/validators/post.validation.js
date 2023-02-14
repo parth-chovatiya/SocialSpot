@@ -1,11 +1,13 @@
 const { ObjectId } = require("mongodb");
-
 const { getDB } = require("../DB/connectDB");
+
 const { Posts } = require("../models/Posts");
 const { sendResponce } = require("../utils/sendResponce");
 const { isValidObjectId } = require("../utils/validation_utils");
-const { validateInsertData, validateUpdateData } = require("./generalValidation");
-
+const {
+  validateInsertData,
+  validateUpdateData,
+} = require("./generalValidation");
 
 exports.validateInsertPost = async (ctx, next) => {
   try {
@@ -73,8 +75,7 @@ exports.validateInsertPost = async (ctx, next) => {
 exports.validateUpdatePost = async (ctx, next) => {
   try {
     const postId = ctx.params.postId;
-    const { description, type, imageLinks, videoLinks } =
-      ctx.request.body;
+    const { description, type, imageLinks, videoLinks } = ctx.request.body;
     ctx.assert(isValidObjectId(postId), 400, "Please enter valid postId");
 
     validateUpdateData(ctx.request.body, Posts);
@@ -97,6 +98,7 @@ exports.validateUpdatePost = async (ctx, next) => {
 
     await next();
   } catch (error) {
+    console.log(error);
     sendResponce({
       ctx,
       statusCode: error.statusCode || 400,
@@ -105,7 +107,5 @@ exports.validateUpdatePost = async (ctx, next) => {
   }
 };
 
-exports.isPostExists = (postId) =>
-  getDB()
-    .collection("Posts")
-    .findOne({ _id: new ObjectId(postId) });
+exports.isPostExists = async (postId) =>
+  (await getDB()).collection("Posts").findOne({ _id: new ObjectId(postId) });

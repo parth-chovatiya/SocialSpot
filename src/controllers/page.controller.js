@@ -20,7 +20,7 @@ exports.createPage = async (ctx) => {
       newData: ctx.request.body,
     });
 
-    sendResponce({ ctx, statusCode: 200, message: "Page created.", page });
+    sendResponce({ ctx, statusCode: 201, message: "Page created.", page });
   } catch (error) {
     sendResponce({
       ctx,
@@ -55,7 +55,7 @@ exports.updatePage = async (ctx) => {
   } catch (error) {
     sendResponce({
       ctx,
-      statusCode: 400,
+      statusCode: error.statusCode || 400,
       message: error.message,
     });
   }
@@ -82,9 +82,13 @@ exports.deletePage = async (ctx) => {
       });
     }
 
-    sendResponce({ ctx, statusCode: 400, message: "Page deleted.", page });
+    sendResponce({ ctx, statusCode: 200, message: "Page deleted.", page });
   } catch (error) {
-    sendResponce({ ctx, statusCode: 400, message: error.message });
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message,
+    });
   }
 };
 
@@ -136,7 +140,7 @@ exports.givePermission = async (ctx) => {
 // @access  Private
 exports.removePermission = async (ctx) => {
   try {
-    const { pageId, userId, role } = ctx.request.body;
+    const { pageId, userId, role, permission } = ctx.request.body;
 
     delete ctx.request.body.role;
 
@@ -145,7 +149,7 @@ exports.removePermission = async (ctx) => {
         pageId: new ObjectId(pageId),
         userId: new ObjectId(userId),
       },
-      { $pull: { role: role } },
+      { $pull: { role: role, permissions: permission } },
       { returnDocument: "after" }
     );
 
@@ -304,6 +308,7 @@ exports.followedPages = async (ctx) => {
 
     sendResponce({ ctx, statusCode: 200, message: "Pages fetched.", pages });
   } catch (error) {
+    console.log(error);
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
 };

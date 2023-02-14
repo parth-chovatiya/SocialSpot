@@ -8,7 +8,7 @@ exports.addComment = async (ctx) => {
   try {
     const Comments = ctx.db.collection("Comments");
     const comment = await Comments.insertOne(ctx.request.body);
-    sendResponce({ ctx, statusCode: 200, message: "Comment Added", comment });
+    sendResponce({ ctx, statusCode: 201, message: "Comment Added", comment });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }
@@ -53,11 +53,11 @@ exports.deleteComment = async (ctx) => {
       return sendResponce({
         ctx,
         statusCode: 404,
-        messaeg: "Comment not found",
+        message: "Comment not found",
       });
     }
 
-    sendResponce({ ctx, statusCode: 400, messaeg: "Comment Deleted" });
+    sendResponce({ ctx, statusCode: 200, messaeg: "Comment Deleted" });
   } catch (error) {
     sendResponce({ ctx, statusCode: 400, message: error.message });
   }

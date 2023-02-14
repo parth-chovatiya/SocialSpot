@@ -1,102 +1,106 @@
 const request = require("supertest");
-const db = require("../tests/db");
+const jwt = require("jsonwebtoken");
+const { ObjectId } = require("mongodb");
 
 const app = require("../src/app");
+const {
+  connect,
+  userOne,
+  userOneId,
+  tokenUserOne,
+  setupDatabase,
+  userTwo,
+} = require("./db");
 
-// beforeAll(async () => await db.connect());
+beforeAll(async () => {
+  const db = await connect();
+  db.collection("Users").drop();
+});
 // beforeEach(async () => await db.clear());
 // afterAll(async () => await db.close());
 
-// test("Fetch all posts", async () => {
-//   const responce = await request(app)
-//     .get("/api/v1/post/fetchPublic")
-//     .send()
-//     .expect(200);
-// });
+const users = [
+  {
+    user: userOne,
+    create: 1,
+    login: 1,
+    verify: 1,
+  },
+  {
+    user: userTwo,
+    create: 1,
+    login: 1,
+    verify: 1,
+  },
+];
 
-test("Hello world works", async () => {
-  const response = await request(app.callback()).get("/api/v1/");
-  expect(response.status).toBe(200);
-  expect(response.text).toBe("Hello World...");
-});
+// const createUser = [userOne, userTwo];
+// const loginUser = [userOne, userTwo];
+// const verifyEmail = [userOne, userTwo];
 
-describe("POST /api/v1/auth/register", () => {
-  test("Create new user", async () => {
-    const responce = await request(app.callback())
-      .post("/api/v1/auth/register/")
-      .send({
-        username: "jay_maniya_1",
-        firstName: "Parth",
-        email: "parth1_1@gmail.com",
-        gender: "male",
-        password: "MyPass777!",
+describe("/api/v1/auth/", () => {
+  for (let obj of users) {
+    const user = obj.user;
+    // User Registration
+    describe("Create new user", () => {
+      test("Create new user", async () => {
+        const responce = await request(app.callback())
+          .post("/api/v1/auth/register/")
+          .send(user);
+        expect(responce.status).toBe(201);
+
+        console.log(responce.status);
+        console.log(responce.error);
+
+        const _id = new ObjectId(responce.body.insertedUser.insertedId);
+        const registeredUser = await app.context.db
+          .collection("Users")
+          .findOne({ _id });
+        expect(registeredUser).not.toBeNull();
       });
-    // console.log(responce.error);
-    // expect(responce.status).toBe(201);
-  });
 
-  // test("It should create a new user", (done) => {
-  //     // Create a new user
-  //   agent
-  //     .post("/api/v1/auth/register")
-  //     .send({ email: "hello@world.com", password: "123456" })
-  //     .expect(201)
-  //     .then((res) => {
-  //       expect(res.body.user).toBeTruthy();
-  //       done();
-  //     });
-  // });
+      test("Can't create same user again", async () => {
+        const responce = await request(app.callback())
+          .post("/api/v1/auth/register/")
+          .send(user);
 
-  test("Hello world works", async () => {
-    const response = await request(app.callback()).get("/api/v1/");
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("Hello World...");
-  });
+        expect(responce.status).toBe(400);
+      });
+    });
 
-  // test("Fetch all posts", async() => {
-  //   const response = await request(app.callback()).get('/api/v1/post/fetchPublic');
-  //   expect(response.status).toBe(200);
+    // User Authentication
+    describe("Login User", () => {
+      // Login User
+      test("Login User", async () => {
+        const responceUser1 = await request(app.callback())
+          .post("/api/v1/auth/login/")
+          .send({
+            email: user.email,
+            password: user.password,
+          });
+        expect(responceUser1.status).toBe(200);
+      });
 
-  // expect(response.text).toBe('Hello World...');
-  // agent
-  //   .get("/api/v1/post/fetchPublic")
-  //   .send()
-  //   .then((res) => {
-  //     expect(res.body).toBeTruthy();
-  //     done();
-  //   });
-  // });
+      test("Can't Login User", async () => {
+        const responce = await request(app.callback())
+          .post("/api/v1/auth/login/")
+          .send({
+            email: user.email,
+            password: user.password + ".",
+          });
+        expect(responce.status).toBe(400);
+      });
+    });
+
+    // Verify Email
+    describe("Verify Email", () => {
+      // Verify Email
+      test("Verify Email", async () => {
+        const responce = await request(app.callback())
+          .get(`/api/v1/auth/verifyEmail/${user._id}/`)
+          .send();
+        expect(responce.status).toBe(200);
+      });
+    });
+  }
 });
-
-// register new user
-// test("Should signup a new user", async () => {
-//   const responce = await request(app)
-//     .post("/api/v1/auth/register")
-//     .send({
-//       name: "Parth",
-//       email: "parth1@gmail.com",
-//       password: "MyPass777!",
-//     })
-//     .expect(201);
-//   console.log(responce);
-
-// To verify the user
-// User is inserted or not in the database
-// Assert that the database was change correctly
-// const user = await User.findById(responce.body.user._id);
-// user not null
-// expect(user).not.toBeNull();
-
-// Assertion abouy the responce
-// Name is same or not
-// expect(responce.body.user.name).toBe("Parth");
-
-// expect(responce.body).toMatchObject({
-//   user: {
-//     name: "Parth",
-//     email: "parth1@gmail.com",
-//   },
-//   token: user.tokens[0].token,
-// });
-// expect(user.password).not.toBe("MyPass777!");
-// });

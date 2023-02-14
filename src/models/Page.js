@@ -1,4 +1,8 @@
 exports.Pages = {
+  _id: {
+    type: "objectId",
+    default: null,
+  },
   pageName: {
     type: "string",
     require: true,

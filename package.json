@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon ./src/index.js",
-    "test": "env-cmd -f ./config/test.env jest --watchAll --runInBand"
+    "test": "env-cmd -f ./config/test.env jest --runInBand --forceExit ./tests/main.test.js",
+    "testInOrder": "env-cmd -f ./config/test.env jest user.test.js && jest post.test.js"
   },
   "keywords": [],
   "author": "",

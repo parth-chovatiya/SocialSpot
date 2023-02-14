@@ -45,7 +45,7 @@ router.post("/removePermission", checkAuth, removePermission);
 router.get("/user/:userId", checkAuth, fetchUsersPages);
 
 // fetch page with pageId
-router.get("/:pageId", fetchPage);
+router.get("/page/:pageId", fetchPage);
 
 // fetch all post publish requests
 router.get("/postPublishRequests", checkAuth, fetchAllPostPublishRequest);

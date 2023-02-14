@@ -1,99 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1676276816194" clover="3.2.0">
-  <project timestamp="1676276816194" name="All files">
-    <metrics statements="915" coveredstatements="327" conditionals="246" coveredconditionals="1" methods="95" coveredmethods="4" elements="1256" coveredelements="332" complexity="0" loc="915" ncloc="915" packages="10" files="48" classes="48"/>
+<coverage generated="1676368349846" clover="3.2.0">
+  <project timestamp="1676368349846" name="All files">
+    <metrics statements="926" coveredstatements="563" conditionals="256" coveredconditionals="94" methods="97" coveredmethods="46" elements="1279" coveredelements="703" complexity="0" loc="926" ncloc="926" packages="10" files="48" classes="48"/>
     <package name="src">
-      <metrics statements="14" coveredstatements="13" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="13" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="app.js" path="D:\NodeJs-Projects\SocialSpot\src\app.js">
-        <metrics statements="14" coveredstatements="13" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
+        <metrics statements="13" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="23" count="26" type="stmt"/>
+        <line num="24" count="26" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="43" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.DB">
-      <metrics statements="11" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
       <file name="connectDB.js" path="D:\NodeJs-Projects\SocialSpot\src\DB\connectDB.js">
-        <metrics statements="11" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
+        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="43" count="26" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="46" count="26" type="stmt"/>
+        <line num="61" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="327" coveredstatements="69" conditionals="59" coveredconditionals="0" methods="40" coveredmethods="0"/>
+      <metrics statements="327" coveredstatements="149" conditionals="63" coveredconditionals="8" methods="40" coveredmethods="14"/>
       <file name="auth.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\auth.controller.js">
-        <metrics statements="32" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
+        <metrics statements="33" coveredstatements="30" conditionals="4" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="84" count="1" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="98" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="99" count="0" type="stmt"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="43" count="3" type="stmt"/>
+        <line num="44" count="4" type="stmt"/>
+        <line num="45" count="4" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="61" count="4" type="stmt"/>
+        <line num="62" count="4" type="stmt"/>
+        <line num="65" count="2" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="74" count="2" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="89" count="2" type="stmt"/>
+        <line num="91" count="2" type="stmt"/>
+        <line num="97" count="2" type="stmt"/>
+        <line num="99" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="100" count="1" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
       </file>
       <file name="comment.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\comment.controller.js">
         <metrics statements="28" coveredstatements="6" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
@@ -101,7 +102,7 @@
         <line num="53" count="0" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
         <line num="62" count="0" type="stmt"/>
-        <line num="69" count="1" type="stmt"/>
+        <line num="69" count="3" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
         <line num="75" count="0" type="stmt"/>
@@ -109,15 +110,15 @@
       </file>
       <file name="connection.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\connection.controller.js">
         <metrics statements="14" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
@@ -126,16 +127,16 @@
       </file>
       <file name="friend.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\friend.controller.js">
         <metrics statements="54" coveredstatements="11" conditionals="4" coveredconditionals="0" methods="7" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
@@ -143,7 +144,7 @@
         <line num="51" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
+        <line num="71" count="3" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
         <line num="75" count="0" type="stmt"/>
@@ -151,21 +152,21 @@
         <line num="78" count="0" type="stmt"/>
         <line num="80" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
-        <line num="89" count="1" type="stmt"/>
+        <line num="89" count="3" type="stmt"/>
         <line num="90" count="0" type="stmt"/>
         <line num="91" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="95" count="0" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="107" count="0" type="stmt"/>
-        <line num="118" count="1" type="stmt"/>
+        <line num="118" count="3" type="stmt"/>
         <line num="119" count="0" type="stmt"/>
         <line num="120" count="0" type="stmt"/>
         <line num="122" count="0" type="stmt"/>
         <line num="131" count="0" type="stmt"/>
         <line num="133" count="0" type="stmt"/>
         <line num="135" count="0" type="stmt"/>
-        <line num="142" count="1" type="stmt"/>
+        <line num="142" count="3" type="stmt"/>
         <line num="143" count="0" type="stmt"/>
         <line num="144" count="0" type="stmt"/>
         <line num="145" count="0" type="stmt"/>
@@ -175,32 +176,32 @@
         <line num="161" count="0" type="stmt"/>
         <line num="168" count="0" type="stmt"/>
         <line num="175" count="0" type="stmt"/>
-        <line num="182" count="1" type="stmt"/>
+        <line num="182" count="3" type="stmt"/>
         <line num="183" count="0" type="stmt"/>
         <line num="184" count="0" type="stmt"/>
         <line num="194" count="0" type="stmt"/>
         <line num="201" count="0" type="stmt"/>
       </file>
       <file name="page.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\page.controller.js">
-        <metrics statements="93" coveredstatements="17" conditionals="15" coveredconditionals="0" methods="12" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
+        <metrics statements="93" coveredstatements="38" conditionals="19" coveredconditionals="2" methods="12" coveredmethods="4"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
         <line num="69" count="0" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
@@ -209,141 +210,140 @@
         <line num="78" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
         <line num="87" count="0" type="stmt"/>
-        <line num="94" count="1" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
+        <line num="98" count="3" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
-        <line num="101" count="0" type="stmt"/>
-        <line num="119" count="0" type="stmt"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="137" count="1" type="stmt"/>
-        <line num="138" count="0" type="stmt"/>
-        <line num="139" count="0" type="stmt"/>
-        <line num="141" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="141" count="3" type="stmt"/>
+        <line num="142" count="0" type="stmt"/>
         <line num="143" count="0" type="stmt"/>
-        <line num="152" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="153" count="0" type="stmt"/>
-        <line num="160" count="0" type="stmt"/>
-        <line num="162" count="0" type="stmt"/>
-        <line num="173" count="1" type="stmt"/>
-        <line num="174" count="0" type="stmt"/>
-        <line num="175" count="0" type="stmt"/>
-        <line num="176" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="177" count="0" type="stmt"/>
-        <line num="179" count="0" type="stmt"/>
-        <line num="189" count="0" type="stmt"/>
-        <line num="191" count="0" type="stmt"/>
-        <line num="196" count="0" type="stmt"/>
-        <line num="204" count="0" type="stmt"/>
-        <line num="208" count="1" type="stmt"/>
-        <line num="209" count="0" type="stmt"/>
-        <line num="210" count="0" type="stmt"/>
-        <line num="212" count="0" type="stmt"/>
-        <line num="214" count="0" type="stmt"/>
-        <line num="219" count="0" type="stmt"/>
-        <line num="226" count="0" type="stmt"/>
-        <line num="227" count="0" type="stmt"/>
-        <line num="234" count="1" type="stmt"/>
-        <line num="235" count="0" type="stmt"/>
-        <line num="236" count="0" type="stmt"/>
-        <line num="241" count="0" type="stmt"/>
-        <line num="248" count="0" type="stmt"/>
-        <line num="255" count="1" type="stmt"/>
-        <line num="256" count="0" type="stmt"/>
-        <line num="257" count="0" type="stmt"/>
-        <line num="259" count="0" type="stmt"/>
-        <line num="266" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="267" count="0" type="stmt"/>
-        <line num="274" count="0" type="stmt"/>
-        <line num="276" count="0" type="stmt"/>
-        <line num="283" count="1" type="stmt"/>
-        <line num="284" count="0" type="stmt"/>
-        <line num="285" count="0" type="stmt"/>
-        <line num="305" count="0" type="stmt"/>
-        <line num="307" count="0" type="stmt"/>
-        <line num="314" count="1" type="stmt"/>
-        <line num="315" count="0" type="stmt"/>
-        <line num="316" count="0" type="stmt"/>
-        <line num="343" count="0" type="stmt"/>
-        <line num="351" count="0" type="stmt"/>
-        <line num="352" count="0" type="stmt"/>
-        <line num="359" count="1" type="stmt"/>
-        <line num="360" count="0" type="stmt"/>
-        <line num="361" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="363" count="0" type="stmt"/>
+        <line num="145" count="0" type="stmt"/>
+        <line num="147" count="0" type="stmt"/>
+        <line num="156" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="164" count="0" type="stmt"/>
+        <line num="166" count="0" type="stmt"/>
+        <line num="177" count="3" type="stmt"/>
+        <line num="178" count="2" type="stmt"/>
+        <line num="179" count="2" type="stmt"/>
+        <line num="180" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="181" count="2" type="stmt"/>
+        <line num="183" count="2" type="stmt"/>
+        <line num="193" count="2" type="stmt"/>
+        <line num="195" count="2" type="stmt"/>
+        <line num="200" count="2" type="stmt"/>
+        <line num="208" count="0" type="stmt"/>
+        <line num="212" count="3" type="stmt"/>
+        <line num="213" count="1" type="stmt"/>
+        <line num="214" count="1" type="stmt"/>
+        <line num="216" count="1" type="stmt"/>
+        <line num="218" count="1" type="stmt"/>
+        <line num="223" count="1" type="stmt"/>
+        <line num="230" count="0" type="stmt"/>
+        <line num="231" count="0" type="stmt"/>
+        <line num="238" count="3" type="stmt"/>
+        <line num="239" count="0" type="stmt"/>
+        <line num="240" count="0" type="stmt"/>
+        <line num="245" count="0" type="stmt"/>
+        <line num="252" count="0" type="stmt"/>
+        <line num="259" count="3" type="stmt"/>
+        <line num="260" count="0" type="stmt"/>
+        <line num="261" count="0" type="stmt"/>
+        <line num="263" count="0" type="stmt"/>
+        <line num="270" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="271" count="0" type="stmt"/>
+        <line num="278" count="0" type="stmt"/>
+        <line num="280" count="0" type="stmt"/>
+        <line num="287" count="3" type="stmt"/>
+        <line num="288" count="0" type="stmt"/>
+        <line num="289" count="0" type="stmt"/>
+        <line num="309" count="0" type="stmt"/>
+        <line num="311" count="0" type="stmt"/>
+        <line num="318" count="3" type="stmt"/>
+        <line num="319" count="0" type="stmt"/>
+        <line num="320" count="0" type="stmt"/>
+        <line num="347" count="0" type="stmt"/>
+        <line num="355" count="0" type="stmt"/>
+        <line num="356" count="0" type="stmt"/>
+        <line num="363" count="3" type="stmt"/>
         <line num="364" count="0" type="stmt"/>
-        <line num="366" count="0" type="stmt"/>
-        <line num="377" count="0" type="stmt"/>
-        <line num="379" count="0" type="stmt"/>
+        <line num="365" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="367" count="0" type="stmt"/>
+        <line num="368" count="0" type="stmt"/>
+        <line num="370" count="0" type="stmt"/>
+        <line num="381" count="0" type="stmt"/>
+        <line num="383" count="0" type="stmt"/>
       </file>
       <file name="post.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\post.controller.js">
-        <metrics statements="59" coveredstatements="13" conditionals="23" coveredconditionals="0" methods="7" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="58" coveredstatements="49" conditionals="23" coveredconditionals="4" methods="7" coveredmethods="7"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="22" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
+        <line num="74" count="3" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
         <line num="87" count="0" type="stmt"/>
-        <line num="94" count="1" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="97" count="0" type="stmt"/>
-        <line num="99" count="0" type="stmt"/>
-        <line num="104" count="0" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
         <line num="111" count="0" type="stmt"/>
-        <line num="122" count="1" type="stmt"/>
-        <line num="123" count="0" type="stmt"/>
-        <line num="124" count="0" type="stmt"/>
-        <line num="125" count="0" type="stmt"/>
-        <line num="127" count="0" type="stmt"/>
-        <line num="133" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="122" count="3" type="stmt"/>
+        <line num="123" count="1" type="stmt"/>
+        <line num="124" count="1" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="127" count="1" type="stmt"/>
+        <line num="133" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="134" count="0" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
         <line num="149" count="0" type="stmt"/>
-        <line num="162" count="1" type="stmt"/>
-        <line num="163" count="0" type="stmt"/>
-        <line num="164" count="0" type="stmt"/>
-        <line num="165" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="166" count="0" type="stmt"/>
-        <line num="168" count="0" type="stmt"/>
-        <line num="170" count="0" type="stmt"/>
-        <line num="176" count="0" type="stmt"/>
+        <line num="162" count="3" type="stmt"/>
+        <line num="163" count="2" type="stmt"/>
+        <line num="164" count="2" type="stmt"/>
+        <line num="165" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="166" count="2" type="stmt"/>
+        <line num="168" count="2" type="stmt"/>
+        <line num="170" count="2" type="stmt"/>
+        <line num="176" count="2" type="stmt"/>
         <line num="178" count="0" type="stmt"/>
-        <line num="189" count="1" type="stmt"/>
-        <line num="190" count="0" type="stmt"/>
-        <line num="191" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="193" count="0" type="stmt"/>
-        <line num="194" count="0" type="stmt"/>
-        <line num="196" count="0" type="stmt"/>
-        <line num="205" count="0" type="stmt"/>
+        <line num="189" count="3" type="stmt"/>
+        <line num="190" count="1" type="stmt"/>
+        <line num="191" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="193" count="1" type="stmt"/>
+        <line num="194" count="1" type="stmt"/>
+        <line num="196" count="1" type="stmt"/>
+        <line num="205" count="1" type="stmt"/>
         <line num="207" count="0" type="stmt"/>
       </file>
       <file name="reaction.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\reaction.controller.js">
         <metrics statements="23" coveredstatements="4" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
@@ -353,7 +353,7 @@
         <line num="26" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
@@ -367,23 +367,23 @@
       </file>
       <file name="user.controller.js" path="D:\NodeJs-Projects\SocialSpot\src\controllers\user.controller.js">
         <metrics statements="24" coveredstatements="6" conditionals="1" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
         <line num="55" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
+        <line num="66" count="3" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
         <line num="68" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="69" count="0" type="stmt"/>
@@ -394,36 +394,36 @@
       </file>
     </package>
     <package name="src.middlewares">
-      <metrics statements="67" coveredstatements="9" conditionals="22" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <metrics statements="67" coveredstatements="44" conditionals="24" coveredconditionals="10" methods="4" coveredmethods="4"/>
       <file name="checkAuth.js" path="D:\NodeJs-Projects\SocialSpot\src\middlewares\checkAuth.js">
-        <metrics statements="17" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
+        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="13" count="13" type="stmt"/>
+        <line num="14" count="13" type="stmt"/>
+        <line num="27" count="13" type="stmt"/>
+        <line num="28" count="13" type="stmt"/>
+        <line num="30" count="13" type="stmt"/>
+        <line num="31" count="12" type="stmt"/>
+        <line num="33" count="12" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
       </file>
       <file name="checkPermission.js" path="D:\NodeJs-Projects\SocialSpot\src\middlewares\checkPermission.js">
-        <metrics statements="50" coveredstatements="5" conditionals="22" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="12" count="0" type="stmt"/>
+        <metrics statements="50" coveredstatements="27" conditionals="24" coveredconditionals="10" methods="3" coveredmethods="3"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="11" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="12" count="1" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -437,319 +437,319 @@
         <line num="44" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
-        <line num="52" count="1" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="102" count="0" type="stmt"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="109" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
+        <line num="109" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="110" count="0" type="stmt"/>
-        <line num="112" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="113" count="0" type="stmt"/>
+        <line num="112" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="113" count="1" type="stmt"/>
         <line num="116" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="117" count="0" type="stmt"/>
         <line num="124" count="0" type="stmt"/>
         <line num="126" count="0" type="stmt"/>
         <line num="127" count="0" type="stmt"/>
-        <line num="132" count="1" type="stmt"/>
-        <line num="133" count="0" type="stmt"/>
-        <line num="134" count="0" type="stmt"/>
-        <line num="136" count="0" type="stmt"/>
-        <line num="180" count="0" type="stmt"/>
-        <line num="182" count="0" type="stmt"/>
-        <line num="187" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="132" count="3" type="stmt"/>
+        <line num="133" count="2" type="stmt"/>
+        <line num="134" count="2" type="stmt"/>
+        <line num="136" count="2" type="stmt"/>
+        <line num="180" count="2" type="stmt"/>
+        <line num="182" count="1" type="stmt"/>
+        <line num="187" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="188" count="0" type="stmt"/>
-        <line num="190" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="191" count="0" type="stmt"/>
+        <line num="190" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="191" count="1" type="stmt"/>
         <line num="194" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="195" count="0" type="stmt"/>
         <line num="202" count="0" type="stmt"/>
-        <line num="204" count="0" type="stmt"/>
-        <line num="205" count="0" type="stmt"/>
+        <line num="204" count="1" type="stmt"/>
+        <line num="205" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.models">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Comments.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Comments.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
       </file>
       <file name="Connections.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Connections.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
       </file>
       <file name="Friends.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Friends.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
       </file>
       <file name="Page.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Page.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
       </file>
       <file name="Permissions.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Permissions.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
       </file>
       <file name="Posts.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Posts.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
       </file>
       <file name="Reactions.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Reactions.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
       </file>
       <file name="Users.js" path="D:\NodeJs-Projects\SocialSpot\src\models\Users.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.queries">
-      <metrics statements="33" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="0"/>
+      <metrics statements="33" coveredstatements="25" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="5"/>
       <file name="connection.queries.js" path="D:\NodeJs-Projects\SocialSpot\src\queries\connection.queries.js">
         <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
       </file>
       <file name="friend.queries.js" path="D:\NodeJs-Projects\SocialSpot\src\queries\friend.queries.js">
         <metrics statements="8" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
-        <line num="94" count="1" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
         <line num="102" count="0" type="stmt"/>
       </file>
       <file name="page.queries.js" path="D:\NodeJs-Projects\SocialSpot\src\queries\page.queries.js">
-        <metrics statements="10" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
+        <metrics statements="10" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
-        <line num="73" count="1" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
       </file>
       <file name="post.queries.js" path="D:\NodeJs-Projects\SocialSpot\src\queries\post.queries.js">
-        <metrics statements="11" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="91" count="1" type="stmt"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="278" count="1" type="stmt"/>
-        <line num="279" count="0" type="stmt"/>
-        <line num="280" count="0" type="stmt"/>
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="278" count="3" type="stmt"/>
+        <line num="279" count="2" type="stmt"/>
+        <line num="280" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.routers">
       <metrics statements="103" coveredstatements="103" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="auth.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\auth.router.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
       </file>
       <file name="comment.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\comment.router.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
       </file>
       <file name="connection.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\connection.router.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
       </file>
       <file name="friend.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\friend.router.js">
         <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="54" count="3" type="stmt"/>
+        <line num="56" count="3" type="stmt"/>
       </file>
       <file name="index.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\index.router.js">
         <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="8" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="25" count="24" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
       </file>
       <file name="page.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\page.router.js">
         <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="68" count="1" type="stmt"/>
-        <line num="70" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="30" count="3" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="54" count="3" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="68" count="3" type="stmt"/>
+        <line num="70" count="3" type="stmt"/>
       </file>
       <file name="post.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\post.router.js">
         <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="52" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="61" count="3" type="stmt"/>
+        <line num="63" count="3" type="stmt"/>
       </file>
       <file name="reaction.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\reaction.router.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
       </file>
       <file name="user.router.js" path="D:\NodeJs-Projects\SocialSpot\src\routers\user.router.js">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
-      <metrics statements="35" coveredstatements="16" conditionals="11" coveredconditionals="0" methods="11" coveredmethods="0"/>
+      <metrics statements="35" coveredstatements="34" conditionals="11" coveredconditionals="8" methods="11" coveredmethods="10"/>
       <file name="mongodb_utils.js" path="D:\NodeJs-Projects\SocialSpot\src\utils\mongodb_utils.js">
-        <metrics statements="8" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="17" count="11" type="stmt"/>
+        <line num="21" count="11" type="stmt"/>
+        <line num="23" count="11" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="37" count="11" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
       </file>
       <file name="pagination.js" path="D:\NodeJs-Projects\SocialSpot\src\utils\pagination.js">
-        <metrics statements="8" coveredstatements="2" conditionals="9" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="0" type="cond" truecount="0" falsecount="5"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="13" count="0" type="stmt"/>
+        <metrics statements="8" coveredstatements="8" conditionals="9" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="6" type="cond" truecount="4" falsecount="1"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="9" count="6" type="stmt"/>
+        <line num="10" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="13" count="6" type="stmt"/>
       </file>
       <file name="sendResponce.js" path="D:\NodeJs-Projects\SocialSpot\src\utils\sendResponce.js">
-        <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="10" count="26" type="stmt"/>
+        <line num="11" count="26" type="stmt"/>
       </file>
       <file name="token.js" path="D:\NodeJs-Projects\SocialSpot\src\utils\token.js">
-        <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
       </file>
       <file name="validation_utils.js" path="D:\NodeJs-Projects\SocialSpot\src\utils\validation_utils.js">
-        <metrics statements="11" coveredstatements="6" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="1" type="stmt"/>
+        <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="2" methods="5" coveredmethods="4"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="8" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="8" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="3" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.validators">
-      <metrics statements="303" coveredstatements="69" conditionals="152" coveredconditionals="0" methods="23" coveredmethods="0"/>
+      <metrics statements="301" coveredstatements="149" conditionals="156" coveredconditionals="66" methods="23" coveredmethods="8"/>
       <file name="comment.validator.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\comment.validator.js">
         <metrics statements="32" coveredstatements="8" conditionals="16" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
@@ -762,7 +762,7 @@
         <line num="32" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
@@ -778,12 +778,12 @@
       </file>
       <file name="connection.validation.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\connection.validation.js">
         <metrics statements="28" coveredstatements="7" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -797,7 +797,7 @@
         <line num="33" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
         <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -809,13 +809,13 @@
       </file>
       <file name="friend.validator.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\friend.validator.js">
         <metrics statements="39" coveredstatements="9" conditionals="12" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
@@ -832,7 +832,7 @@
         <line num="42" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
@@ -840,7 +840,7 @@
         <line num="71" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
         <line num="75" count="0" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
+        <line num="83" count="3" type="stmt"/>
         <line num="84" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
         <line num="86" count="0" type="stmt"/>
@@ -850,101 +850,101 @@
         <line num="103" count="0" type="stmt"/>
       </file>
       <file name="generalValidation.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\generalValidation.js">
-        <metrics statements="60" coveredstatements="4" conditionals="82" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="60" coveredstatements="36" conditionals="82" coveredconditionals="49" methods="3" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="7" type="cond" truecount="1" falsecount="1"/>
         <line num="8" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="17" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="25" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="14" count="105" type="stmt"/>
+        <line num="17" count="105" type="cond" truecount="4" falsecount="0"/>
+        <line num="18" count="61" type="stmt"/>
+        <line num="19" count="61" type="stmt"/>
+        <line num="25" count="44" type="cond" truecount="3" falsecount="1"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="30" count="44" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="10" type="cond" truecount="1" falsecount="1"/>
         <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="33" count="10" type="stmt"/>
+        <line num="34" count="10" type="stmt"/>
+        <line num="38" count="34" type="cond" truecount="1" falsecount="1"/>
         <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="40" count="0" type="stmt"/>
-        <line num="44" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="44" count="34" type="cond" truecount="3" falsecount="1"/>
         <line num="45" count="0" type="stmt"/>
-        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="49" count="34" type="cond" truecount="1" falsecount="1"/>
         <line num="54" count="0" type="stmt"/>
-        <line num="58" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="58" count="34" type="cond" truecount="2" falsecount="2"/>
         <line num="59" count="0" type="stmt"/>
         <line num="61" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="62" count="0" type="stmt"/>
-        <line num="67" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="67" count="34" type="cond" truecount="2" falsecount="2"/>
         <line num="68" count="0" type="stmt"/>
-        <line num="72" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="72" count="34" type="cond" truecount="3" falsecount="1"/>
         <line num="73" count="0" type="stmt"/>
-        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="79" count="34" type="cond" truecount="1" falsecount="1"/>
         <line num="84" count="0" type="stmt"/>
-        <line num="91" count="1" type="stmt"/>
-        <line num="92" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="96" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="98" count="0" type="stmt"/>
-        <line num="99" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="102" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="91" count="3" type="stmt"/>
+        <line num="92" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="94" count="2" type="stmt"/>
+        <line num="95" count="2" type="stmt"/>
+        <line num="96" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="98" count="5" type="stmt"/>
+        <line num="99" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="102" count="5" type="cond" truecount="1" falsecount="1"/>
         <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="104" count="0" type="stmt"/>
         <line num="105" count="0" type="stmt"/>
         <line num="106" count="0" type="stmt"/>
-        <line num="110" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="110" count="5" type="cond" truecount="1" falsecount="1"/>
         <line num="111" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="112" count="0" type="stmt"/>
-        <line num="116" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="116" count="5" type="cond" truecount="3" falsecount="1"/>
         <line num="117" count="0" type="stmt"/>
-        <line num="120" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="120" count="5" type="cond" truecount="1" falsecount="1"/>
         <line num="125" count="0" type="stmt"/>
-        <line num="129" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="129" count="5" type="cond" truecount="1" falsecount="1"/>
         <line num="134" count="0" type="stmt"/>
-        <line num="138" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="138" count="5" type="cond" truecount="2" falsecount="2"/>
         <line num="139" count="0" type="stmt"/>
-        <line num="142" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="142" count="5" type="cond" truecount="3" falsecount="1"/>
         <line num="143" count="0" type="stmt"/>
       </file>
       <file name="page.validation.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\page.validation.js">
-        <metrics statements="21" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
+        <metrics statements="21" coveredstatements="19" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
         <line num="40" count="1" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
       </file>
       <file name="permission.validation.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\permission.validation.js">
         <metrics statements="27" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
@@ -957,7 +957,7 @@
         <line num="32" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
@@ -967,56 +967,56 @@
         <line num="96" count="0" type="stmt"/>
       </file>
       <file name="post.validation.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\post.validation.js">
-        <metrics statements="40" coveredstatements="9" conditionals="26" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="18" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="40" coveredstatements="33" conditionals="26" coveredconditionals="16" methods="3" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="19" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="53" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="58" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="53" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="58" count="1" type="cond" truecount="3" falsecount="2"/>
         <line num="59" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="73" count="1" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="89" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="89" count="1" type="cond" truecount="2" falsecount="2"/>
         <line num="90" count="0" type="stmt"/>
-        <line num="94" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="94" count="1" type="cond" truecount="3" falsecount="2"/>
         <line num="95" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
-        <line num="108" count="1" type="stmt"/>
+        <line num="108" count="3" type="stmt"/>
         <line num="109" count="0" type="stmt"/>
       </file>
       <file name="reaction.validate.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\reaction.validate.js">
         <metrics statements="17" coveredstatements="6" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
@@ -1030,65 +1030,76 @@
         <line num="46" count="0" type="stmt"/>
       </file>
       <file name="user.validation.js" path="D:\NodeJs-Projects\SocialSpot\src\validators\user.validation.js">
-        <metrics statements="39" coveredstatements="10" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
+        <metrics statements="37" coveredstatements="23" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="2"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="16" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="49" count="4" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="56" count="4" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
-        <line num="61" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="63" count="0" type="stmt"/>
+        <line num="63" count="3" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
+        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="69" count="0" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
       </file>
     </package>
     <package name="tests">
-      <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="26" coveredstatements="26" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
       <file name="db.js" path="D:\NodeJs-Projects\SocialSpot\tests\db.js">
-        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="16" count="8" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
+        <metrics statements="26" coveredstatements="26" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="66" count="3" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="75" count="3" type="stmt"/>
+        <line num="76" count="3" type="stmt"/>
+        <line num="82" count="3" type="stmt"/>
+        <line num="87" count="3" type="stmt"/>
+        <line num="94" count="3" type="stmt"/>
       </file>
     </package>
   </project>
