@@ -97,6 +97,37 @@ exports.isBothFriend = async (ctx, next) => {
     });
     ctx.assert(!isExists, 400, "You are already friends.");
 
+    console.log(isExists);
+
+    await next();
+  } catch (error) {
+    sendResponce({
+      ctx,
+      statusCode: error.statusCode || 400,
+      message: error.message || "Something went wrong.",
+    });
+  }
+};
+
+exports.isBothFriendChat = async (ctx, next) => {
+  try {
+    const senderId = new ObjectId(ctx._id);
+    const receiverId = new ObjectId(ctx.params.friendId);
+
+    const isExists = await ctx.db.collection("Friends").findOne({
+      $and: [
+        {
+          $or: [
+            { $and: [{ senderId: senderId }, { receiverId: receiverId }] },
+            { $and: [{ senderId: receiverId }, { receiverId: senderId }] },
+          ],
+        },
+        { requestAccepted: true },
+      ],
+    });
+    console.log("isExists", senderId, receiverId, isExists);
+    ctx.assert(isExists, 400, "You are not friends.");
+
     await next();
   } catch (error) {
     sendResponce({

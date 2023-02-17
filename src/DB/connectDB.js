@@ -42,6 +42,7 @@ const getDB = async () => {
   // If instances is not created then we will create the DB instances and return it
   if (!db) {
     db = getDBInstance();
+    console.log("MongoDB connected");
   }
   return db;
 };

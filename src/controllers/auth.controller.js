@@ -17,7 +17,10 @@ exports.register = async (ctx) => {
     // const salt = await bcrypt.genSalt(10);
 
     const insertedUser = await User.insertOne(user);
-    const token = await generateToken({ _id: insertedUser.insertedId });
+    const token = await generateToken({
+      _id: insertedUser.insertedId,
+      username: ctx.request.body.username,
+    });
 
     sendResponce({
       ctx,
@@ -62,7 +65,10 @@ exports.login = async (ctx) => {
     ctx.assert(verifyPassword, 401, "Please Login again...");
 
     // Generate authToken
-    const token = await generateToken({ _id: user._id });
+    const token = await generateToken({
+      _id: user._id,
+      username: user.username,
+    });
 
     sendResponce({
       ctx,

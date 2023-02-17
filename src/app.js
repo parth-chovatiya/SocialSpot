@@ -1,3 +1,4 @@
+const cors = require("@koa/cors");
 const Koa = require("koa");
 
 const bodyParser = require("koa-bodyparser");
@@ -6,6 +7,7 @@ const { connectDB, getDB } = require("./DB/connectDB");
 const router = require("./routers/index.router");
 
 const app = new Koa();
+app.use(cors());
 
 app.use(bodyParser());
 
