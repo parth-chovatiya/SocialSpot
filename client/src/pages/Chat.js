@@ -1,4 +1,4 @@
-import { Flex, Spinner, Box } from "@chakra-ui/react";
+import { Flex, Spinner, Box, Divider } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { fetch_all_friends_api } from "../api/friend.api";
 // import Divider from "../components/Divider";
@@ -25,15 +25,12 @@ const Chat = ({ socket, messages, friendId, sendMessageOnCall }) => {
 
   useEffect(() => {
     socket.on("message", (data, callback) => {
-      // console.log(data, "...");
-      // setMessages((old) => [...old, data]);
       const msg = {
         senderId: data.from,
         receiverId: data.to,
         text: data.text,
         socketID: data.socketID,
       };
-      // console.log(msg, "...");
       sendMessageOnCall(msg);
 
       if (callback) callback();
@@ -43,18 +40,15 @@ const Chat = ({ socket, messages, friendId, sendMessageOnCall }) => {
   const handleSendMessage = () => {
     if (!inputMessage.trim().length) return;
 
-    // console.log("friend Id client", friendId, socket.id);
     socket.emit(
       "sendMessage",
       {
         text: inputMessage,
         from: localStorage.getItem("_id"),
         to: friendId,
-        socketID: socket.id,
+        socketID1: socket.id,
       },
       () => {
-        // console.log(inputMessage, "...");
-        // setMessages((old) => [...old, { from: username, text: data }]);
         setInputMessage("");
       }
     );

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import moment from "moment";
 import { Avatar, Flex, Text, Divider } from "@chakra-ui/react";
 
 const Messages = ({ messages }) => {
@@ -9,11 +10,16 @@ const Messages = ({ messages }) => {
   };
 
   return (
-    <Flex w="100%" h="80%" overflowY="scroll" flexDirection="column" p="3">
+    <Flex
+      w="100%"
+      h="80%"
+      overflowY="scroll"
+      flexDirection="column"
+      p="3"
+      boxShadow="md"
+    >
       {messages.map((item, index) => {
-        {
-          console.log(item);
-        }
+        const date = moment(item.createdAt).format("lll");
         if (item.senderId === localStorage.getItem("_id")) {
           return (
             <Flex key={index} w="100%" justify="flex-end">
@@ -23,9 +29,11 @@ const Messages = ({ messages }) => {
                 minW="100px"
                 maxW="350px"
                 my="1"
-                p="3"
+                p="2"
+                flexDirection={"column"}
               >
                 <Text>{item.text}</Text>
+                <Text fontSize="10px">{date}</Text>
               </Flex>
             </Flex>
           );
@@ -43,10 +51,11 @@ const Messages = ({ messages }) => {
                 minW="100px"
                 maxW="350px"
                 my="1"
-                p="3"
+                p="2"
+                flexDirection={"column"}
               >
                 <Text>{item.text}</Text>
-                {/* <Text fontSize="xs">{item.createdAt}</Text> */}
+                <Text fontSize="10px">{date}</Text>
               </Flex>
             </Flex>
           );

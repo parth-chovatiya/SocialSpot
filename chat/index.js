@@ -41,6 +41,7 @@ io.use((socket, next) => {
   next();
 });
 
+let onlineUsers = [];
 io.on("connection", (socket) => {
   // socket.emit("message", {
   //   text: "Welcome",
@@ -49,21 +50,22 @@ io.on("connection", (socket) => {
   // });
 
   // To save the connected users in the redis
+  // socket._id -> userId
   db.set(socket._id, socket.id);
 
+  socket.on("login", async ({ userId }) => {
+    const socketId = await db.get(userId);
+    if (!onlineUsers.includes({ socketId, userId }))
+      onlineUsers.push({ socketId, userId });
+    io.emit("onlineUsers", onlineUsers);
+  });
+
   socket.on("sendMessage", async (data, callback) => {
-    const { from, to, text } = data;
-    console.log(data);
-    // Save data to the database
-    // chat -> receiverId, senderId, text
+    const { from, to, text, socketID1 } = data;
 
     await save_chat(data);
     const socketID = await db.get(to);
 
-    // const chat = await save_friend_chat_api(data);
-    // console.log(chat);
-
-    // console.log("socketID", socketID);
     io.to(socketID)
       .to(socket.id)
       .emit("message", data, () => {
@@ -73,12 +75,21 @@ io.on("connection", (socket) => {
     callback();
   });
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", async () => {
+    const userId = socket._id;
+    const socketId = await db.get(userId);
+
+    const filteredPeople = onlineUsers.filter(
+      (user) => user.socketId !== socketId && user.userId !== userId
+    );
+    onlineUsers = filteredPeople;
+    io.emit("onlineUsers", onlineUsers);
+
     db.del(socket._id);
   });
 });
 
 const PORT = process.env.PORT_CHAT || 3001;
 server.listen(PORT, () => {
-  console.log("Server is running at POST: ", PORT);
+  console.log("Chat Server is running at POST: ", PORT);
 });

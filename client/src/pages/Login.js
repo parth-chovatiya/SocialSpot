@@ -14,6 +14,7 @@ import {
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt from "jwt-decode";
+
 import { login_api } from "../api/auth.api";
 import Toast from "../utils/showToast";
 import { UserContext } from "../routes/MainRoute";
@@ -59,7 +60,7 @@ export default function Login({ socket }) {
 
         localStorage.setItem("userName", user.username);
         localStorage.setItem("_id", user._id);
-        navigate("/chat1");
+        navigate("/chat");
       }
       if (response.statusCode !== 200) {
         showToast({
